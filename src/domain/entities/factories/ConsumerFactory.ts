@@ -3,6 +3,10 @@ import { Consumer } from '../users/Consumer';
 
 class ConsumerFactory extends EntityFactory {
 
+  constructor() {
+    super();
+  }
+
   getEntity(consumerString: string): Consumer {
     const consumerObj = JSON.parse(consumerString);
     const consumer: Consumer = new Consumer();

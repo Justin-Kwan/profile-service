@@ -49,7 +49,7 @@ describe('CourierFactory Tests', () => {
 
   describe('getEntity() Tests', () => {
     it('should create a courier object', () => {
-      const courier: Courier = courierFactory.getEntity(`{
+      const courier = courierFactory.getEntity(`{
         "id": "test_id_1",
         "firstName": "test_first_name_1",
         "lastName": "test_last_name_1",
@@ -86,7 +86,7 @@ describe('CourierFactory Tests', () => {
     });
 
     it('should create a courier object', () => {
-      const courier: Courier = courierFactory.getEntity(`{
+      const courier = courierFactory.getEntity(`{
         "id": "test_id_2",
         "firstName": "test_first_name_2",
         "lastName": "test_last_name_2",
