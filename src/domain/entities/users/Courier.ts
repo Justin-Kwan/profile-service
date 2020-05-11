@@ -2,9 +2,9 @@ import { User } from './User';
 
 class Courier extends User {
 
-  private vehicleType:   string;
+  private vehicleType: string;
   private preferredZone: string;
-  private inviteCode:    string;
+  private inviteCode: string;
 
   constructor() {
     super();
@@ -32,6 +32,22 @@ class Courier extends User {
 
   getInviteCode(): string {
     return this.inviteCode;
+  }
+
+  // allows for field hiding
+  toClientJson(): string {
+    return JSON.stringify({
+      id: this.getId(),
+      firstName: this.getFirstName(),
+      lastName: this.getLastName(),
+      email: this.getEmail(),
+      country: this.getCountry(),
+      locationId: this.getLocationId(),
+      mobileNum: this.getMobileNum(),
+      vehicleType: this.getVehicleType(),
+      preferredZone: this.getPreferredZone(),
+      inviteCode: this.getInviteCode()
+    });
   }
 
 }

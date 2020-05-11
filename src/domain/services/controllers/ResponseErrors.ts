@@ -1,12 +1,8 @@
-// api standard guidelines can be found here:
-//
-
 /**
  * api standard guideline can be found here:
  * - https://cloud.google.com/apis/design/errors
  * - https://docs.microsoft.com/en-us/azure/architecture/best-practices/api-design
  */
-
 
 const PERMISSION_DENIED: string = JSON.stringify({
   error: {
@@ -31,7 +27,6 @@ const RESOURCE_NOT_FOUND: string = JSON.stringify({
     code: 404
   }
 });
-
 
 export {
   PERMISSION_DENIED,

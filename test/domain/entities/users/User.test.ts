@@ -46,18 +46,6 @@ describe('MockUser Tests', function() {
     });
   });
 
-  describe('setAddress() & getAddress() tests', function() {
-    it('should set an empty address', function() {
-      mockUser.setAddress('');
-      assert.equal(mockUser.getAddress(), '');
-    });
-
-    it('should set a short first name', function() {
-      mockUser.setAddress('test_address_1');
-      assert.equal(mockUser.getAddress(), 'test_address_1');
-    });
-  });
-
   describe('setEmail() & getEmail() tests', function() {
     it('should set an empty email', function() {
       mockUser.setEmail('');
@@ -81,7 +69,7 @@ describe('MockUser Tests', function() {
       assert.equal(mockUser.getCountry(), 'test_country_1');
     });
   });
-  
+
   describe('setLocationId() & getLocationId() tests', function() {
     it('should set an empty location id', function() {
       mockUser.setLocationId('');

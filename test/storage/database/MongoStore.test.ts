@@ -114,8 +114,8 @@ describe('MongoStore Tests', () => {
       // function under test
       const selectedEntityString = await mongoStore.selectEntity('test_user_id_1');
       assert.deepEqual(
-        selectedEntityString,
-        JSON.stringify(TEST_USER_1)
+        JSON.parse(selectedEntityString),
+        TEST_USER_1
       );
     });
 
@@ -139,8 +139,8 @@ describe('MongoStore Tests', () => {
       // function under test
       const selectedEntityString = await mongoStore.selectEntity('test_user_id_2');
       assert.deepEqual(
-        selectedEntityString,
-        JSON.stringify(TEST_USER_2)
+        JSON.parse(selectedEntityString),
+        TEST_USER_2
       );
     });
 
@@ -155,8 +155,8 @@ describe('MongoStore Tests', () => {
       // function under test
       const selectedEntityString = await mongoStore.selectEntity('');
       assert.deepEqual(
-        selectedEntityString,
-        JSON.stringify(TEST_USER_EMPTY_STRING_FIELDS)
+        JSON.parse(selectedEntityString),
+        TEST_USER_EMPTY_STRING_FIELDS
       );
     });
 
@@ -170,8 +170,8 @@ describe('MongoStore Tests', () => {
       // function under test
       const selectedEntityString = await mongoStore.selectEntity('test_user_null_fields_id');
       assert.deepEqual(
-        selectedEntityString,
-        JSON.stringify(TEST_USER_NULL_FIELDS)
+        JSON.parse(selectedEntityString),
+        TEST_USER_NULL_FIELDS
       );
     });
 
@@ -186,8 +186,8 @@ describe('MongoStore Tests', () => {
       const selectedEntityString = await mongoStore.selectEntity('test_user_undefined_fields_id');
       // undefined fields are converted to null in mongodb
       assert.deepEqual(
-        selectedEntityString,
-        JSON.stringify(TEST_USER_UNDEFINED_FIELDS)
+        JSON.parse(selectedEntityString),
+        TEST_USER_UNDEFINED_FIELDS
       );
     });
   });
@@ -202,9 +202,9 @@ describe('MongoStore Tests', () => {
         timeCreated: '2020-12-14'
       });
       let selectedEntityString = await mongoStore.selectEntity('test_user_id_1');
-      assert.equal(
-        selectedEntityString,
-        JSON.stringify(TEST_USER_1)
+      assert.deepEqual(
+        JSON.parse(selectedEntityString),
+        TEST_USER_1
       );
       // function under test
       await mongoStore.updateEntity('test_user_id_1', {
@@ -225,8 +225,8 @@ describe('MongoStore Tests', () => {
 
       selectedEntityString = await mongoStore.selectEntity('test_user_id_1');
       assert.deepEqual(
-        selectedEntityString,
-        JSON.stringify(TEST_USER_1_UPDATED)
+        JSON.parse(selectedEntityString),
+        TEST_USER_1_UPDATED
       );
     });
 
@@ -248,9 +248,9 @@ describe('MongoStore Tests', () => {
         deletionStatus: false
       });
       let selectedEntityString = await mongoStore.selectEntity('test_user_id_1');
-      assert.equal(
-        selectedEntityString,
-        JSON.stringify(TEST_USER_1_UPDATED)
+      assert.deepEqual(
+        JSON.parse(selectedEntityString),
+        TEST_USER_1_UPDATED
       );
       // function under test
       await mongoStore.updateEntity('test_user_id_1', {
@@ -265,8 +265,8 @@ describe('MongoStore Tests', () => {
       assert.equal(doesUserExist, false);
       selectedEntityString = await mongoStore.selectEntity('test_user_id_2');
       assert.deepEqual(
-        selectedEntityString,
-        JSON.stringify(TEST_USER_2_UPDATED_ID)
+        JSON.parse(selectedEntityString),
+        TEST_USER_2_UPDATED_ID
       );
     });
 
@@ -288,9 +288,9 @@ describe('MongoStore Tests', () => {
         deletionStatus: false
       });
       let selectedEntityString = await mongoStore.selectEntity('test_user_id_2');
-      assert.equal(
-        selectedEntityString,
-        JSON.stringify(TEST_USER_2)
+      assert.deepEqual(
+        JSON.parse(selectedEntityString),
+        TEST_USER_2
       );
       // function under test
       await mongoStore.updateEntity('test_user_id_2', {
@@ -301,8 +301,8 @@ describe('MongoStore Tests', () => {
       assert.equal(doesUserExist, false);
       selectedEntityString = await mongoStore.selectEntity('test_user_id_2');
       assert.deepEqual(
-        selectedEntityString,
-        JSON.stringify(TEST_USER_2_SMALL_FIELDS)
+        JSON.parse(selectedEntityString),
+        TEST_USER_2_SMALL_FIELDS
       );
     });
   });

@@ -65,7 +65,6 @@ describe('ConsumerFactory Tests', () => {
       assert.equal(consumer.getId(), test_consumer_1.id);
       assert.equal(consumer.getFirstName(), test_consumer_1.firstName);
       assert.equal(consumer.getLastName(), test_consumer_1.lastName);
-      assert.equal(consumer.getAddress(), test_consumer_1.address);
       assert.equal(consumer.getEmail(), test_consumer_1.email);
       assert.equal(consumer.getCountry(), test_consumer_1.country);
       assert.equal(consumer.getLocationId(), test_consumer_1.locationId);
@@ -98,7 +97,6 @@ describe('ConsumerFactory Tests', () => {
       assert.equal(consumer.getId(), test_consumer_2.id);
       assert.equal(consumer.getFirstName(), test_consumer_2.firstName);
       assert.equal(consumer.getLastName(), test_consumer_2.lastName);
-      assert.equal(consumer.getAddress(), test_consumer_2.address);
       assert.equal(consumer.getEmail(), test_consumer_2.email);
       assert.equal(consumer.getCountry(), test_consumer_2.country);
       assert.equal(consumer.getLocationId(), test_consumer_2.locationId);

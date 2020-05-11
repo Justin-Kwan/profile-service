@@ -13,7 +13,6 @@ class CourierFactory extends EntityFactory {
     courier.setId(courierObj.id);
     courier.setFirstName(courierObj.firstName);
     courier.setLastName(courierObj.lastName);
-    courier.setAddress(courierObj.address);
     courier.setEmail(courierObj.email);
     courier.setCountry(courierObj.country);
     courier.setLocationId(courierObj.locationId);
@@ -21,16 +20,9 @@ class CourierFactory extends EntityFactory {
     courier.setVehicleType(courierObj.vehicleType);
     courier.setPreferredZone(courierObj.preferredZone);
     courier.setDeletionStatus(courierObj.deletionStatus);
-
-    //if(caller === REPOSITORY) {
-      // user cannot set their own time of creation
-      courier.setTimeCreated(courierObj.timeCreated);
-      // user cannot change their own verification status
-      courier.setVerificationStatus(courierObj.verificationStatus);
-      // user cannot set their own invite code
-      courier.setInviteCode(courierObj.inviteCode);
-    //}
-
+    courier.setTimeCreated(courierObj.timeCreated);
+    courier.setVerificationStatus(courierObj.verificationStatus);
+    courier.setInviteCode(courierObj.inviteCode);
     return courier;
   }
 

@@ -46,11 +46,12 @@ class ConsumerController {
     }
 
     this.consumerRepository.updateEntity(consumer.getId(), consumer);
-    return JSON.stringify(consumer);
+
+    return consumer.toClientJson();
   }
 
   // ok (secure)
-  async getEntity(consumerId: string): Promise<string> {
+  async getConsumer(consumerId: string): Promise<string> {
     const doesConsumerExist: boolean = await this.consumerRepository
       .doesEntityExistById(consumerId);
 
@@ -61,9 +62,10 @@ class ConsumerController {
     const consumer: Consumer = await this.consumerRepository
       .selectEntity(consumerId);
 
-    return JSON.stringify(consumer);
+    return consumer.toClientJson();
   }
 
+  // ok (secure)
   async deleteConsumer(consumerId: string): Promise<string> {
     const doesConsumerExist: boolean = await this.consumerRepository
       .doesEntityExistById(consumerId);

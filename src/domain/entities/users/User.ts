@@ -4,7 +4,6 @@ abstract class User {
   private id: string;
   private firstName: string;
   private lastName: string;
-  private address: string;
   private email: string;
   private country: string;
   private locationId: string;
@@ -23,10 +22,6 @@ abstract class User {
 
   setLastName(lastName: string): void {
     this.lastName = lastName;
-  }
-
-  setAddress(address: string): void {
-    this.address = address;
   }
 
   setEmail(email: string): void {
@@ -75,10 +70,6 @@ abstract class User {
 
   getLastName(): string {
     return this.lastName;
-  }
-
-  getAddress(): string {
-    return this.address;
   }
 
   getEmail(): string {

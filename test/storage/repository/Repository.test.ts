@@ -123,19 +123,20 @@ describe('Repository tests', () => {
       await mongoStore.createConnection();
       const userString = await mongoStore.selectEntity('test_id_1');
       mongoStore.closeConnection();
-      assert.deepEqual(JSON.stringify({
-        verificationStatus: true,
-        deletionStatus: false,
-        id: "test_id_1",
-        firstName: "test_first_name_1",
-        lastName: "test_last_name_1",
-        address: "test_address_1",
-        email: "test_email_1",
-        country: "test_country_1",
-        locationId: "test_location_id_1",
-        mobileNum: "test_mobile_num_1",
-        timeCreated: "test_time_created_1"
-      }), userString);
+      assert.deepEqual(
+        {
+          verificationStatus: true,
+          deletionStatus: false,
+          id: "test_id_1",
+          firstName: "test_first_name_1",
+          lastName: "test_last_name_1",
+          email: "test_email_1",
+          country: "test_country_1",
+          locationId: "test_location_id_1",
+          mobileNum: "test_mobile_num_1",
+          timeCreated: "test_time_created_1"
+        },
+        JSON.parse(userString));
     });
 
     it('should insert an user', async () => {
@@ -146,19 +147,20 @@ describe('Repository tests', () => {
       await mongoStore.createConnection();
       const userString = await mongoStore.selectEntity('test_id_2');
       mongoStore.closeConnection();
-      assert.deepEqual(JSON.stringify({
-        verificationStatus: true,
-        deletionStatus: false,
-        id: "test_id_2",
-        firstName: "test_first_name_2",
-        lastName: "test_last_name_2",
-        address: "test_address_2",
-        email: "test_email_2",
-        country: "test_country_2",
-        locationId: "test_location_id_2",
-        mobileNum: "test_mobile_num_2",
-        timeCreated: "test_time_created_2"
-      }), userString);
+      assert.deepEqual(
+        {
+          verificationStatus: true,
+          deletionStatus: false,
+          id: "test_id_2",
+          firstName: "test_first_name_2",
+          lastName: "test_last_name_2",
+          email: "test_email_2",
+          country: "test_country_2",
+          locationId: "test_location_id_2",
+          mobileNum: "test_mobile_num_2",
+          timeCreated: "test_time_created_2"
+        },
+        JSON.parse(userString));
     });
   });
 
@@ -173,19 +175,20 @@ describe('Repository tests', () => {
       await mongoStore.createConnection();
       const userString = await mongoStore.selectEntity('test_id_1');
       mongoStore.closeConnection();
-      assert.deepEqual(JSON.stringify({
-        verificationStatus: false,
-        deletionStatus: true,
-        id: "test_id_1",
-        firstName: "updated_test_first_name_1",
-        lastName: "updated_test_last_name_1",
-        address: "updated_test_address_1",
-        email: "updated_test_email_1",
-        country: "updated_test_country_1",
-        locationId: "updated_test_location_id_1",
-        mobileNum: "updated_test_mobile_num_1",
-        timeCreated: "updated_test_time_created_1"
-      }), userString);
+      assert.deepEqual(
+        {
+          verificationStatus: false,
+          deletionStatus: true,
+          id: "test_id_1",
+          firstName: "updated_test_first_name_1",
+          lastName: "updated_test_last_name_1",
+          email: "updated_test_email_1",
+          country: "updated_test_country_1",
+          locationId: "updated_test_location_id_1",
+          mobileNum: "updated_test_mobile_num_1",
+          timeCreated: "updated_test_time_created_1"
+        },
+        JSON.parse(userString));
     });
 
     it('should update all of user\'s fields', async () => {
@@ -198,19 +201,20 @@ describe('Repository tests', () => {
       await mongoStore.createConnection();
       const userString = await mongoStore.selectEntity('test_id_2');
       mongoStore.closeConnection();
-      assert.deepEqual(JSON.stringify({
-        verificationStatus: false,
-        deletionStatus: true,
-        id: "test_id_2",
-        firstName: "updated_test_first_name_2",
-        lastName: "updated_test_last_name_2",
-        address: "updated_test_address_2",
-        email: "updated_test_email_2",
-        country: "updated_test_country_2",
-        locationId: "updated_test_location_id_2",
-        mobileNum: "updated_test_mobile_num_2",
-        timeCreated: "updated_test_time_created_2"
-      }), userString);
+      assert.deepEqual(
+        {
+          verificationStatus: false,
+          deletionStatus: true,
+          id: "test_id_2",
+          firstName: "updated_test_first_name_2",
+          lastName: "updated_test_last_name_2",
+          email: "updated_test_email_2",
+          country: "updated_test_country_2",
+          locationId: "updated_test_location_id_2",
+          mobileNum: "updated_test_mobile_num_2",
+          timeCreated: "updated_test_time_created_2"
+        },
+        JSON.parse(userString));
     });
 
     it('should update user\'s first name field', async () => {
@@ -223,19 +227,20 @@ describe('Repository tests', () => {
       await mongoStore.createConnection();
       const userString = await mongoStore.selectEntity('test_id_2');
       mongoStore.closeConnection();
-      assert.deepEqual(JSON.stringify({
-        verificationStatus: true,
-        deletionStatus: false,
-        id: "test_id_2",
-        firstName: "updated_test_first_name_2",
-        lastName: "test_last_name_2",
-        address: "test_address_2",
-        email: "test_email_2",
-        country: "test_country_2",
-        locationId: "test_location_id_2",
-        mobileNum: "test_mobile_num_2",
-        timeCreated: "test_time_created_2"
-      }), userString);
+      assert.deepEqual(
+        {
+          verificationStatus: true,
+          deletionStatus: false,
+          id: "test_id_2",
+          firstName: "updated_test_first_name_2",
+          lastName: "test_last_name_2",
+          email: "test_email_2",
+          country: "test_country_2",
+          locationId: "test_location_id_2",
+          mobileNum: "test_mobile_num_2",
+          timeCreated: "test_time_created_2"
+        },
+        JSON.parse(userString));
     });
 
     it('should update user\'s email field', async () => {
@@ -247,19 +252,20 @@ describe('Repository tests', () => {
       await mockRepository.updateEntity('test_id_2', updatedMockUser);
       await mongoStore.createConnection();
       const userString = await mongoStore.selectEntity('test_id_2');
-      assert.deepEqual(JSON.stringify({
-        verificationStatus: true,
-        deletionStatus: false,
-        id: "test_id_2",
-        firstName: "test_first_name_2",
-        lastName: "test_last_name_2",
-        address: "test_address_2",
-        email: "updated_test_email_2",
-        country: "test_country_2",
-        locationId: "test_location_id_2",
-        mobileNum: "test_mobile_num_2",
-        timeCreated: "test_time_created_2"
-      }), userString);
+      assert.deepEqual(
+        {
+          verificationStatus: true,
+          deletionStatus: false,
+          id: "test_id_2",
+          firstName: "test_first_name_2",
+          lastName: "test_last_name_2",
+          email: "updated_test_email_2",
+          country: "test_country_2",
+          locationId: "test_location_id_2",
+          mobileNum: "test_mobile_num_2",
+          timeCreated: "test_time_created_2"
+        },
+        JSON.parse(userString));
       mongoStore.closeConnection();
     });
   });
@@ -405,14 +411,12 @@ describe('Repository tests', () => {
       assert.equal(userCount, 0);
     });
   });
-
-
 });
 
 async function insertMockUsers(userCount: number) {
   let asyncInsertOperations = [];
 
-  for(let i = 0; i < userCount; ++i) {
+  for (let i = 0; i < userCount; ++i) {
     let mockUser = mockUserFactory.getEntity(TEST_USER_PARAMS_1);
     asyncInsertOperations.push(
       mockRepository.insertNewEntity(mockUser.getId(), mockUser)

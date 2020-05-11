@@ -13,7 +13,6 @@ class ConsumerFactory extends EntityFactory {
     consumer.setId(consumerObj.id);
     consumer.setFirstName(consumerObj.firstName);
     consumer.setLastName(consumerObj.lastName);
-    consumer.setAddress(consumerObj.address);
     consumer.setEmail(consumerObj.email);
     consumer.setCountry(consumerObj.country);
     consumer.setLocationId(consumerObj.locationId);

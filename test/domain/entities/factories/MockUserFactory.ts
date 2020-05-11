@@ -9,7 +9,6 @@ class MockUserFactory extends EntityFactory {
     mockUser.setId(userParams.id);
     mockUser.setFirstName(userParams.firstName);
     mockUser.setLastName(userParams.lastName);
-    mockUser.setAddress(userParams.address);
     mockUser.setEmail(userParams.email);
     mockUser.setCountry(userParams.country);
     mockUser.setLocationId(userParams.locationId);

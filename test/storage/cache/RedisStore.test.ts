@@ -95,8 +95,8 @@ describe('RedisStore Tests', () => {
       // function under test
       const selectedEntityString = await redisStore.selectEntity(TEST_USER_1.id);
       assert.deepEqual(
-        selectedEntityString,
-        JSON.stringify(TEST_USER_1)
+        JSON.parse(selectedEntityString),
+        TEST_USER_1
       );
     });
 
@@ -106,8 +106,8 @@ describe('RedisStore Tests', () => {
       // function under test
       const selectedEntityString = await redisStore.selectEntity(TEST_USER_2.id);
       assert.deepEqual(
-        selectedEntityString,
-        JSON.stringify(TEST_USER_2)
+        JSON.parse(selectedEntityString),
+        TEST_USER_2
       );
     });
 
@@ -136,8 +136,8 @@ describe('RedisStore Tests', () => {
       const selectedEntityString = await redisStore.selectEntity(TEST_USER_NULL_FIELDS.id);
       // redis maintains null fields
       assert.deepEqual(
-        selectedEntityString,
-        JSON.stringify(TEST_USER_NULL_FIELDS)
+        JSON.parse(selectedEntityString),
+        TEST_USER_NULL_FIELDS
       );
     });
 
@@ -151,8 +151,8 @@ describe('RedisStore Tests', () => {
       const selectedEntityString = await redisStore.selectEntity(TEST_USER_UNDEFINED_FIELDS.id);
       // redis truncates undefined fields
       assert.deepEqual(
-        selectedEntityString,
-        JSON.stringify(TEST_USER_UNDEFINED_FIELDS)
+        JSON.parse(selectedEntityString),
+        { id: TEST_USER_UNDEFINED_FIELDS.id }
       );
     });
   });
@@ -167,8 +167,8 @@ describe('RedisStore Tests', () => {
       await redisStore.updateEntity(TEST_USER_1.id, TEST_USER_1_UPDATED);
       const selectedEntityString = await redisStore.selectEntity(TEST_USER_1.id);
       assert.deepEqual(
-        selectedEntityString,
-        JSON.stringify(TEST_USER_1_UPDATED)
+        JSON.parse(selectedEntityString),
+        TEST_USER_1_UPDATED
       );
     });
 
@@ -181,8 +181,8 @@ describe('RedisStore Tests', () => {
       await redisStore.updateEntity(TEST_USER_1.id, TEST_USER_2);
       const selectedEntityString = await redisStore.selectEntity(TEST_USER_1.id);
       assert.deepEqual(
-        selectedEntityString,
-        JSON.stringify(TEST_USER_2)
+        JSON.parse(selectedEntityString),
+        TEST_USER_2
       );
     });
 
@@ -198,8 +198,8 @@ describe('RedisStore Tests', () => {
       );
       const selectedEntityString = await redisStore.selectEntity(TEST_USER_2.id);
       assert.deepEqual(
-        selectedEntityString,
-        JSON.stringify(TEST_USER_2_SMALL_FIELDS)
+        JSON.parse(selectedEntityString),
+        TEST_USER_2_SMALL_FIELDS
       );
     });
   });
@@ -292,7 +292,10 @@ describe('RedisStore Tests', () => {
         TEST_USER_1
       );
       let selectedEntityString = await redisStore.selectEntity(TEST_USER_1.id);
-      assert.equal(selectedEntityString, JSON.stringify(TEST_USER_1));
+      assert.deepEqual(
+        JSON.parse(selectedEntityString),
+        TEST_USER_1
+      );
       // function under test
       await redisStore.deleteEntity(TEST_USER_1.id);
       selectedEntityString = await redisStore.selectEntity(TEST_USER_1.id);
@@ -306,7 +309,10 @@ describe('RedisStore Tests', () => {
         TEST_USER_2
       );
       let selectedEntityString = await redisStore.selectEntity(TEST_USER_2.id);
-      assert.equal(selectedEntityString, JSON.stringify(TEST_USER_2));
+      assert.deepEqual(
+        JSON.parse(selectedEntityString),
+        TEST_USER_2
+      );
       // function under test
       await redisStore.deleteEntity(TEST_USER_2.id);
       selectedEntityString = await redisStore.selectEntity(TEST_USER_2.id);
@@ -320,7 +326,10 @@ describe('RedisStore Tests', () => {
         TEST_USER_1_UPDATED
       );
       let selectedEntityString = await redisStore.selectEntity(TEST_USER_1_UPDATED.id);
-      assert.equal(selectedEntityString, JSON.stringify(TEST_USER_1_UPDATED));
+      assert.deepEqual(
+        JSON.parse(selectedEntityString),
+        TEST_USER_1_UPDATED
+      );
       // function under test
       await redisStore.deleteEntity(TEST_USER_1_UPDATED.id);
       selectedEntityString = await redisStore.selectEntity(TEST_USER_1_UPDATED.id);

@@ -72,7 +72,6 @@ describe('CourierFactory Tests', () => {
       assert.equal(courier.getId(), test_courier_1.id);
       assert.equal(courier.getFirstName(), test_courier_1.firstName);
       assert.equal(courier.getLastName(), test_courier_1.lastName);
-      assert.equal(courier.getAddress(), test_courier_1.address);
       assert.equal(courier.getEmail(), test_courier_1.email);
       assert.equal(courier.getCountry(), test_courier_1.country);
       assert.equal(courier.getLocationId(), test_courier_1.locationId);
@@ -109,7 +108,6 @@ describe('CourierFactory Tests', () => {
       assert.equal(courier.getId(), test_courier_2.id);
       assert.equal(courier.getFirstName(), test_courier_2.firstName);
       assert.equal(courier.getLastName(), test_courier_2.lastName);
-      assert.equal(courier.getAddress(), test_courier_2.address);
       assert.equal(courier.getEmail(), test_courier_2.email);
       assert.equal(courier.getCountry(), test_courier_2.country);
       assert.equal(courier.getLocationId(), test_courier_2.locationId);
