@@ -19,8 +19,7 @@ const TEST_ENTITY_PARAMS_1: string = `{
   "locationId": "test_location_id_1",
   "mobileNum": "test_mobile_num_1",
   "timeCreated": "test_time_created_1",
-  "verificationStatus": true,
-  "deletionStatus": false
+  "verificationStatus": true
 }`;
 
 const TEST_ENTITY_PARAMS_2: string = `{
@@ -33,8 +32,7 @@ const TEST_ENTITY_PARAMS_2: string = `{
   "locationId": "test_location_id_2",
   "mobileNum": "test_mobile_num_2",
   "timeCreated": "test_time_created_2",
-  "verificationStatus": true,
-  "deletionStatus": false
+  "verificationStatus": true
 }`;
 
 const TEST_UPDATED_ENTITY_PARAMS_1: string = `{
@@ -47,8 +45,7 @@ const TEST_UPDATED_ENTITY_PARAMS_1: string = `{
   "locationId": "updated_test_location_id_1",
   "mobileNum": "updated_test_mobile_num_1",
   "timeCreated": "updated_test_time_created_1",
-  "verificationStatus": false,
-  "deletionStatus": true
+  "verificationStatus": false
 }`;
 
 const TEST_UPDATED_ENTITY_PARAMS_2: string = `{
@@ -61,8 +58,7 @@ const TEST_UPDATED_ENTITY_PARAMS_2: string = `{
   "locationId": "updated_test_location_id_2",
   "mobileNum": "updated_test_mobile_num_2",
   "timeCreated": "updated_test_time_created_2",
-  "verificationStatus": false,
-  "deletionStatus": true
+  "verificationStatus": false
 }`;
 
 const TEST_EMAIL_UPDATED_ENTITY_PARAMS_2: string = `{
@@ -75,8 +71,7 @@ const TEST_EMAIL_UPDATED_ENTITY_PARAMS_2: string = `{
   "locationId": "test_location_id_2",
   "mobileNum": "test_mobile_num_2",
   "timeCreated": "test_time_created_2",
-  "verificationStatus": true,
-  "deletionStatus": false
+  "verificationStatus": true
 }`;
 
 const TEST_FIRST_NAME_UPDATED_ENTITY_PARAMS_2: string = `{
@@ -89,8 +84,7 @@ const TEST_FIRST_NAME_UPDATED_ENTITY_PARAMS_2: string = `{
   "locationId": "test_location_id_2",
   "mobileNum": "test_mobile_num_2",
   "timeCreated": "test_time_created_2",
-  "verificationStatus": true,
-  "deletionStatus": false
+  "verificationStatus": true
 }`;
 
 const mockRepository = new MockRepository();
@@ -161,7 +155,6 @@ describe('Repository tests', () => {
       assert.deepEqual(
         {
           verificationStatus: true,
-          deletionStatus: false,
           id: "test_id_1",
           firstName: "test_first_name_1",
           lastName: "test_last_name_1",
@@ -177,7 +170,6 @@ describe('Repository tests', () => {
       assert.deepEqual(
         {
           verificationStatus: true,
-          deletionStatus: false,
           id: "test_id_1",
           firstName: "test_first_name_1",
           lastName: "test_last_name_1",
@@ -202,7 +194,6 @@ describe('Repository tests', () => {
       assert.deepEqual(
         {
           verificationStatus: true,
-          deletionStatus: false,
           id: "test_id_2",
           firstName: "test_first_name_2",
           lastName: "test_last_name_2",
@@ -229,7 +220,6 @@ describe('Repository tests', () => {
       assert.deepEqual(
         {
           verificationStatus: false,
-          deletionStatus: true,
           id: "test_id_1",
           firstName: "updated_test_first_name_1",
           lastName: "updated_test_last_name_1",
@@ -245,7 +235,6 @@ describe('Repository tests', () => {
       assert.deepEqual(
         {
           verificationStatus: false,
-          deletionStatus: true,
           id: "test_id_1",
           firstName: "updated_test_first_name_1",
           lastName: "updated_test_last_name_1",
@@ -271,7 +260,6 @@ describe('Repository tests', () => {
       assert.deepEqual(
         {
           verificationStatus: false,
-          deletionStatus: true,
           id: "test_id_2",
           firstName: "updated_test_first_name_2",
           lastName: "updated_test_last_name_2",
@@ -287,7 +275,6 @@ describe('Repository tests', () => {
       assert.deepEqual(
         {
           verificationStatus: false,
-          deletionStatus: true,
           id: "test_id_2",
           firstName: "updated_test_first_name_2",
           lastName: "updated_test_last_name_2",
@@ -313,7 +300,6 @@ describe('Repository tests', () => {
       assert.deepEqual(
         {
           verificationStatus: true,
-          deletionStatus: false,
           id: "test_id_2",
           firstName: "updated_test_first_name_2",
           lastName: "test_last_name_2",
@@ -329,7 +315,6 @@ describe('Repository tests', () => {
       assert.deepEqual(
         {
           verificationStatus: true,
-          deletionStatus: false,
           id: "test_id_2",
           firstName: "updated_test_first_name_2",
           lastName: "test_last_name_2",
@@ -355,7 +340,6 @@ describe('Repository tests', () => {
       assert.deepEqual(
         {
           verificationStatus: true,
-          deletionStatus: false,
           id: "test_id_2",
           firstName: "test_first_name_2",
           lastName: "test_last_name_2",
@@ -371,7 +355,6 @@ describe('Repository tests', () => {
       assert.deepEqual(
         {
           verificationStatus: true,
-          deletionStatus: false,
           id: "test_id_2",
           firstName: "test_first_name_2",
           lastName: "test_last_name_2",

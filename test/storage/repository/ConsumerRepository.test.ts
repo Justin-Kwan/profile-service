@@ -77,10 +77,7 @@ describe('ConsumerRepository tests', () => {
         await consumerRepository.selectEntity('non_existent_id');
       }
       // assert promise rejection is thrown
-      assert.rejects(
-        selectedConsumer,
-        Error
-      );
+      assert.rejects(selectedConsumer, Error);
     });
 
     it('should throw error since no consumer to select (invalid id)', async () => {
@@ -91,10 +88,7 @@ describe('ConsumerRepository tests', () => {
         await consumerRepository.selectEntity('test_id_2');
       }
       // assert promise rejection is thrown
-      assert.rejects(
-        selectedConsumer,
-        Error
-      );
+      assert.rejects(selectedConsumer, Error);
     });
 
     it('should throw error since no consumer to select (invalid id)', async () => {
@@ -105,10 +99,7 @@ describe('ConsumerRepository tests', () => {
         await consumerRepository.selectEntity('test_id_1');
       }
       // assert promise rejection is thrown
-      assert.rejects(
-        selectedConsumer,
-        Error
-      );
+      assert.rejects(selectedConsumer, Error);
     });
 
     it('should throw error since no consumer to select (invalid id)', async () => {
@@ -119,10 +110,7 @@ describe('ConsumerRepository tests', () => {
         await consumerRepository.selectEntity(' test_id_1');
       }
       // assert promise rejection is thrown
-      assert.rejects(
-        selectedConsumer,
-        Error
-      );
+      assert.rejects(selectedConsumer, Error);
     });
 
     it('should throw error since no consumer to select (invalid id)', async () => {
@@ -133,25 +121,19 @@ describe('ConsumerRepository tests', () => {
         await consumerRepository.selectEntity('test_id_1 ');
       }
       // assert promise rejection is thrown
-      assert.rejects(
-        selectedConsumer,
-        Error
-      );
+      assert.rejects(selectedConsumer, Error);
     });
 
     it('should throw error since no consumer to select (invalid id)', async () => {
       const expectedConsumer = consumerSerializer
-      .deserialize(TEST_CONSUMER_PARAMS_1);
+        .deserialize(TEST_CONSUMER_PARAMS_1);
       const consumer = consumerSerializer.deserialize(TEST_CONSUMER_PARAMS_1);
       await consumerRepository.insertNewEntity(consumer.getId(), consumer);
       const selectedConsumer = async () => {
         await consumerRepository.selectEntity('test_ id_1');
       }
       // assert promise rejection is thrown
-      assert.rejects(
-        selectedConsumer,
-        Error
-      );
+      assert.rejects(selectedConsumer, Error);
     });
   });
 

@@ -8,15 +8,10 @@ const test_consumer_1: any = {
   id: 'test_id_1',
   firstName: 'test_first_name_1',
   lastName: 'test_last_name_1',
-  address: 'test_address_1',
   email: 'test_email_1',
   country: 'test_country_1',
-  city: 'test_city_1',
-  zipCode: 'test_zip_code_1',
   locationId: 'test_location_id_1',
   mobileNum: 'test_mobile_num_1',
-  timeCreated: 'test_time_created_1',
-  verificationStatus: true,
   orderZone: 'test_order_zone_1'
 };
 
@@ -24,15 +19,10 @@ const test_consumer_2: any = {
   id: 'test_id_2',
   firstName: 'test_first_name_2',
   lastName: 'test_last_name_2',
-  address: 'test_address_2',
   email: 'test_email_2',
   country: 'test_country_2',
-  city: 'test_city_2',
-  zipCode: 'test_zip_code_2',
   locationId: 'test_location_id_2',
   mobileNum: 'test_mobile_num_2',
-  timeCreated: 'test_time_created_2',
-  verificationStatus: true,
   orderZone: 'test_order_zone_2'
 }
 
@@ -42,21 +32,16 @@ const REPOSITORY_CALLER = 'repository';
 
 describe('ConsumerFactory Tests', () => {
 
-  describe('getNewConsumer() tests', () => {
+  describe('createNewConsumer() tests', () => {
     it('should create a consumer object', () => {
-      const consumer: Consumer = consumerFactory.getNewConsumer(`{
+      const consumer: Consumer = consumerFactory.createNewConsumer(`{
         "id": "test_id_1",
         "firstName": "test_first_name_1",
         "lastName": "test_last_name_1",
-        "address": "test_address_1",
         "email": "test_email_1",
         "country": "test_country_1",
-        "city": "test_city_1",
-        "zipCode": "test_zip_code_1",
         "locationId": "test_location_id_1",
         "mobileNum": "test_mobile_num_1",
-        "timeCreated": "test_time_created_1",
-        "verificationStatus": true,
         "orderZone": "test_order_zone_1"
       }`);
       // asserting object type equality
@@ -68,25 +53,21 @@ describe('ConsumerFactory Tests', () => {
       assert.equal(consumer.getCountry(), test_consumer_1.country);
       assert.equal(consumer.getLocationId(), test_consumer_1.locationId);
       assert.equal(consumer.getMobileNum(), test_consumer_1.mobileNum);
-      assert.equal(consumer.getTimeCreated(), test_consumer_1.timeCreated);
-      assert.equal(consumer.isVerified(), test_consumer_1.verificationStatus);
       assert.equal(consumer.getOrderZone(), test_consumer_1.orderZone);
+      assert(consumer.getTimeCreated() !== null);
+      assert.equal(consumer.isVerified(), false);
     });
 
     it('should create a consumer object', () => {
-      const consumer: Consumer = consumerFactory.getNewConsumer(`{
+      const consumer: Consumer = consumerFactory.createNewConsumer(`{
         "id": "test_id_2",
         "firstName": "test_first_name_2",
         "lastName": "test_last_name_2",
-        "address": "test_address_2",
         "email": "test_email_2",
         "country": "test_country_2",
-        "city": "test_city_2",
         "zipCode": "test_zip_code_2",
         "locationId": "test_location_id_2",
         "mobileNum": "test_mobile_num_2",
-        "timeCreated": "test_time_created_2",
-        "verificationStatus": true,
         "orderZone": "test_order_zone_2"
       }`);
       // asserting object type equality
@@ -98,9 +79,9 @@ describe('ConsumerFactory Tests', () => {
       assert.equal(consumer.getCountry(), test_consumer_2.country);
       assert.equal(consumer.getLocationId(), test_consumer_2.locationId);
       assert.equal(consumer.getMobileNum(), test_consumer_2.mobileNum);
-      assert.equal(consumer.getTimeCreated(), test_consumer_2.timeCreated);
-      assert.equal(consumer.isVerified(), test_consumer_2.verificationStatus);
       assert.equal(consumer.getOrderZone(), test_consumer_2.orderZone);
+      assert(consumer.getTimeCreated() !== null);
+      assert.equal(consumer.isVerified(), false);
     });
   });
 

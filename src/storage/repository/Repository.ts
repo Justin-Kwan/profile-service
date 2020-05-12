@@ -66,7 +66,7 @@ abstract class Repository<T> {
    * @param {T} - generic type
    * @return {void}
    * @effects - writes to database and cache
-   * @effects - mongo client addes _id field to entity object
+   * @effects - mongo client adds _id field to entity object
    */
   async updateEntity(entityId: string, entity: T): Promise<void> {
     const dbEntity: T = Object.assign({}, entity);
@@ -94,11 +94,11 @@ abstract class Repository<T> {
 
     if (isEntityNotInCache) {
       entityString = await this.mongoStore.selectEntity(entityId);
+      entity = this.entitySerializer.deserialize(entityString);
+      this.redisStore.updateEntity(entityId, entity);
     }
 
     entity = this.entitySerializer.deserialize(entityString);
-    this.redisStore.updateEntity(entityId, entity);
-
     return entity;
   }
 

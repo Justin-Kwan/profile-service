@@ -25,7 +25,7 @@ class ConsumerController {
 
   async createConsumer(consumerString: string): Promise<string> {
     const consumer: Consumer = await this.consumerFactory
-      .getNewConsumer(consumerString);
+      .createNewConsumer(consumerString);
 
     const doesConsumerExist: boolean = await this.consumerRepository
       .doesEntityExistById(consumer.getId());
