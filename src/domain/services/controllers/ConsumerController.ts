@@ -1,5 +1,6 @@
 import { ConsumerRepository } from '../../../storage/repository/ConsumerRepository';
 import { ConsumerFactory } from '../../entities/factories/ConsumerFactory';
+import { ConsumerSerializer } from '../../entities/object-serializers/ConsumerSerializer';
 import { Consumer } from '../../entities/users/Consumer';
 import {
   PERMISSION_DENIED,
@@ -15,7 +16,8 @@ class ConsumerController {
   private readonly consumerFactory: ConsumerFactory =
     new ConsumerFactory();
 
-  private readonly CONTROLLER_CALLER = 'controller';
+  private readonly consumerSerializer: ConsumerSerializer =
+    new ConsumerSerializer();
 
   constructor() {
     this.consumerRepository.initDatastoreObjects();
@@ -23,7 +25,7 @@ class ConsumerController {
 
   async createConsumer(consumerString: string): Promise<string> {
     const consumer: Consumer = await this.consumerFactory
-      .getEntity(consumerString, this.CONTROLLER_CALLER);
+      .getNewConsumer(consumerString);
 
     const doesConsumerExist: boolean = await this.consumerRepository
       .doesEntityExistById(consumer.getId());
@@ -58,7 +60,7 @@ class ConsumerController {
     consumer.setOrderZone(consumerObj.orderZone);
     this.consumerRepository.updateEntity(consumer.getId(), consumer);
 
-    return consumer.toClientJson();
+    return this.consumerSerializer.serializeForClient(consumer);
   }
 
   // ok (secure)
@@ -73,7 +75,7 @@ class ConsumerController {
     const consumer: Consumer = await this.consumerRepository
       .selectEntity(consumerId);
 
-    return consumer.toClientJson();
+    return this.consumerSerializer.serializeForClient(consumer);
   }
 
   // ok (secure)
@@ -92,7 +94,7 @@ class ConsumerController {
     this.consumerRepository.updateEntity(consumerId, consumer);
     return "user deleted";
   }
-  
+
 }
 
 export { ConsumerController };

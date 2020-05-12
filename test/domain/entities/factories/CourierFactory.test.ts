@@ -21,8 +21,7 @@ const test_courier_1: any = {
   verificationStatus: true,
   deletionStatus: false,
   vehicleType: "test_vehicle_type_1",
-  preferredZone: "test_preferred_zone_1",
-  inviteCode: "test_invite_code_1"
+  preferredZone: "test_preferred_zone_1"
 }
 
 const test_courier_2: any = {
@@ -40,16 +39,15 @@ const test_courier_2: any = {
   verificationStatus: true,
   deletionStatus: false,
   vehicleType: "test_vehicle_type_2",
-  preferredZone: "test_preferred_zone_2",
-  inviteCode: "test_invite_code_2"
+  preferredZone: "test_preferred_zone_2"
 }
 
 
 describe('CourierFactory Tests', () => {
 
-  describe('getEntity() Tests', () => {
+  describe('getNewCourier() Tests', () => {
     it('should create a courier object', () => {
-      const courier = courierFactory.getEntity(`{
+      const courier = courierFactory.getNewCourier(`{
         "id": "test_id_1",
         "firstName": "test_first_name_1",
         "lastName": "test_last_name_1",
@@ -64,8 +62,7 @@ describe('CourierFactory Tests', () => {
         "verificationStatus": true,
         "deletionStatus": false,
         "vehicleType": "test_vehicle_type_1",
-        "preferredZone": "test_preferred_zone_1",
-        "inviteCode": "test_invite_code_1"
+        "preferredZone": "test_preferred_zone_1"
       }`);
       // asserting object type equality
       assert.equal(courier.constructor.name, 'Courier');
@@ -81,11 +78,10 @@ describe('CourierFactory Tests', () => {
       assert.equal(courier.isDeleted(), test_courier_1.deletionStatus);
       assert.equal(courier.getVehicleType(), test_courier_1.vehicleType);
       assert.equal(courier.getPreferredZone(), test_courier_1.preferredZone);
-      assert.equal(courier.getInviteCode(), test_courier_1.inviteCode);
     });
 
     it('should create a courier object', () => {
-      const courier = courierFactory.getEntity(`{
+      const courier = courierFactory.getNewCourier(`{
         "id": "test_id_2",
         "firstName": "test_first_name_2",
         "lastName": "test_last_name_2",
@@ -101,7 +97,6 @@ describe('CourierFactory Tests', () => {
         "deletionStatus": false,
         "vehicleType": "test_vehicle_type_2",
         "preferredZone": "test_preferred_zone_2",
-        "inviteCode": "test_invite_code_2"
       }`);
       // asserting object type equality
       assert.equal(courier.constructor.name, 'Courier');
@@ -117,7 +112,6 @@ describe('CourierFactory Tests', () => {
       assert.equal(courier.isDeleted(), test_courier_2.deletionStatus);
       assert.equal(courier.getVehicleType(), test_courier_2.vehicleType);
       assert.equal(courier.getPreferredZone(), test_courier_2.preferredZone);
-      assert.equal(courier.getInviteCode(), test_courier_2.inviteCode);
     });
   });
 

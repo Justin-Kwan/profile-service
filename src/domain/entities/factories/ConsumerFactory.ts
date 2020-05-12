@@ -5,14 +5,11 @@ import { Consumer } from '../users/Consumer';
 
 class ConsumerFactory extends EntityFactory {
 
-  private readonly REPOSITORY_CALLER = 'repository';
-  private readonly CONTROLLER_CALLER = 'controller';
-
   constructor() {
     super();
   }
 
-  getNewUser(consumerString: string): Consumer {
+  getNewConsumer(consumerString: string): Consumer {
     const consumerObj = JSON.parse(consumerString);
     const consumer: Consumer = new Consumer();
     consumer.setId(consumerObj.id);

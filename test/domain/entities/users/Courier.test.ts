@@ -31,17 +31,4 @@ describe('Courier Tests', function() {
     });
   });
 
-  describe('setInviteCode() & getInviteCode()', function() {
-    it('should set an empty invite code', function() {
-      courier.setInviteCode('');
-      assert.equal(courier.getInviteCode(), '');
-    });
-
-    it('should set a short invite code', function() {
-      courier.setInviteCode('test_invite_code_1');
-      assert.equal(courier.getInviteCode(), 'test_invite_code_1');
-    });
-  });
-
-
 });

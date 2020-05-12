@@ -44,9 +44,9 @@ const REPOSITORY_CALLER = 'repository';
 
 describe('ConsumerFactory Tests', () => {
 
-  describe('getEntity() tests', () => {
-    it('should create a consumer object with repository as caller', () => {
-      const consumer: Consumer = consumerFactory.getEntity(`{
+  describe('getNewConsumer() tests', () => {
+    it('should create a consumer object', () => {
+      const consumer: Consumer = consumerFactory.getNewConsumer(`{
         "id": "test_id_1",
         "firstName": "test_first_name_1",
         "lastName": "test_last_name_1",
@@ -61,7 +61,7 @@ describe('ConsumerFactory Tests', () => {
         "verificationStatus": true,
         "deletionStatus": false,
         "orderZone": "test_order_zone_1"
-      }`, REPOSITORY_CALLER);
+      }`);
       // asserting object type equality
       assert.equal(consumer.constructor.name, 'Consumer');
       assert.equal(consumer.getId(), test_consumer_1.id);
@@ -77,8 +77,8 @@ describe('ConsumerFactory Tests', () => {
       assert.equal(consumer.getOrderZone(), test_consumer_1.orderZone);
     });
 
-    it('should create a consumer object with repository as caller', () => {
-      const consumer: Consumer = consumerFactory.getEntity(`{
+    it('should create a consumer object', () => {
+      const consumer: Consumer = consumerFactory.getNewConsumer(`{
         "id": "test_id_2",
         "firstName": "test_first_name_2",
         "lastName": "test_last_name_2",
@@ -93,7 +93,7 @@ describe('ConsumerFactory Tests', () => {
         "verificationStatus": true,
         "deletionStatus": false,
         "orderZone": "test_order_zone_2"
-      }`, REPOSITORY_CALLER);
+      }`);
       // asserting object type equality
       assert.equal(consumer.constructor.name, 'Consumer');
       assert.equal(consumer.getId(), test_consumer_2.id);

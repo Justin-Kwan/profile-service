@@ -217,21 +217,14 @@ describe('ConsumerController Tests', async () => {
       await consumerController
         .createConsumer(TEST_CONSUMER_PARAMS_2);
       // function under test
-      await consumerController.deleteConsumer('test_id_2');
+      await consumerController.deleteConsumer('test_id_1');
 
       let consumer = await consumerRepository
         .selectEntity('test_id_1');
-        console.log('CONSUMER 1: ' + JSON.stringify(consumer));
-      //assert.deepEqual(consumer.isDeleted(), true);
-
-
+      assert.deepEqual(consumer.isDeleted(), true);
 
       consumer = await consumerRepository
         .selectEntity('test_id_2');
-
-
-      console.log('CONSUMER 2: ' + JSON.stringify(consumer));
-
       assert.deepEqual(consumer.isDeleted(), false);
     });
 

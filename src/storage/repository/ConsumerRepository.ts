@@ -1,5 +1,5 @@
 import { Repository } from './Repository';
-import { ConsumerFactory } from '../../domain/entities/factories/ConsumerFactory';
+import { ConsumerSerializer } from '../../domain/entities/object-serializers/ConsumerSerializer';
 import { Consumer } from '../../domain/entities/users/Consumer';
 
 class ConsumerRepository extends Repository<Consumer> {
@@ -7,7 +7,7 @@ class ConsumerRepository extends Repository<Consumer> {
   constructor() {
     const USER_DATABASE: string = 'User_Profiles';
     const CONSUMER_COLLECTION: string = 'Consumers';
-    super(USER_DATABASE, CONSUMER_COLLECTION, new ConsumerFactory());
+    super(USER_DATABASE, CONSUMER_COLLECTION, new ConsumerSerializer());
   }
 
   async doesConsumerExistByEmail(email: string): Promise<boolean> {

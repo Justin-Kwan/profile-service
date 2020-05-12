@@ -1,7 +1,8 @@
+import { Consumer } from '../users/Consumer';
 
 class ConsumerSerializer {
 
-  deserialize(): Consumer {
+  deserialize(consumerString: string): Consumer {
     const consumerObj = JSON.parse(consumerString);
     const consumer: Consumer = new Consumer();
     consumer.setId(consumerObj.id);
@@ -18,9 +19,19 @@ class ConsumerSerializer {
     return consumer;
   }
 
-  serializeForClient(): string {
-
+  serializeForClient(consumer: Consumer): string {
+    return JSON.stringify({
+      id: consumer.getId(),
+      firstName: consumer.getFirstName(),
+      lastName: consumer.getLastName(),
+      email: consumer.getEmail(),
+      country: consumer.getCountry(),
+      locationId: consumer.getLocationId(),
+      mobileNum: consumer.getMobileNum(),
+      orderZone: consumer.getOrderZone()
+    });
   }
 
-
 }
+
+export { ConsumerSerializer };

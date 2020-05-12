@@ -90,7 +90,7 @@ abstract class Repository<T> {
       entityString = await this.mongoStore.selectEntity(entityId);
     }
 
-    entity = this.entitySerializer.getEntity(entityString);
+    entity = this.entitySerializer.deserialize(entityString);
     this.redisStore.updateEntity(entityId, entity);
 
     return entity;
