@@ -1,7 +1,7 @@
 import 'mocha';
 import { strict as assert } from 'assert';
 
-import { Courier } from '../../../../src/domain/entities/users/Courier'
+import { Courier } from '../../../../src/domain/entities/users/Courier';
 
 const courier = new Courier();
 

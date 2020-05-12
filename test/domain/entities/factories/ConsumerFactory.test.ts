@@ -4,8 +4,6 @@ import { strict as assert } from 'assert';
 import { ConsumerFactory } from '../../../../src/domain/entities/factories/ConsumerFactory';
 import { Consumer } from '../../../../src/domain/entities/users/Consumer';
 
-const consumerFactory = new ConsumerFactory();
-
 const test_consumer_1: any = {
   id: 'test_id_1',
   firstName: 'test_first_name_1',
@@ -40,10 +38,14 @@ const test_consumer_2: any = {
   orderZone: 'test_order_zone_2'
 }
 
+const consumerFactory = new ConsumerFactory();
+
+const REPOSITORY_CALLER = 'repository';
+
 describe('ConsumerFactory Tests', () => {
 
   describe('getEntity() tests', () => {
-    it('should create a consumer object', () => {
+    it('should create a consumer object with repository as caller', () => {
       const consumer: Consumer = consumerFactory.getEntity(`{
         "id": "test_id_1",
         "firstName": "test_first_name_1",
@@ -59,7 +61,7 @@ describe('ConsumerFactory Tests', () => {
         "verificationStatus": true,
         "deletionStatus": false,
         "orderZone": "test_order_zone_1"
-      }`);
+      }`, REPOSITORY_CALLER);
       // asserting object type equality
       assert.equal(consumer.constructor.name, 'Consumer');
       assert.equal(consumer.getId(), test_consumer_1.id);
@@ -75,7 +77,7 @@ describe('ConsumerFactory Tests', () => {
       assert.equal(consumer.getOrderZone(), test_consumer_1.orderZone);
     });
 
-    it('should create a consumer object', () => {
+    it('should create a consumer object with repository as caller', () => {
       const consumer: Consumer = consumerFactory.getEntity(`{
         "id": "test_id_2",
         "firstName": "test_first_name_2",
@@ -91,7 +93,7 @@ describe('ConsumerFactory Tests', () => {
         "verificationStatus": true,
         "deletionStatus": false,
         "orderZone": "test_order_zone_2"
-      }`);
+      }`, REPOSITORY_CALLER);
       // asserting object type equality
       assert.equal(consumer.constructor.name, 'Consumer');
       assert.equal(consumer.getId(), test_consumer_2.id);

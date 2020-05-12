@@ -15,13 +15,15 @@ class ConsumerController {
   private readonly consumerFactory: ConsumerFactory =
     new ConsumerFactory();
 
+  private readonly CONTROLLER_CALLER = 'controller';
+
   constructor() {
     this.consumerRepository.initDatastoreObjects();
   }
 
   async createConsumer(consumerString: string): Promise<string> {
     const consumer: Consumer = await this.consumerFactory
-      .getEntity(consumerString);
+      .getEntity(consumerString, this.CONTROLLER_CALLER);
 
     const doesConsumerExist: boolean = await this.consumerRepository
       .doesEntityExistById(consumer.getId());
@@ -34,17 +36,26 @@ class ConsumerController {
     return "resource created";
   }
 
-  async updateConsumer(consumerString: string): Promise<string> {
-    const consumer: Consumer = await this.consumerFactory
-      .getEntity(consumerString);
-
+  async updateConsumer(consumerId: string, consumerString: string): Promise<string> {
     const doesConsumerExist: boolean = await this.consumerRepository
-      .doesEntityExistById(consumer.getId());
+      .doesEntityExistById(consumerId);
 
     if (!doesConsumerExist) {
       return RESOURCE_NOT_FOUND;
     }
 
+    const consumer: Consumer = await this.consumerRepository
+      .selectEntity(consumerId);
+    const consumerObj = JSON.parse(consumerString);
+
+    // update neccessary fields
+    consumer.setFirstName(consumerObj.firstName);
+    consumer.setLastName(consumerObj.lastName);
+    consumer.setEmail(consumerObj.email);
+    consumer.setCountry(consumerObj.country);
+    consumer.setLocationId(consumerObj.locationId);
+    consumer.setMobileNum(consumerObj.mobileNum);
+    consumer.setOrderZone(consumerObj.orderZone);
     this.consumerRepository.updateEntity(consumer.getId(), consumer);
 
     return consumer.toClientJson();
@@ -81,14 +92,7 @@ class ConsumerController {
     this.consumerRepository.updateEntity(consumerId, consumer);
     return "user deleted";
   }
-
-  // private id: string;
-  // private mobileNum: string;
-  // private timeCreated: string;
-  // private verificationStatus: boolean = false;
-  // private deletionStatus: boolean = false;
-
-
+  
 }
 
 export { ConsumerController };

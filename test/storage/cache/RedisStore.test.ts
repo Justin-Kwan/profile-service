@@ -3,9 +3,6 @@ import { strict as assert } from 'assert';
 
 import { RedisStore } from '../../../src/storage/cache/RedisStore';
 
-const util = require('util');
-const exec = util.promisify(require('child_process').exec);
-
 /**
  * test objects for assertions
  */

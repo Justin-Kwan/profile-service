@@ -1,13 +1,18 @@
+import moment from 'moment';
+
 import { EntityFactory } from './EntityFactory';
 import { Consumer } from '../users/Consumer';
 
 class ConsumerFactory extends EntityFactory {
 
+  private readonly REPOSITORY_CALLER = 'repository';
+  private readonly CONTROLLER_CALLER = 'controller';
+
   constructor() {
     super();
   }
 
-  getEntity(consumerString: string): Consumer {
+  getNewUser(consumerString: string): Consumer {
     const consumerObj = JSON.parse(consumerString);
     const consumer: Consumer = new Consumer();
     consumer.setId(consumerObj.id);
@@ -17,10 +22,10 @@ class ConsumerFactory extends EntityFactory {
     consumer.setCountry(consumerObj.country);
     consumer.setLocationId(consumerObj.locationId);
     consumer.setMobileNum(consumerObj.mobileNum);
-    consumer.setTimeCreated(consumerObj.timeCreated);
-    consumer.setVerificationStatus(consumerObj.verificationStatus);
-    consumer.setDeletionStatus(consumerObj.deletionStatus);
     consumer.setOrderZone(consumerObj.orderZone);
+    consumer.setTimeCreated(moment().format());
+    consumer.setVerificationStatus(false);
+    consumer.setDeletionStatus(false);
     return consumer;
   }
 

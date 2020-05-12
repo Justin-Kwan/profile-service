@@ -4,11 +4,12 @@ import { RedisStore } from '../cache/RedisStore';
 
 abstract class Repository<T> {
 
+  private readonly REPOSITORY_CALLER = 'repository';
   protected databaseName: string;
   protected collectionName: string;
   protected mongoStore: MongoStore<T>;
   protected redisStore: RedisStore<T>;
-  private entityFactory: any;
+  private entitySerializer: any;
 
   /**
    * @param {string} - name of database to connect to
@@ -17,10 +18,10 @@ abstract class Repository<T> {
    *                object serialization
    */
   constructor(
-    databaseName: string, collectionName: string, entityFactory: any) {
+    databaseName: string, collectionName: string, entitySerializer: any) {
     this.databaseName = databaseName;
     this.collectionName = collectionName;
-    this.entityFactory = entityFactory;
+    this.entitySerializer = entitySerializer;
   }
 
   /**
@@ -89,7 +90,7 @@ abstract class Repository<T> {
       entityString = await this.mongoStore.selectEntity(entityId);
     }
 
-    entity = this.entityFactory.getEntity(entityString);
+    entity = this.entitySerializer.getEntity(entityString);
     this.redisStore.updateEntity(entityId, entity);
 
     return entity;
