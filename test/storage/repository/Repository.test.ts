@@ -95,8 +95,10 @@ const TEST_FIRST_NAME_UPDATED_ENTITY_PARAMS_2: string = `{
 
 const mockRepository = new MockRepository();
 const mockUserSerializer = new MockUserSerializer();
+
 const TEST_DB = 'Test_Database';
 const TEST_COLLECTION = 'Test Collection';
+
 const mongoStore = new MongoStore<MockUser>(TEST_DB, TEST_COLLECTION);
 const redisStore = new RedisStore<MockUser>();
 
@@ -134,8 +136,15 @@ describe('Repository tests', () => {
     await mockRepository.initDatastoreObjects();
   });
 
+  beforeEach(async () => {
+    // local datastore object initialization for assertions
+    await createDbCacheConnection();
+  });
+
   afterEach(async () => {
     await mockRepository.clearEntities();
+    // closing local datastore connections
+    closeDbCacheConnection();
   });
 
   after(async () => {
@@ -146,11 +155,8 @@ describe('Repository tests', () => {
     it('should insert an entity', async () => {
       // setup
       const mockUser = mockUserSerializer.serialize(TEST_ENTITY_PARAMS_1);
-      await Promise.all([
-        // function under test
-        mockRepository.insertNewEntity(mockUser.getId(), mockUser),
-        createDbCacheConnection()
-      ]);
+      // function under test
+      await mockRepository.insertNewEntity(mockUser.getId(), mockUser);
       const dbEntityString = await mongoStore.selectEntity('test_id_1');
       assert.deepEqual(
         {
@@ -183,7 +189,6 @@ describe('Repository tests', () => {
         },
         JSON.parse(cacheEntityString)
       );
-      closeDbCacheConnection();
     });
 
     it('should insert an entity', async () => {
@@ -220,7 +225,6 @@ describe('Repository tests', () => {
         .serialize(TEST_UPDATED_ENTITY_PARAMS_1);
       // function under test
       await mockRepository.updateEntity('test_id_1', updatedMockUser);
-      await createDbCacheConnection();
       const dbEntityString = await mongoStore.selectEntity('test_id_1');
       assert.deepEqual(
         {
@@ -253,7 +257,6 @@ describe('Repository tests', () => {
         },
         JSON.parse(cacheEntityString)
       );
-      closeDbCacheConnection();
     });
 
     it('should update all of entity\'s fields', async () => {
@@ -262,11 +265,8 @@ describe('Repository tests', () => {
       await mockRepository.insertNewEntity(mockUser.getId(), mockUser);
       const updatedMockUser = mockUserSerializer
         .serialize(TEST_UPDATED_ENTITY_PARAMS_2);
-      await Promise.all([
-        // function under test
-        mockRepository.updateEntity('test_id_2', updatedMockUser),
-        createDbCacheConnection()
-      ]);
+      // function under test
+      mockRepository.updateEntity('test_id_2', updatedMockUser);
       const dbEntityString = await mongoStore.selectEntity('test_id_2');
       assert.deepEqual(
         {
@@ -299,7 +299,6 @@ describe('Repository tests', () => {
         },
         JSON.parse(cacheEntityString)
       );
-      await closeDbCacheConnection();
     });
 
     it('should update entity\'s first name field', async () => {
@@ -308,11 +307,8 @@ describe('Repository tests', () => {
       await mockRepository.insertNewEntity(mockUser.getId(), mockUser);
       const updatedMockUser = mockUserSerializer
         .serialize(TEST_FIRST_NAME_UPDATED_ENTITY_PARAMS_2);
-      await Promise.all([
-        // function under test
-        mockRepository.updateEntity('test_id_2', updatedMockUser),
-        createDbCacheConnection()
-      ]);
+      // function under test
+      mockRepository.updateEntity('test_id_2', updatedMockUser);
       const dbEntityString = await mongoStore.selectEntity('test_id_2');
       assert.deepEqual(
         {
@@ -345,7 +341,6 @@ describe('Repository tests', () => {
         },
         JSON.parse(cacheEntityString)
       );
-      closeDbCacheConnection();
     });
 
     it('should update entity\'s email field', async () => {
@@ -356,7 +351,6 @@ describe('Repository tests', () => {
         .serialize(TEST_EMAIL_UPDATED_ENTITY_PARAMS_2);
       // function under test
       await mockRepository.updateEntity('test_id_2', updatedMockUser);
-      await createDbCacheConnection();
       const dbEntityString = await mongoStore.selectEntity('test_id_2');
       assert.deepEqual(
         {
@@ -389,7 +383,6 @@ describe('Repository tests', () => {
         },
         JSON.parse(cacheEntityString)
       );
-      closeDbCacheConnection();
     });
   });
 
@@ -398,54 +391,42 @@ describe('Repository tests', () => {
       // setup
       const mockUser = mockUserSerializer.serialize(TEST_ENTITY_PARAMS_1);
       await mockRepository.insertNewEntity(mockUser.getId(), mockUser);
-      await Promise.all([
-        // function under test
-        mockRepository.deleteEntity(mockUser.getId()),
-        createDbCacheConnection()
-      ]);
+      // function under test
+      mockRepository.deleteEntity(mockUser.getId());
       const isEntityInDb = await mongoStore
         .doesEntityExistByField({ 'id': mockUser.getId() });
       const isEntityInCache = await redisStore
         .doesEntityExistById(mockUser.getId());
       assert.equal(isEntityInDb, false);
       assert.equal(isEntityInCache, false);
-      closeDbCacheConnection();
     });
 
     it('should delete a single entity', async () => {
       // setup
       const mockUser = mockUserSerializer.serialize(TEST_ENTITY_PARAMS_2);
       await mockRepository.insertNewEntity(mockUser.getId(), mockUser);
-      await Promise.all([
-        // function under test
-        mockRepository.deleteEntity(mockUser.getId()),
-        createDbCacheConnection()
-      ]);
+      // function under test
+      mockRepository.deleteEntity(mockUser.getId());
       const isEntityInDb = await mongoStore
         .doesEntityExistByField({ id: mockUser.getId() });
       const isEntityInCache = await redisStore
         .doesEntityExistById(mockUser.getId());
       assert.equal(isEntityInDb, false);
       assert.equal(isEntityInCache, false);
-      closeDbCacheConnection();
     });
 
     it('should delete a single entity', async () => {
       // setup
       const mockUser = mockUserSerializer.serialize(TEST_FIRST_NAME_UPDATED_ENTITY_PARAMS_2);
       await mockRepository.insertNewEntity(mockUser.getId(), mockUser);
-      await Promise.all([
-        // function under test
-        mockRepository.deleteEntity(mockUser.getId()),
-        createDbCacheConnection()
-      ]);
+      // function under test
+      mockRepository.deleteEntity(mockUser.getId());
       const isEntityInDb = await mongoStore
         .doesEntityExistByField({ id: mockUser.getId() });
       const isEntityInCache = await redisStore
         .doesEntityExistById(mockUser.getId());
       assert.equal(isEntityInDb, false);
       assert.equal(isEntityInCache, false);
-      closeDbCacheConnection();
     });
   });
 

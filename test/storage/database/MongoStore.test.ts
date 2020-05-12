@@ -80,6 +80,7 @@ const TEST_ENTITY_EMPTY_STRING_FIELDS: object = {
 
 const TEST_DB: string = 'Test_Database';
 const TEST_COLLECTION: string = 'Test Collection';
+
 let mongoStore: MongoStore<object>;
 
 async function insertUsers(entityCount: number, entityId: string, email: any) {

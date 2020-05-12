@@ -14,7 +14,6 @@ class MockUserSerializer {
     mockUser.setMobileNum(userParams.mobileNum);
     mockUser.setTimeCreated(userParams.timeCreated);
     mockUser.setVerificationStatus(userParams.verificationStatus);
-    mockUser.setDeletionStatus(userParams.deletionStatus);
     return mockUser;
   }
 

@@ -114,12 +114,4 @@ describe('MockUser Tests', function() {
     });
   });
 
-  describe('flagAsDeleted() & isDeleted() tests', function() {
-    it('should flag mock user as deleted', function() {
-      assert.equal(mockUser.isDeleted(), false);
-      mockUser.flagAsDeleted();
-      assert.equal(mockUser.isDeleted(), true);
-    });
-  });
-
 });

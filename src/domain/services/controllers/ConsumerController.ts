@@ -88,12 +88,7 @@ class ConsumerController {
       return RESOURCE_NOT_FOUND;
     }
 
-    const consumer: Consumer = await this.consumerRepository
-      .selectEntity(consumerId);
-    consumer.flagAsDeleted();
-    await this.consumerRepository
-      .updateEntity(consumer.getId(), consumer);
-
+    await this.consumerRepository.deleteEntity(consumerId);
     return "user deleted";
   }
 

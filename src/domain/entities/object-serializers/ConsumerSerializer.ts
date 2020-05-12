@@ -21,7 +21,6 @@ class ConsumerSerializer {
     consumer.setOrderZone(consumerObj.orderZone);
     consumer.setTimeCreated(consumerObj.timeCreated);
     consumer.setVerificationStatus(consumerObj.verificationStatus);
-    consumer.setDeletionStatus(consumerObj.deletionStatus);
     return consumer;
   }
 

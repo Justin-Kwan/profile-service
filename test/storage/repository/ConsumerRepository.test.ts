@@ -38,7 +38,6 @@ const TEST_CONSUMER_PARAMS_2: string = `{
 
 const consumerRepository = new ConsumerRepository();
 const consumerSerializer = new ConsumerSerializer();
-const REPOSITORY_CALLER = 'controller';
 
 describe('ConsumerRepository tests', () => {
 

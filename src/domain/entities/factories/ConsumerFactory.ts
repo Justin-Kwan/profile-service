@@ -22,7 +22,6 @@ class ConsumerFactory extends EntityFactory {
     consumer.setOrderZone(consumerObj.orderZone);
     consumer.setTimeCreated(moment().format());
     consumer.setVerificationStatus(false);
-    consumer.setDeletionStatus(false);
     return consumer;
   }
 

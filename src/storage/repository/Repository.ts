@@ -4,7 +4,6 @@ import { RedisStore } from '../cache/RedisStore';
 
 abstract class Repository<T> {
 
-  private readonly REPOSITORY_CALLER = 'repository';
   protected databaseName: string;
   protected collectionName: string;
   protected mongoStore: MongoStore<T>;

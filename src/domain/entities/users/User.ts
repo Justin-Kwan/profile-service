@@ -10,7 +10,6 @@ abstract class User {
   private mobileNum: string;
   private timeCreated: string;
   private verificationStatus: boolean = false;
-  private deletionStatus: boolean = false;
 
   setId(id: string): void {
     this.id = id;
@@ -48,16 +47,8 @@ abstract class User {
     this.verificationStatus = verificationStatus;
   }
 
-  setDeletionStatus(deletionStatus: boolean): void {
-    this.deletionStatus = deletionStatus;
-  }
-
   flagAsVerified(): void {
     this.verificationStatus = true;
-  }
-
-  flagAsDeleted(): void {
-    this.deletionStatus = true;
   }
 
   getId(): string {
@@ -94,10 +85,6 @@ abstract class User {
 
   isVerified(): boolean {
     return this.verificationStatus;
-  }
-
-  isDeleted(): boolean {
-    return this.deletionStatus;
   }
 
 }

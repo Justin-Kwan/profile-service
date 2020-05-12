@@ -1,8 +1,6 @@
 import { Repository } from './Repository';
 import { Courier } from '../../domain/entities/users/Courier';
-import {
-  CourierSerializer
-} from '../../domain/entities/object-serializers/CourierSerializer';
+import { CourierSerializer } from '../../domain/entities/object-serializers/CourierSerializer';
 
 class CourierRepository extends Repository<Courier> {
 

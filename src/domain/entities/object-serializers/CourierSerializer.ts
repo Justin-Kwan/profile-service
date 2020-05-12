@@ -22,7 +22,6 @@ class CourierSerializer {
     courier.setPreferredZone(courierObj.preferredZone);
     courier.setTimeCreated(courierObj.timeCreated);
     courier.setVerificationStatus(courierObj.verificationStatus);
-    courier.setDeletionStatus(courierObj.deletionStatus);
     return courier;
   }
 

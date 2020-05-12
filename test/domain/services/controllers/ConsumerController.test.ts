@@ -1,16 +1,12 @@
 import 'mocha';
 import { strict as assert } from 'assert';
-import {
-  ConsumerController
-} from '../../../../src/domain/services/controllers/ConsumerController';
+import { ConsumerController } from '../../../../src/domain/services/controllers/ConsumerController';
+import { ConsumerRepository } from '../../../../src/storage/repository/ConsumerRepository';
 import {
   PERMISSION_DENIED,
   RESOURCE_ALREADY_EXISTS,
   RESOURCE_NOT_FOUND
 } from '../../../../src/domain/services/controllers/ResponseErrors';
-import {
-  ConsumerRepository
-} from '../../../../src/storage/repository/ConsumerRepository';
 
 const TEST_CONSUMER_PARAMS_1: string = `{
   "id": "test_id_1",
@@ -36,7 +32,6 @@ const TEST_CONSUMER_PARAMS_2: string = `{
 
 const consumerController = new ConsumerController();
 const consumerRepository = new ConsumerRepository();
-
 
 describe('ConsumerController Tests', async () => {
 
@@ -178,66 +173,17 @@ describe('ConsumerController Tests', async () => {
       );
     });
 
-    it('should flag consumer as deleted', async () => {
+    it('should delete a single consumer', async () => {
       // setup
       await consumerController
-        .createConsumer(TEST_CONSUMER_PARAMS_1);
+        .createConsumer(TEST_CONSUMER_PARAMS_2);
       // function under test
-      // asserting response
       const controllerResponse = await consumerController
         .deleteConsumer('test_id_1');
-      assert.deepEqual(controllerResponse, 'user deleted');
-
-      const consumer = await consumerRepository
-        .selectEntity('test_id_1');
-      assert.deepEqual(consumer.isDeleted(), true);
-    });
-
-    it('should flag consumer as deleted', async () => {
-      // setup
-      await consumerController
-        .createConsumer(TEST_CONSUMER_PARAMS_2);
-      // function under test
-      // asserting response
-      const controllerResponse = await consumerController
-        .deleteConsumer('test_id_2');
-      assert.deepEqual(controllerResponse, 'user deleted');
-
-      const consumer = await consumerRepository
-        .selectEntity('test_id_2');
-      assert.deepEqual(consumer.isDeleted(), true);
-    });
-
-    it('should flag consumer as deleted, leaving other consumers unaffected', async () => {
-      // setup
-      await consumerController
-        .createConsumer(TEST_CONSUMER_PARAMS_1);
-      await consumerController
-        .createConsumer(TEST_CONSUMER_PARAMS_2);
-      // function under test
-      await consumerController.deleteConsumer('test_id_1');
-
-      let consumer = await consumerRepository
-        .selectEntity('test_id_1');
-      assert.equal(consumer.isDeleted(), true);
-
-      consumer = await consumerRepository
-        .selectEntity('test_id_2');
-      assert.equal(consumer.isDeleted(), false);
-    });
-
-    it('should flag consumer as deleted, leaving other consumers unaffected', async () => {
-      // setup
-      await consumerController
-        .createConsumer(TEST_CONSUMER_PARAMS_1);
-      await consumerController
-        .createConsumer(TEST_CONSUMER_PARAMS_2);
-      // function under test
-      await consumerController.deleteConsumer('test_id_2');
-      let consumer = await consumerRepository.selectEntity('test_id_2');
-      assert.equal(consumer.isDeleted(), true);
-      consumer = await consumerRepository.selectEntity('test_id_1');
-      assert.equal(consumer.isDeleted(), false);
+      assert.deepEqual(
+        JSON.parse(controllerResponse),
+        JSON.parse(RESOURCE_NOT_FOUND)
+      );
     });
 
   });

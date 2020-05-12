@@ -18,7 +18,6 @@ class MongoStore<T> implements IDatabaseStore<T> {
   private databaseName: string;
   private collectionName: string;
 
-
   constructor(databaseName: string, collectionName: string) {
     this.collectionName = collectionName;
     this.databaseName = databaseName;
@@ -26,7 +25,7 @@ class MongoStore<T> implements IDatabaseStore<T> {
 
 	/**
 	 * creates mongodb client connection
-   * precondition: database client must be connected
+   * precondition: mongodb client must be disconnected
 	 * @param {void}
 	 * @return {Error} - throws error
 	 */
@@ -47,13 +46,13 @@ class MongoStore<T> implements IDatabaseStore<T> {
   }
 
 	/**
-	 * inserts new entity object into database collection
-	 * precondition: database client must be connected entity
-   *               must have unique id field
+	 * inserts new entity object into mongodb collection
+	 * precondition: mongodb client must be connected
+   *               entity must have unique id
 	 * @param {T} - generic type
    * @return {Error} - throws error
 	 * @effects add '_id' field to obj
-	 * @effects writes to database collection
+	 * @effects writes to mongodb collection
 	 */
   insertNewEntity(entity: T): Promise<any> {
     const promise = new Promise<any>((resolve, reject) => {
@@ -68,13 +67,13 @@ class MongoStore<T> implements IDatabaseStore<T> {
   }
 
   /**
-   * updates entity object in database collection with same id
-   * precondition: database client must be connected
+   * updates entity object in mongodb collection with same id
+   * precondition: mongodb client must be connected
    *               entity must exist in collection
-   * @param {string} - id field of entity to be updated in collection
+   * @param {string} - id of entity to update
    * @param {T} - generic type
    * @return {Error} - throws error
-   * @effects writes to database collection
+   * @effects writes to mongodb collection
    */
   updateEntity(entityId: string, entity: T): Promise<any> {
     const promise = new Promise<any>((resolve, reject) => {
@@ -89,10 +88,10 @@ class MongoStore<T> implements IDatabaseStore<T> {
   }
 
 	/**
-	 * selects entity object given entity id field
-	 * precondition: database client must be connected and
+	 * selects entity object given entity id
+	 * precondition: mongodb client must be connected
    *               entity must exist in collection
-	 * @param {object} - object containing field parameter
+	 * @param {string} - id of entity to select
 	 * @return {Error / string} - throws error or returns string
    *                            representation of object
 	 */
@@ -114,10 +113,10 @@ class MongoStore<T> implements IDatabaseStore<T> {
   }
 
   /**
-	 * deletes entity object from collection given entity id field
-	 * precondition: database client must be connected and
+	 * deletes entity object from collection given entity id
+	 * precondition: mongodb client must be connected and
    *               entity must exist in collection
-	 * @param {object} - object containing field parameter
+	 * @param {string} - id of entity to delete
 	 * @return {Error / string} - throws error
 	 */
   deleteEntity(entityId: string): Promise<any> {
@@ -133,11 +132,11 @@ class MongoStore<T> implements IDatabaseStore<T> {
   }
 
 	/**
-	 * determines if entity is in database collection based
-   * parameter object passed in
-   * precondition: database client must be connected and correct
-   *               paramater fields for object must be passed in
-	 * @param {entityId} - entity id field
+	 * determines if entity is in mongodb collection based
+   * parameter object
+   * precondition: mongodb client must be connected
+   *               correct paramater fields for object must be passed in
+	 * @param {object} - entity id field object
 	 * @returns {Error / boolean} - throws error or returns boolean
 	 */
   doesEntityExistByField(field: object): Promise<boolean> {
@@ -154,8 +153,8 @@ class MongoStore<T> implements IDatabaseStore<T> {
   }
 
   /**
-	 * returns the number of entity objects in database collection
-   * precondition: database client must be connected
+	 * returns the number of entity objects in mongodb collection
+   * precondition: mongodb client must be connected
 	 * @param {void}
 	 * @returns {Error / number} - throws error or returns integer
 	 */
@@ -172,11 +171,11 @@ class MongoStore<T> implements IDatabaseStore<T> {
   }
 
   /**
-   * clears database collection of objects
-   * precondition: database client must be connected
+   * clears mongodb collection of objects
+   * precondition: mongodb client must be connected
    * @param {void}
    * @return {Error} - throws error
-   * @effects clears database collection
+   * @effects clears mongodb collection
    */
   clearEntities(): Promise<any> {
     const promise = new Promise<any>((resolve, reject) => {
@@ -190,11 +189,11 @@ class MongoStore<T> implements IDatabaseStore<T> {
   }
 
   /**
-   * drops database collection
-   * precondition: database client must be connected
+   * drops mongodb collection
+   * precondition: mongodb client must be connected
    * @param {void}
    * @return {Error} - throws error
-   * @effects clears database collection
+   * @effects clears mongodb collection
    */
   dropEntityCollection(): Promise<any> {
     const promise = new Promise<any>((resolve, reject) => {
@@ -209,7 +208,7 @@ class MongoStore<T> implements IDatabaseStore<T> {
 
   /**
    * closes mongodb client connection
-   * precondition: database client must be connected
+   * precondition: mongodb client must be connected
    * @param {void}
    * @return {void}
    */

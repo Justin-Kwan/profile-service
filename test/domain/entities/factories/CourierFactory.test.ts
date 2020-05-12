@@ -19,7 +19,6 @@ const test_courier_1: any = {
   mobileNum: "test_mobile_num_1",
   timeCreated: "test_time_created_1",
   verificationStatus: true,
-  deletionStatus: false,
   vehicleType: "test_vehicle_type_1",
   preferredZone: "test_preferred_zone_1"
 }
@@ -37,7 +36,6 @@ const test_courier_2: any = {
   mobileNum: "test_mobile_num_2",
   timeCreated: "test_time_created_2",
   verificationStatus: true,
-  deletionStatus: false,
   vehicleType: "test_vehicle_type_2",
   preferredZone: "test_preferred_zone_2"
 }
@@ -60,7 +58,6 @@ describe('CourierFactory Tests', () => {
         "mobileNum": "test_mobile_num_1",
         "timeCreated": "test_time_created_1",
         "verificationStatus": true,
-        "deletionStatus": false,
         "vehicleType": "test_vehicle_type_1",
         "preferredZone": "test_preferred_zone_1"
       }`);
@@ -75,7 +72,6 @@ describe('CourierFactory Tests', () => {
       assert.equal(courier.getMobileNum(), test_courier_1.mobileNum);
       assert.equal(courier.getTimeCreated(), test_courier_1.timeCreated);
       assert.equal(courier.isVerified(), test_courier_1.verificationStatus);
-      assert.equal(courier.isDeleted(), test_courier_1.deletionStatus);
       assert.equal(courier.getVehicleType(), test_courier_1.vehicleType);
       assert.equal(courier.getPreferredZone(), test_courier_1.preferredZone);
     });
@@ -94,7 +90,6 @@ describe('CourierFactory Tests', () => {
         "mobileNum": "test_mobile_num_2",
         "timeCreated": "test_time_created_2",
         "verificationStatus": true,
-        "deletionStatus": false,
         "vehicleType": "test_vehicle_type_2",
         "preferredZone": "test_preferred_zone_2",
       }`);
@@ -109,7 +104,6 @@ describe('CourierFactory Tests', () => {
       assert.equal(courier.getMobileNum(), test_courier_2.mobileNum);
       assert.equal(courier.getTimeCreated(), test_courier_2.timeCreated);
       assert.equal(courier.isVerified(), test_courier_2.verificationStatus);
-      assert.equal(courier.isDeleted(), test_courier_2.deletionStatus);
       assert.equal(courier.getVehicleType(), test_courier_2.vehicleType);
       assert.equal(courier.getPreferredZone(), test_courier_2.preferredZone);
     });

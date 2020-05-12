@@ -17,7 +17,6 @@ const test_consumer_1: any = {
   mobileNum: 'test_mobile_num_1',
   timeCreated: 'test_time_created_1',
   verificationStatus: true,
-  deletionStatus: false,
   orderZone: 'test_order_zone_1'
 };
 
@@ -34,7 +33,6 @@ const test_consumer_2: any = {
   mobileNum: 'test_mobile_num_2',
   timeCreated: 'test_time_created_2',
   verificationStatus: true,
-  deletionStatus: false,
   orderZone: 'test_order_zone_2'
 }
 
@@ -59,7 +57,6 @@ describe('ConsumerFactory Tests', () => {
         "mobileNum": "test_mobile_num_1",
         "timeCreated": "test_time_created_1",
         "verificationStatus": true,
-        "deletionStatus": false,
         "orderZone": "test_order_zone_1"
       }`);
       // asserting object type equality
@@ -73,7 +70,6 @@ describe('ConsumerFactory Tests', () => {
       assert.equal(consumer.getMobileNum(), test_consumer_1.mobileNum);
       assert.equal(consumer.getTimeCreated(), test_consumer_1.timeCreated);
       assert.equal(consumer.isVerified(), test_consumer_1.verificationStatus);
-      assert.equal(consumer.isDeleted(), test_consumer_1.deletionStatus);
       assert.equal(consumer.getOrderZone(), test_consumer_1.orderZone);
     });
 
@@ -91,7 +87,6 @@ describe('ConsumerFactory Tests', () => {
         "mobileNum": "test_mobile_num_2",
         "timeCreated": "test_time_created_2",
         "verificationStatus": true,
-        "deletionStatus": false,
         "orderZone": "test_order_zone_2"
       }`);
       // asserting object type equality
@@ -105,7 +100,6 @@ describe('ConsumerFactory Tests', () => {
       assert.equal(consumer.getMobileNum(), test_consumer_2.mobileNum);
       assert.equal(consumer.getTimeCreated(), test_consumer_2.timeCreated);
       assert.equal(consumer.isVerified(), test_consumer_2.verificationStatus);
-      assert.equal(consumer.isDeleted(), test_consumer_2.deletionStatus);
       assert.equal(consumer.getOrderZone(), test_consumer_2.orderZone);
     });
   });

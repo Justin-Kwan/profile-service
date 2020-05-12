@@ -23,7 +23,6 @@ class CourierFactory extends EntityFactory {
     courier.setPreferredZone(courierObj.preferredZone);
     courier.setTimeCreated(moment().format());
     courier.setVerificationStatus(false);
-    courier.setDeletionStatus(false);
     return courier;
   }
 
