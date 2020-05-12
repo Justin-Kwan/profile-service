@@ -2,6 +2,12 @@ import { Courier } from '../users/Courier';
 
 class CourierSerializer {
 
+  /**
+   * deserializes courier json string into courier object, copying
+   * all fields
+   * @param {string}
+   * @return {Courier}
+   */
   deserialize(courierString: string): Courier {
     const courierObj = JSON.parse(courierString);
     const courier: Courier = new Courier();
@@ -20,6 +26,12 @@ class CourierSerializer {
     return courier;
   }
 
+  /**
+   * serializes courier object into json string, hiding
+   * sensitive values for web client
+   * @param {Courier}
+   * @return {string}
+   */
   serializeForClient(courier: Courier): string {
     return JSON.stringify({
       id: courier.getId(),

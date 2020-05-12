@@ -2,6 +2,12 @@ import { Consumer } from '../users/Consumer';
 
 class ConsumerSerializer {
 
+  /**
+   * deserializes consumer json string into consumer object, copying
+   * all fields
+   * @param {string}
+   * @return {Consumer}
+   */
   deserialize(consumerString: string): Consumer {
     const consumerObj = JSON.parse(consumerString);
     const consumer: Consumer = new Consumer();
@@ -19,6 +25,12 @@ class ConsumerSerializer {
     return consumer;
   }
 
+  /**
+   * serializes consumer object into json string, hiding
+   * sensitive values for web client
+   * @param {Consumer}
+   * @return {string}
+   */
   serializeForClient(consumer: Consumer): string {
     return JSON.stringify({
       id: consumer.getId(),

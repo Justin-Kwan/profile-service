@@ -1,6 +1,8 @@
 import { Repository } from './Repository';
-import { ConsumerSerializer } from '../../domain/entities/object-serializers/ConsumerSerializer';
 import { Consumer } from '../../domain/entities/users/Consumer';
+import {
+  ConsumerSerializer
+} from '../../domain/entities/object-serializers/ConsumerSerializer';
 
 class ConsumerRepository extends Repository<Consumer> {
 

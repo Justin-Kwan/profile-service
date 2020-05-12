@@ -34,7 +34,8 @@ class ConsumerController {
       return RESOURCE_ALREADY_EXISTS;
     }
 
-    this.consumerRepository.insertNewEntity(consumer.getId(), consumer);
+    await this.consumerRepository
+      .insertNewEntity(consumer.getId(), consumer);
     return "resource created";
   }
 
@@ -89,9 +90,10 @@ class ConsumerController {
 
     const consumer: Consumer = await this.consumerRepository
       .selectEntity(consumerId);
-
     consumer.flagAsDeleted();
-    this.consumerRepository.updateEntity(consumerId, consumer);
+    await this.consumerRepository
+      .updateEntity(consumer.getId(), consumer);
+
     return "user deleted";
   }
 

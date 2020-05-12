@@ -14,8 +14,7 @@ abstract class Repository<T> {
   /**
    * @param {string} - name of database to connect to
    * @param {string} - name of datbase collection to use
-   * @param {any} - entity factory is injected for custom entity
-   *                object serialization
+   * @param {any} - custom entity object serializer is injected
    */
   constructor(
     databaseName: string, collectionName: string, entitySerializer: any) {
@@ -49,11 +48,15 @@ abstract class Repository<T> {
    * @param {T} - generic type
    * @return {void}
    * @effects - writes to database and cache
+   * @effects - mongo client addes _id field to entity object
    */
   async insertNewEntity(entityId: string, entity: T): Promise<void> {
+    const dbEntity: T = Object.assign({}, entity);
+    const cacheEntity: T = Object.assign({}, entity);
+
     await Promise.all([
-      this.mongoStore.insertNewEntity(entity),
-      this.redisStore.insertNewEntity(entityId, entity)
+      this.mongoStore.insertNewEntity(dbEntity),
+      this.redisStore.insertNewEntity(entityId, cacheEntity)
     ]);
   }
 
@@ -64,11 +67,15 @@ abstract class Repository<T> {
    * @param {T} - generic type
    * @return {void}
    * @effects - writes to database and cache
+   * @effects - mongo client addes _id field to entity object
    */
   async updateEntity(entityId: string, entity: T): Promise<void> {
+    const dbEntity: T = Object.assign({}, entity);
+    const cacheEntity: T = Object.assign({}, entity);
+
     await Promise.all([
-      this.mongoStore.updateEntity(entityId, entity),
-      this.redisStore.updateEntity(entityId, entity)
+      this.mongoStore.updateEntity(entityId, dbEntity),
+      this.redisStore.updateEntity(entityId, cacheEntity)
     ]);
   }
 
@@ -94,6 +101,14 @@ abstract class Repository<T> {
     this.redisStore.updateEntity(entityId, entity);
 
     return entity;
+  }
+
+  // test!
+  async deleteEntity(entityId: string): Promise<any> {
+    await Promise.all([
+      this.mongoStore.deleteEntity(entityId),
+      this.redisStore.deleteEntity(entityId)
+    ]);
   }
 
   /**

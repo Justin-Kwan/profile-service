@@ -79,7 +79,7 @@ class MongoStore<T> implements IDatabaseStore<T> {
   updateEntity(entityId: string, entity: T): Promise<any> {
     const promise = new Promise<any>((resolve, reject) => {
       this.entityCollection.replaceOne({ 'id': entityId }, entity,
-        (err, result) => {
+        (err, res) => {
           if (err) reject(err);
           resolve();
         });
@@ -103,10 +103,29 @@ class MongoStore<T> implements IDatabaseStore<T> {
           _id: 0
         }
       }).limit(this.MAX_RESULTS).toArray(
-        (err, result) => {
+        (err, entities) => {
           if (err) reject(err);
-          const entityString: string = JSON.stringify(result[0]);
+          const entityString: string = JSON.stringify(entities[0]);
           resolve(entityString);
+        });
+    });
+
+    return promise;
+  }
+
+  /**
+	 * deletes entity object from collection given entity id field
+	 * precondition: database client must be connected and
+   *               entity must exist in collection
+	 * @param {object} - object containing field parameter
+	 * @return {Error / string} - throws error
+	 */
+  deleteEntity(entityId: string): Promise<any> {
+    const promise = new Promise<any>((resolve, reject) => {
+      this.entityCollection.deleteOne({ 'id': entityId },
+        (err, res) => {
+          if (err) reject(err);
+          resolve();
         });
     });
 

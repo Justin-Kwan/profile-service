@@ -1,9 +1,8 @@
-import { EntityFactory } from '../../../../src/domain/entities/factories/EntityFactory';
 import { MockUser } from '../users/MockUser';
 
-class MockUserFactory extends EntityFactory {
+class MockUserSerializer {
 
-  getEntity(userJsonParams: string): MockUser {
+  serialize(userJsonParams: string): MockUser {
     const userParams = JSON.parse(userJsonParams);
     const mockUser = new MockUser();
     mockUser.setId(userParams.id);
@@ -21,4 +20,4 @@ class MockUserFactory extends EntityFactory {
 
 }
 
-export { MockUserFactory };
+export { MockUserSerializer };
