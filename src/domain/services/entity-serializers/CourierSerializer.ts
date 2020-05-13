@@ -1,6 +1,8 @@
+import { IEntitySerializer } from './IEntitySerializer';
 import { Courier } from '../../entities/users/Courier';
 
-class CourierSerializer {
+
+class CourierSerializer implements IEntitySerializer<Courier> {
 
   /**
    * deserializes courier json string into courier object, copying

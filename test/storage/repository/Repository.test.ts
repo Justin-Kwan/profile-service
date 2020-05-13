@@ -5,7 +5,7 @@ import { MockUser } from '../../domain/entities/users/MockUser';
 import { MongoStore } from '../../../src/storage/database/MongoStore';
 import { RedisStore } from '../../../src/storage/cache/RedisStore';
 import { MockRepository } from './MockRepository';
-import { MockUserSerializer } from '../../domain/services/object-serializers/MockUserSerializer';
+import { MockUserSerializer } from '../../domain/services/entity-serializers/MockUserSerializer';
 
 const TEST_ENTITY_PARAMS_1: string = `{
   "id": "test_id_1",
@@ -110,7 +110,7 @@ async function insertMockUsers(entityCount: number): Promise<any> {
   let asyncInsertOperations = [];
 
   for (let i = 0; i < entityCount; ++i) {
-    let mockUser = mockUserSerializer.serialize(TEST_ENTITY_PARAMS_1);
+    let mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_1);
     asyncInsertOperations.push(
       mockRepository.insertNewEntity(mockUser)
     );
@@ -146,7 +146,7 @@ describe('Repository tests', () => {
   describe('insertNewEntity() tests', () => {
     it('should insert an entity', async () => {
       // setup
-      const mockUser = mockUserSerializer.serialize(TEST_ENTITY_PARAMS_1);
+      const mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_1);
       // function under test
       await mockRepository.insertNewEntity(mockUser);
       const dbEntityString = await mongoStore.selectEntity('test_id_1');
@@ -183,7 +183,7 @@ describe('Repository tests', () => {
 
     it('should insert an entity', async () => {
       // setup
-      const mockUser = mockUserSerializer.serialize(TEST_ENTITY_PARAMS_2);
+      const mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_2);
       // function under test
       await mockRepository.insertNewEntity(mockUser);
       await mongoStore.createConnection();
@@ -208,10 +208,10 @@ describe('Repository tests', () => {
   describe('updateEntity() tests', () => {
     it('should update all of entity\'s fields', async () => {
       // setup
-      const mockUser = mockUserSerializer.serialize(TEST_ENTITY_PARAMS_1);
+      const mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_1);
       await mockRepository.insertNewEntity(mockUser);
       const updatedMockUser = mockUserSerializer
-        .serialize(TEST_UPDATED_ENTITY_PARAMS_1);
+        .deserialize(TEST_UPDATED_ENTITY_PARAMS_1);
       // function under test
       await mockRepository.updateEntity(updatedMockUser);
       const dbEntityString = await mongoStore.selectEntity('test_id_1');
@@ -248,10 +248,10 @@ describe('Repository tests', () => {
 
     it('should update all of entity\'s fields', async () => {
       // setup
-      const mockUser = mockUserSerializer.serialize(TEST_ENTITY_PARAMS_2);
+      const mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_2);
       await mockRepository.insertNewEntity(mockUser);
       const updatedMockUser = mockUserSerializer
-        .serialize(TEST_UPDATED_ENTITY_PARAMS_2);
+        .deserialize(TEST_UPDATED_ENTITY_PARAMS_2);
       // function under test
       mockRepository.updateEntity(updatedMockUser);
       const dbEntityString = await mongoStore.selectEntity('test_id_2');
@@ -288,10 +288,10 @@ describe('Repository tests', () => {
 
     it('should update entity\'s first name field', async () => {
       // setup
-      const mockUser = mockUserSerializer.serialize(TEST_ENTITY_PARAMS_2);
+      const mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_2);
       await mockRepository.insertNewEntity(mockUser);
       const updatedMockUser = mockUserSerializer
-        .serialize(TEST_FIRST_NAME_UPDATED_ENTITY_PARAMS_2);
+        .deserialize(TEST_FIRST_NAME_UPDATED_ENTITY_PARAMS_2);
       // function under test
       mockRepository.updateEntity(updatedMockUser);
       const dbEntityString = await mongoStore.selectEntity('test_id_2');
@@ -328,10 +328,10 @@ describe('Repository tests', () => {
 
     it('should update entity\'s email field', async () => {
       // setup
-      const mockUser = mockUserSerializer.serialize(TEST_ENTITY_PARAMS_2);
+      const mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_2);
       await mockRepository.insertNewEntity(mockUser);
       const updatedMockUser = mockUserSerializer
-        .serialize(TEST_EMAIL_UPDATED_ENTITY_PARAMS_2);
+        .deserialize(TEST_EMAIL_UPDATED_ENTITY_PARAMS_2);
       // function under test
       await mockRepository.updateEntity(updatedMockUser);
       const dbEntityString = await mongoStore.selectEntity('test_id_2');
@@ -370,7 +370,7 @@ describe('Repository tests', () => {
   describe('deleteEntity() tests', () => {
     it('should delete a single entity', async () => {
       // setup
-      const mockUser = mockUserSerializer.serialize(TEST_ENTITY_PARAMS_1);
+      const mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_1);
       await mockRepository.insertNewEntity(mockUser);
       // function under test
       mockRepository.deleteEntity(mockUser.getId());
@@ -384,7 +384,7 @@ describe('Repository tests', () => {
 
     it('should delete a single entity', async () => {
       // setup
-      const mockUser = mockUserSerializer.serialize(TEST_ENTITY_PARAMS_2);
+      const mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_2);
       await mockRepository.insertNewEntity(mockUser);
       // function under test
       mockRepository.deleteEntity(mockUser.getId());
@@ -398,7 +398,7 @@ describe('Repository tests', () => {
 
     it('should delete a single entity', async () => {
       // setup
-      const mockUser = mockUserSerializer.serialize(TEST_FIRST_NAME_UPDATED_ENTITY_PARAMS_2);
+      const mockUser = mockUserSerializer.deserialize(TEST_FIRST_NAME_UPDATED_ENTITY_PARAMS_2);
       await mockRepository.insertNewEntity(mockUser);
       // function under test
       mockRepository.deleteEntity(mockUser.getId());
@@ -413,7 +413,7 @@ describe('Repository tests', () => {
 
   describe('doesEntityExistById() tests', () => {
     it('should assert that mock entity exists collection', async () => {
-      const mockUser = mockUserSerializer.serialize(TEST_ENTITY_PARAMS_1);
+      const mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_1);
       await mockRepository.insertNewEntity(mockUser);
       const doesMockUserExist = await mockRepository
         .doesEntityExistById('test_id_1');
@@ -421,7 +421,7 @@ describe('Repository tests', () => {
     });
 
     it('should assert that mock entity exists collection', async () => {
-      const mockUser = mockUserSerializer.serialize(TEST_ENTITY_PARAMS_2);
+      const mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_2);
       await mockRepository.insertNewEntity(mockUser);
       const doesMockUserExist = await mockRepository
         .doesEntityExistById('test_id_2');
@@ -435,7 +435,7 @@ describe('Repository tests', () => {
     });
 
     it('should assert that mock entity does not exist in collection', async () => {
-      const mockUser = mockUserSerializer.serialize(TEST_ENTITY_PARAMS_1);
+      const mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_1);
       await mockRepository.insertNewEntity(mockUser);
       const doesMockUserExist = await mockRepository
         .doesEntityExistById(' test_id_1');
@@ -443,7 +443,7 @@ describe('Repository tests', () => {
     });
 
     it('should assert that mock entity does not exist in collection', async () => {
-      const mockUser = mockUserSerializer.serialize(TEST_ENTITY_PARAMS_1);
+      const mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_1);
       await mockRepository.insertNewEntity(mockUser);
       const doesMockUserExist = await mockRepository
         .doesEntityExistById('test_id_1 ');
@@ -451,7 +451,7 @@ describe('Repository tests', () => {
     });
 
     it('should assert that mock entity does not exist in collection', async () => {
-      const mockUser = mockUserSerializer.serialize(TEST_ENTITY_PARAMS_1);
+      const mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_1);
       await mockRepository.insertNewEntity(mockUser);
       const doesMockUserExist = await mockRepository
         .doesEntityExistById('test_id _1');
@@ -460,9 +460,9 @@ describe('Repository tests', () => {
 
     it('should assert that mock entity does not exist in collection', async () => {
       // insert 2 entities into repository
-      let mockUser = mockUserSerializer.serialize(TEST_ENTITY_PARAMS_1);
+      let mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_1);
       await mockRepository.insertNewEntity(mockUser);
-      mockUser = mockUserSerializer.serialize(TEST_ENTITY_PARAMS_2);
+      mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_2);
       await mockRepository.insertNewEntity(mockUser);
       const doesMockUserExist = await mockRepository
         .doesEntityExistById('test_id _1');
@@ -471,9 +471,9 @@ describe('Repository tests', () => {
 
     it('should assert that mock entity does not exist in collection', async () => {
       // insert 2 entities into repository
-      let mockUser = mockUserSerializer.serialize(TEST_ENTITY_PARAMS_1);
+      let mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_1);
       await mockRepository.insertNewEntity(mockUser);
-      mockUser = mockUserSerializer.serialize(TEST_ENTITY_PARAMS_2);
+      mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_2);
       await mockRepository.insertNewEntity(mockUser);
       const doesMockUserExist = await mockRepository
         .doesEntityExistById('test_id_3');
@@ -482,9 +482,9 @@ describe('Repository tests', () => {
 
     it('should assert that mock entity does not exist in collection', async () => {
       // insert 2 entities into repository
-      let mockUser = mockUserSerializer.serialize(TEST_ENTITY_PARAMS_1);
+      let mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_1);
       await mockRepository.insertNewEntity(mockUser);
-      mockUser = mockUserSerializer.serialize(TEST_ENTITY_PARAMS_2);
+      mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_2);
       await mockRepository.insertNewEntity(mockUser);
       const doesMockUserExist = await mockRepository
         .doesEntityExistById('test_id_0');
@@ -493,9 +493,9 @@ describe('Repository tests', () => {
 
     it('should assert that mock entity does not exist in collection', async () => {
       // insert 2 entities into repository
-      let mockUser = mockUserSerializer.serialize(TEST_ENTITY_PARAMS_1);
+      let mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_1);
       await mockRepository.insertNewEntity(mockUser);
-      mockUser = mockUserSerializer.serialize(TEST_ENTITY_PARAMS_2);
+      mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_2);
       await mockRepository.insertNewEntity(mockUser);
       const doesMockUserExist = await mockRepository
         .doesEntityExistById('test_id');

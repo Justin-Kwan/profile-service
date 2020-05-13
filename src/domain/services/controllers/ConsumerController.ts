@@ -1,6 +1,6 @@
 import { ConsumerRepository } from '../../../storage/repository/ConsumerRepository';
 import { ConsumerFactory } from '../../services/factories/ConsumerFactory';
-import { ConsumerSerializer } from '../../services/object-serializers/ConsumerSerializer';
+import { ConsumerSerializer } from '../../services/entity-serializers/ConsumerSerializer';
 import { Consumer } from '../../entities/users/Consumer';
 import {
   PERMISSION_DENIED,

@@ -4,7 +4,7 @@ import * as _ from 'lodash';;
 
 import { ConsumerRepository } from '../../../src/storage/repository/ConsumerRepository';
 import { Consumer } from '../../../src/domain/entities/users/Consumer';
-import { ConsumerSerializer } from '../../../src/domain/services/object-serializers/ConsumerSerializer';
+import { ConsumerSerializer } from '../../../src/domain/services/entity-serializers/ConsumerSerializer';
 
 const TEST_CONSUMER_PARAMS_1: string = `{
   "id": "test_id_1",

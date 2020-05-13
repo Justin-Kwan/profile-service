@@ -1,6 +1,7 @@
 import { MongoStore } from '../database/MongoStore';
 import { RedisStore } from '../cache/RedisStore';
 import { IEntity } from '../../domain/entities/IEntity';
+import { IEntitySerializer } from '../../domain/services/entity-serializers/IEntitySerializer';
 
 
 abstract class Repository<T extends IEntity> {
@@ -9,15 +10,16 @@ abstract class Repository<T extends IEntity> {
   protected collectionName: string;
   protected mongoStore: MongoStore<T>;
   protected redisStore: RedisStore<T>;
-  private entitySerializer: any;
+  private entitySerializer: IEntitySerializer<T>;
 
   /**
    * @param {string} - name of database to connect to
    * @param {string} - name of datbase collection to use
    * @param {any} - custom entity object serializer is injected
    */
-  constructor(
-    databaseName: string, collectionName: string, entitySerializer: any) {
+  constructor(databaseName: string,
+              collectionName: string,
+              entitySerializer: IEntitySerializer<T>) {
     this.databaseName = databaseName;
     this.collectionName = collectionName;
     this.entitySerializer = entitySerializer;
