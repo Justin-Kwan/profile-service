@@ -9,10 +9,10 @@ class ConsumerFactory extends EntityFactory {
     super();
   }
 
-  createNewConsumer(consumerString: string): Consumer {
+  createNewConsumer(consumerId: string, consumerString: string): Consumer {
     const consumerObj = JSON.parse(consumerString);
     const consumer: Consumer = new Consumer();
-    consumer.setId(consumerObj.id);
+    consumer.setId(consumerId);
     consumer.setFirstName(consumerObj.firstName);
     consumer.setLastName(consumerObj.lastName);
     consumer.setEmail(consumerObj.email);

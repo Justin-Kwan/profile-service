@@ -32,7 +32,6 @@ class ConsumerSerializer {
    */
   serializeForClient(consumer: Consumer): string {
     return JSON.stringify({
-      id: consumer.getId(),
       firstName: consumer.getFirstName(),
       lastName: consumer.getLastName(),
       email: consumer.getEmail(),

@@ -59,7 +59,7 @@ describe('CourierRepository tests', () => {
     it('should select correct courier', async () => {
       const expectedCourier = courierSerializer.deserialize(TEST_COURIER_PARAMS_1);
       const courier = courierSerializer.deserialize(TEST_COURIER_PARAMS_1);
-      await courierRepository.insertNewEntity(courier.getId(), courier);
+      await courierRepository.insertNewEntity(courier);
       const selectedCourier = await courierRepository.selectEntity('test_id_1');
       // assert type and field equality of objects
       assert(_.isEqual(expectedCourier, selectedCourier));
@@ -68,7 +68,7 @@ describe('CourierRepository tests', () => {
     it('should select correct courier', async () => {
       const expectedCourier = courierSerializer.deserialize(TEST_COURIER_PARAMS_2);
       const courier = courierSerializer.deserialize(TEST_COURIER_PARAMS_2);
-      await courierRepository.insertNewEntity(courier.getId(), courier);
+      await courierRepository.insertNewEntity(courier);
       const selectedCourier = await courierRepository.selectEntity('test_id_2');
       // assert type and field equality of objects
       assert(_.isEqual(expectedCourier, selectedCourier));
@@ -88,7 +88,7 @@ describe('CourierRepository tests', () => {
     it('should throw error since no courier to select (invalid id)', async () => {
       const expectedCourier = courierSerializer.deserialize(TEST_COURIER_PARAMS_1);
       const courier = courierSerializer.deserialize(TEST_COURIER_PARAMS_1);
-      await courierRepository.insertNewEntity(courier.getId(), courier);
+      await courierRepository.insertNewEntity(courier);
       const selectedCourier = async () => {
         await courierRepository.selectEntity('test_id_2');
       }
@@ -102,7 +102,7 @@ describe('CourierRepository tests', () => {
     it('should throw error since no courier to select (invalid id)', async () => {
       const expectedCourier = courierSerializer.deserialize(TEST_COURIER_PARAMS_2);
       const courier = courierSerializer.deserialize(TEST_COURIER_PARAMS_2);
-      await courierRepository.insertNewEntity(courier.getId(), courier);
+      await courierRepository.insertNewEntity(courier);
       const selectedCourier = async () => {
         await courierRepository.selectEntity('test_id_1');
       }
@@ -116,7 +116,7 @@ describe('CourierRepository tests', () => {
     it('should throw error since no courier to select (invalid id)', async () => {
       const expectedCourier = courierSerializer.deserialize(TEST_COURIER_PARAMS_1);
       const courier = courierSerializer.deserialize(TEST_COURIER_PARAMS_1);
-      await courierRepository.insertNewEntity(courier.getId(), courier);
+      await courierRepository.insertNewEntity(courier);
       const selectedCourier = async () => {
         await courierRepository.selectEntity(' test_id_1');
       }
@@ -130,7 +130,7 @@ describe('CourierRepository tests', () => {
     it('should throw error since no courier to select (invalid id)', async () => {
       const expectedCourier = courierSerializer.deserialize(TEST_COURIER_PARAMS_1);
       const courier = courierSerializer.deserialize(TEST_COURIER_PARAMS_1);
-      await courierRepository.insertNewEntity(courier.getId(), courier);
+      await courierRepository.insertNewEntity(courier);
       const selectedCourier = async () => {
         await courierRepository.selectEntity('test_id_1 ');
       }
@@ -144,7 +144,7 @@ describe('CourierRepository tests', () => {
     it('should throw error since no courier to select (invalid id)', async () => {
       const expectedCourier = courierSerializer.deserialize(TEST_COURIER_PARAMS_1);
       const courier = courierSerializer.deserialize(TEST_COURIER_PARAMS_1);
-      await courierRepository.insertNewEntity(courier.getId(), courier);
+      await courierRepository.insertNewEntity(courier);
       const selectedCourier = async () => {
         await courierRepository.selectEntity('test_ id_1');
       }
@@ -159,14 +159,14 @@ describe('CourierRepository tests', () => {
   describe('doesCourierExistByEmail() tests', () => {
     it('should assert that courier exists collection', async () => {
       const courier = courierSerializer.deserialize(TEST_COURIER_PARAMS_1);
-      await courierRepository.insertNewEntity(courier.getId(), courier);
+      await courierRepository.insertNewEntity(courier);
       const doesCourierExist = await courierRepository.doesCourierExistByEmail('test_email_1');
       assert.equal(doesCourierExist, true);
     });
 
     it('should assert that courier exists collection', async () => {
       const courier = courierSerializer.deserialize(TEST_COURIER_PARAMS_2);
-      await courierRepository.insertNewEntity(courier.getId(), courier);
+      await courierRepository.insertNewEntity(courier);
       const doesCourierExist = await courierRepository.doesCourierExistByEmail('test_email_2');
       assert.equal(doesCourierExist, true);
     });
@@ -178,21 +178,21 @@ describe('CourierRepository tests', () => {
 
     it('should assert that courier does not exist in collection', async () => {
       const courier = courierSerializer.deserialize(TEST_COURIER_PARAMS_1);
-      await courierRepository.insertNewEntity(courier.getId(), courier);
+      await courierRepository.insertNewEntity(courier);
       let doesUserExist: boolean = await courierRepository.doesCourierExistByEmail(' test_email_1');
       assert.equal(doesUserExist, false);
     });
 
     it('should assert that courier does not exist in collection', async () => {
       const courier = courierSerializer.deserialize(TEST_COURIER_PARAMS_1);
-      await courierRepository.insertNewEntity(courier.getId(), courier);
+      await courierRepository.insertNewEntity(courier);
       let doesUserExist: boolean = await courierRepository.doesCourierExistByEmail('test_email_1 ');
       assert.equal(doesUserExist, false);
     });
 
     it('should assert that courier does not exist in collection', async () => {
       const courier = courierSerializer.deserialize(TEST_COURIER_PARAMS_1);
-      await courierRepository.insertNewEntity(courier.getId(), courier);
+      await courierRepository.insertNewEntity(courier);
       let doesUserExist: boolean = await courierRepository.doesCourierExistByEmail('test_ email_1');
       assert.equal(doesUserExist, false);
     });

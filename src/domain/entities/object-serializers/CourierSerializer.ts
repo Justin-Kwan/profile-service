@@ -33,7 +33,6 @@ class CourierSerializer {
    */
   serializeForClient(courier: Courier): string {
     return JSON.stringify({
-      id: courier.getId(),
       firstName: courier.getFirstName(),
       lastName: courier.getLastName(),
       email: courier.getEmail(),

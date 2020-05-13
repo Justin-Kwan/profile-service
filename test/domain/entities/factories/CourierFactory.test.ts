@@ -37,8 +37,9 @@ describe('CourierFactory Tests', () => {
 
   describe('createNewCourier() Tests', () => {
     it('should create a courier object', () => {
-      const courier = courierFactory.createNewCourier(`{
-        "id": "test_id_1",
+      const courier = courierFactory.createNewCourier(
+        'test_id_1',
+        `{
         "firstName": "test_first_name_1",
         "lastName": "test_last_name_1",
         "email": "test_email_1",
@@ -64,8 +65,9 @@ describe('CourierFactory Tests', () => {
     });
 
     it('should create a courier object', () => {
-      const courier = courierFactory.createNewCourier(`{
-        "id": "test_id_2",
+      const courier = courierFactory.createNewCourier(
+        'test_id_2',
+        `{
         "firstName": "test_first_name_2",
         "lastName": "test_last_name_2",
         "email": "test_email_2",
@@ -74,7 +76,7 @@ describe('CourierFactory Tests', () => {
         "mobileNum": "test_mobile_num_2",
         "vehicleType": "test_vehicle_type_2",
         "preferredZone": "test_preferred_zone_2"
-      }`);
+        }`);
       // asserting object type equality
       assert.equal(courier.constructor.name, 'Courier');
       assert.equal(courier.getId(), test_courier_2.id);

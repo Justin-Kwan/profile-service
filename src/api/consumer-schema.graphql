@@ -1,0 +1,29 @@
+type Consumer {
+  firstName: String
+  lastName: String
+  email: String
+  country: String
+  locationId: String
+  mobileNum: String
+  orderZoneId: String
+}
+
+interface MutationResponse {
+  code: String!
+  success: Boolean!
+  message: String!
+}
+
+type CreateConsumerResponse implements MutationResponse {
+
+}
+
+type Mutation {
+  createConsumer(input: Consumer!): CreateConsumerResponse
+  updateConsumer(input: Consumer!): UpdateConsumerResponse
+  deleteConsumer(input: Consumer!): DeleteConsumerResponse
+}
+
+type Query {
+  getConsumer(input: Consumer!): GetConsumerResponse
+}

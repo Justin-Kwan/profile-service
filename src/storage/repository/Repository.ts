@@ -1,8 +1,9 @@
 import { MongoStore } from '../database/MongoStore';
 import { RedisStore } from '../cache/RedisStore';
+import { IEntity } from '../../domain/entities/users/IEntity';
 
 
-abstract class Repository<T> {
+abstract class Repository<T extends IEntity> {
 
   protected databaseName: string;
   protected collectionName: string;
@@ -49,13 +50,11 @@ abstract class Repository<T> {
    * @effects - writes to database and cache
    * @effects - mongo client addes _id field to entity object
    */
-  async insertNewEntity(entityId: string, entity: T): Promise<void> {
-    const dbEntity: T = Object.assign({}, entity);
-    const cacheEntity: T = Object.assign({}, entity);
-
+  async insertNewEntity(entity: T): Promise<void> {
+    const entityCopy: T = Object.assign({}, entity);
     await Promise.all([
-      this.mongoStore.insertNewEntity(dbEntity),
-      this.redisStore.insertNewEntity(entityId, cacheEntity)
+      this.mongoStore.insertNewEntity(entity),
+      this.redisStore.insertNewEntity(entity.getId(), entityCopy)
     ]);
   }
 
@@ -68,13 +67,11 @@ abstract class Repository<T> {
    * @effects - writes to database and cache
    * @effects - mongo client adds _id field to entity object
    */
-  async updateEntity(entityId: string, entity: T): Promise<void> {
-    const dbEntity: T = Object.assign({}, entity);
-    const cacheEntity: T = Object.assign({}, entity);
-
+  async updateEntity(entity: T): Promise<void> {
+    const entityCopy: T = Object.assign({}, entity);
     await Promise.all([
-      this.mongoStore.updateEntity(entityId, dbEntity),
-      this.redisStore.updateEntity(entityId, cacheEntity)
+      this.mongoStore.updateEntity(entity.getId(), entity),
+      this.redisStore.updateEntity(entity.getId(), entityCopy)
     ]);
   }
 
@@ -102,7 +99,12 @@ abstract class Repository<T> {
     return entity;
   }
 
-  // test!
+  /**
+   * deletes entity from database and cache based on entity id
+   * precondition: entity with passed in id must exist in db
+   * @param {string} - id of entity to delete
+   * @return {void}
+   */
   async deleteEntity(entityId: string): Promise<any> {
     await Promise.all([
       this.mongoStore.deleteEntity(entityId),

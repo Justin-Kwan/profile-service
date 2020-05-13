@@ -34,8 +34,9 @@ describe('ConsumerFactory Tests', () => {
 
   describe('createNewConsumer() tests', () => {
     it('should create a consumer object', () => {
-      const consumer: Consumer = consumerFactory.createNewConsumer(`{
-        "id": "test_id_1",
+      const consumer: Consumer = consumerFactory.createNewConsumer(
+      'test_id_1',
+      `{
         "firstName": "test_first_name_1",
         "lastName": "test_last_name_1",
         "email": "test_email_1",
@@ -59,8 +60,9 @@ describe('ConsumerFactory Tests', () => {
     });
 
     it('should create a consumer object', () => {
-      const consumer: Consumer = consumerFactory.createNewConsumer(`{
-        "id": "test_id_2",
+      const consumer: Consumer = consumerFactory.createNewConsumer(
+      'test_id_2',
+      `{
         "firstName": "test_first_name_2",
         "lastName": "test_last_name_2",
         "email": "test_email_2",

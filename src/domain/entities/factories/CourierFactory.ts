@@ -9,10 +9,10 @@ class CourierFactory extends EntityFactory {
     super();
   }
 
-  createNewCourier(courierString: string): Courier {
+  createNewCourier(courierId: string, courierString: string): Courier {
     const courierObj = JSON.parse(courierString);
     const courier: Courier = new Courier();
-    courier.setId(courierObj.id);
+    courier.setId(courierId);
     courier.setFirstName(courierObj.firstName);
     courier.setLastName(courierObj.lastName);
     courier.setEmail(courierObj.email);

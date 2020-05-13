@@ -23,35 +23,30 @@ class ConsumerController {
     this.consumerRepository.initDatastoreObjects();
   }
 
-  async createConsumer(consumerString: string): Promise<string> {
-    const consumer: Consumer = await this.consumerFactory
-      .createNewConsumer(consumerString);
-
-    const doesConsumerExist: boolean = await this.consumerRepository
-      .doesEntityExistById(consumer.getId());
-
-    if (doesConsumerExist) {
-      return RESOURCE_ALREADY_EXISTS;
-    }
-
-    await this.consumerRepository
-      .insertNewEntity(consumer.getId(), consumer);
-    return "resource created";
-  }
-
-  async updateConsumer(consumerId: string, consumerString: string): Promise<string> {
+  async createConsumer(consumerId: string, consumerParams: string): Promise<string> {
     const doesConsumerExist: boolean = await this.consumerRepository
       .doesEntityExistById(consumerId);
 
-    if (!doesConsumerExist) {
-      return RESOURCE_NOT_FOUND;
-    }
+    if (doesConsumerExist) return RESOURCE_ALREADY_EXISTS;
+
+    const consumer: Consumer = await this.consumerFactory
+      .createNewConsumer(consumerId, consumerParams);
+
+    await this.consumerRepository.insertNewEntity(consumer);
+    return "resource created";
+  }
+
+  // consumerParams does not contain id
+  async updateConsumer(consumerId: string, consumerParams: string): Promise<string> {
+    const doesConsumerExist: boolean = await this.consumerRepository
+      .doesEntityExistById(consumerId);
+
+    if (!doesConsumerExist) return RESOURCE_NOT_FOUND;
 
     const consumer: Consumer = await this.consumerRepository
       .selectEntity(consumerId);
-    const consumerObj = JSON.parse(consumerString);
+    const consumerObj = JSON.parse(consumerParams);
 
-    // update neccessary fields
     consumer.setFirstName(consumerObj.firstName);
     consumer.setLastName(consumerObj.lastName);
     consumer.setEmail(consumerObj.email);
@@ -59,19 +54,17 @@ class ConsumerController {
     consumer.setLocationId(consumerObj.locationId);
     consumer.setMobileNum(consumerObj.mobileNum);
     consumer.setOrderZone(consumerObj.orderZone);
-    this.consumerRepository.updateEntity(consumer.getId(), consumer);
+    this.consumerRepository.updateEntity(consumer);
 
     return this.consumerSerializer.serializeForClient(consumer);
   }
 
-  // ok (secure)
+  // ok
   async getConsumer(consumerId: string): Promise<string> {
     const doesConsumerExist: boolean = await this.consumerRepository
       .doesEntityExistById(consumerId);
 
-    if (!doesConsumerExist) {
-      return RESOURCE_NOT_FOUND;
-    }
+    if (!doesConsumerExist) return RESOURCE_NOT_FOUND;
 
     const consumer: Consumer = await this.consumerRepository
       .selectEntity(consumerId);
@@ -79,17 +72,22 @@ class ConsumerController {
     return this.consumerSerializer.serializeForClient(consumer);
   }
 
-  // ok (secure)
+  // ok
   async deleteConsumer(consumerId: string): Promise<string> {
     const doesConsumerExist: boolean = await this.consumerRepository
       .doesEntityExistById(consumerId);
 
-    if (!doesConsumerExist) {
-      return RESOURCE_NOT_FOUND;
-    }
+    if (!doesConsumerExist) return RESOURCE_NOT_FOUND;
 
     await this.consumerRepository.deleteEntity(consumerId);
     return "user deleted";
+  }
+
+  // ok
+  async doesConsumerExist(consumerId: string): Promise<boolean> {
+    const doesConsumerExist: boolean = await this.consumerRepository
+      .doesEntityExistById(consumerId);
+    return doesConsumerExist;
   }
 
 }
