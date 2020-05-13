@@ -85,7 +85,7 @@ let mongoStore: MongoStore<object>;
 
 async function insertUsers(entityCount: number, entityId: string, email: any) {
   for (let i = 0; i < entityCount; ++i) {
-    await mongoStore.insertNewEntity({
+    await mongoStore.insert({
       id: entityId,
       name: 'jack',
       age: 34,
@@ -104,18 +104,18 @@ describe('MongoStore Tests', () => {
   });
 
   afterEach(async () => {
-    await mongoStore.clearEntities();
+    await mongoStore.clear();
   });
 
   after(async () => {
-    await mongoStore.dropEntityCollection();
+    await mongoStore.dropCollection();
     mongoStore.closeConnection();
   });
 
-  describe('insertNewEntity() & selectEntity() tests', () => {
+  describe('insert() & select() tests', () => {
     it('should insert a generic entity object with few fields', async () => {
       // function under test
-      await mongoStore.insertNewEntity({
+      await mongoStore.insert({
         id: 'test_entity_id_1',
         name: 'robert',
         age: 34,
@@ -123,7 +123,7 @@ describe('MongoStore Tests', () => {
       });
       // function under test
       const selectedEntityString = await mongoStore
-        .selectEntity('test_entity_id_1');
+        .select('test_entity_id_1');
       assert.deepEqual(
         JSON.parse(selectedEntityString),
         TEST_ENTITY_1
@@ -132,7 +132,7 @@ describe('MongoStore Tests', () => {
 
     it('should insert a generic entity object with many fields', async () => {
       // function under test
-      await mongoStore.insertNewEntity({
+      await mongoStore.insert({
         id: 'test_entity_id_2',
         firstName: 'a first name',
         lastName: 'a last name',
@@ -149,7 +149,7 @@ describe('MongoStore Tests', () => {
       });
       // function under test
       const selectedEntityString = await mongoStore
-        .selectEntity('test_entity_id_2');
+        .select('test_entity_id_2');
       assert.deepEqual(
         JSON.parse(selectedEntityString),
         TEST_ENTITY_2
@@ -158,7 +158,7 @@ describe('MongoStore Tests', () => {
 
     it('should insert a generic entity object with empty string fields', async () => {
       // function under test
-      await mongoStore.insertNewEntity({
+      await mongoStore.insert({
         id: '',
         email: '',
         locationId: '',
@@ -166,7 +166,7 @@ describe('MongoStore Tests', () => {
       });
       // function under test
       const selectedEntityString = await mongoStore
-        .selectEntity('');
+        .select('');
       assert.deepEqual(
         JSON.parse(selectedEntityString),
         TEST_ENTITY_EMPTY_STRING_FIELDS
@@ -175,14 +175,14 @@ describe('MongoStore Tests', () => {
 
     it('should insert a generic entity object with null fields', async () => {
       // function under test
-      await mongoStore.insertNewEntity({
+      await mongoStore.insert({
         id: 'test_entity_null_fields_id',
         email: null,
         locationId: null
       });
       // function under test
       const selectedEntityString = await mongoStore
-        .selectEntity('test_entity_null_fields_id');
+        .select('test_entity_null_fields_id');
       assert.deepEqual(
         JSON.parse(selectedEntityString),
         TEST_ENTITY_NULL_FIELDS
@@ -191,14 +191,14 @@ describe('MongoStore Tests', () => {
 
     it('should insert a generic entity object with undefined fields', async () => {
       // function under test
-      await mongoStore.insertNewEntity({
+      await mongoStore.insert({
         id: 'test_entity_undefined_fields_id',
         email: undefined,
         locationId: undefined
       });
       // function under test
       const selectedEntityString = await mongoStore
-        .selectEntity('test_entity_undefined_fields_id');
+        .select('test_entity_undefined_fields_id');
       // undefined fields are converted to null in mongodb
       assert.deepEqual(
         JSON.parse(selectedEntityString),
@@ -207,23 +207,23 @@ describe('MongoStore Tests', () => {
     });
   });
 
-  describe('updateEntity() tests', () => {
+  describe('update() tests', () => {
     it('should update an existing entity in collection with same id', async () => {
       // test setup
-      await mongoStore.insertNewEntity({
+      await mongoStore.insert({
         id: 'test_entity_id_1',
         name: 'robert',
         age: 34,
         timeCreated: '2020-12-14'
       });
       let selectedEntityString = await mongoStore
-        .selectEntity('test_entity_id_1');
+        .select('test_entity_id_1');
       assert.deepEqual(
         JSON.parse(selectedEntityString),
         TEST_ENTITY_1
       );
       // function under test
-      await mongoStore.updateEntity('test_entity_id_1', {
+      await mongoStore.update('test_entity_id_1', {
         id: 'test_entity_id_1',
         firstName: 'a first name entity',
         lastName: 'a last name entity',
@@ -240,7 +240,7 @@ describe('MongoStore Tests', () => {
       });
 
       selectedEntityString = await mongoStore
-        .selectEntity('test_entity_id_1');
+        .select('test_entity_id_1');
       assert.deepEqual(
         JSON.parse(selectedEntityString),
         TEST_ENTITY_1_UPDATED
@@ -249,7 +249,7 @@ describe('MongoStore Tests', () => {
 
     it('should update an existing entity in collection, giving a new id', async () => {
       // test setup
-      await mongoStore.insertNewEntity({
+      await mongoStore.insert({
         id: 'test_entity_id_1',
         firstName: 'a first name entity',
         lastName: 'a last name entity',
@@ -265,13 +265,13 @@ describe('MongoStore Tests', () => {
         deletionStatus: false
       });
       let selectedEntityString = await mongoStore
-        .selectEntity('test_entity_id_1');
+        .select('test_entity_id_1');
       assert.deepEqual(
         JSON.parse(selectedEntityString),
         TEST_ENTITY_1_UPDATED
       );
       // function under test
-      await mongoStore.updateEntity('test_entity_id_1', {
+      await mongoStore.update('test_entity_id_1', {
         id: 'test_entity_id_2',
         firstName: 'a first name entity',
         lastName: 'a last name entity',
@@ -280,10 +280,10 @@ describe('MongoStore Tests', () => {
       });
 
       const doesEntityExist: boolean = await mongoStore
-        .doesEntityExistByField({ 'id': 'test_entity_id_1' });
+        .existByField({ 'id': 'test_entity_id_1' });
       assert.equal(doesEntityExist, false);
       selectedEntityString = await mongoStore
-        .selectEntity('test_entity_id_2');
+        .select('test_entity_id_2');
       assert.deepEqual(
         JSON.parse(selectedEntityString),
         TEST_ENTITY_2_UPDATED_ID
@@ -292,7 +292,7 @@ describe('MongoStore Tests', () => {
 
     it('should update an existing entity in collection, with less fields', async () => {
       // test setup
-      await mongoStore.insertNewEntity({
+      await mongoStore.insert({
         id: 'test_entity_id_2',
         firstName: 'a first name',
         lastName: 'a last name',
@@ -308,21 +308,21 @@ describe('MongoStore Tests', () => {
         deletionStatus: false
       });
       let selectedEntityString = await mongoStore
-        .selectEntity('test_entity_id_2');
+        .select('test_entity_id_2');
       assert.deepEqual(
         JSON.parse(selectedEntityString),
         TEST_ENTITY_2
       );
       // function under test
-      await mongoStore.updateEntity('test_entity_id_2', {
+      await mongoStore.update('test_entity_id_2', {
         id: 'test_entity_id_2'
       });
 
       const doesEntityExist: boolean = await mongoStore
-        .doesEntityExistByField({ 'id': 'test_entity_id_1' });
+        .existByField({ 'id': 'test_entity_id_1' });
       assert.equal(doesEntityExist, false);
       selectedEntityString = await mongoStore
-        .selectEntity('test_entity_id_2');
+        .select('test_entity_id_2');
       assert.deepEqual(
         JSON.parse(selectedEntityString),
         TEST_ENTITY_2_SMALL_FIELDS
@@ -330,10 +330,10 @@ describe('MongoStore Tests', () => {
     });
   });
 
-  describe('deleteEntity() tests', () => {
+  describe('delete() tests', () => {
     it('should delete an entity with many fields', async () => {
       // function under test
-      await mongoStore.insertNewEntity({
+      await mongoStore.insert({
         id: 'test_entity_id_1',
         name: 'robert',
         age: 34,
@@ -341,15 +341,15 @@ describe('MongoStore Tests', () => {
       });
       // function under test
       const selectedEntityString = await mongoStore
-        .deleteEntity('test_entity_id_1');
+        .delete('test_entity_id_1');
       const doesEntityExist = await mongoStore
-        .doesEntityExistByField({ 'id': 'test_entity_id_1' });
+        .existByField({ 'id': 'test_entity_id_1' });
       assert.equal(doesEntityExist, false);
     });
 
     it('should delete an entity with many fields', async () => {
       // function under test
-      await mongoStore.insertNewEntity({
+      await mongoStore.insert({
         id: 'test_entity_id_2',
         firstName: 'a first name',
         lastName: 'a last name',
@@ -366,15 +366,15 @@ describe('MongoStore Tests', () => {
       });
       // function under test
       const selectedEntityString = await mongoStore
-        .deleteEntity('test_entity_id_2');
+        .delete('test_entity_id_2');
       const doesEntityExist = await mongoStore
-        .doesEntityExistByField({ 'id': 'test_entity_id_2' });
+        .existByField({ 'id': 'test_entity_id_2' });
       assert.equal(doesEntityExist, false);
     });
 
     it('should delete an entity with empty string fields', async () => {
       // function under test
-      await mongoStore.insertNewEntity({
+      await mongoStore.insert({
         id: '',
         email: '',
         locationId: '',
@@ -382,128 +382,128 @@ describe('MongoStore Tests', () => {
       });
       // function under test
       const selectedEntityString = await mongoStore
-        .deleteEntity('');
+        .delete('');
       const doesEntityExist = await mongoStore
-        .doesEntityExistByField({ 'id': '' });
+        .existByField({ 'id': '' });
       assert.equal(doesEntityExist, false);
     });
   });
 
-  describe('doesEntityExistByField() tests', () => {
+  describe('existByField() tests', () => {
     it('should assert that entity exists collection', async () => {
       let doesEntityExist: boolean = await mongoStore
-        .doesEntityExistByField({ 'id': 'test_entity_id_100' });
+        .existByField({ 'id': 'test_entity_id_100' });
       assert.equal(doesEntityExist, false);
       await insertUsers(1, 'test_entity_id_100', 'email@email.com');
       doesEntityExist = await mongoStore
-        .doesEntityExistByField({ 'id': 'test_entity_id_100' });
+        .existByField({ 'id': 'test_entity_id_100' });
       assert.equal(doesEntityExist, true);
     });
 
     it('should assert that entity exists collection', async () => {
       let doesEntityExist: boolean = await mongoStore
-        .doesEntityExistByField({ 'id': 'test_entity_id_99' });
+        .existByField({ 'id': 'test_entity_id_99' });
       assert.equal(doesEntityExist, false);
       await insertUsers(1, 'test_entity_id_99', 'email@email.com');
       doesEntityExist = await mongoStore
-        .doesEntityExistByField({ 'id': 'test_entity_id_99' });
+        .existByField({ 'id': 'test_entity_id_99' });
       assert.equal(doesEntityExist, true);
     });
 
     it('should assert that entity does not exist collection', async () => {
       let doesEntityExist: boolean = await mongoStore
-        .doesEntityExistByField({ 'id': 'test_entity_id_1000' });
+        .existByField({ 'id': 'test_entity_id_1000' });
       assert.equal(doesEntityExist, false);
       await insertUsers(1, 'test_entity_id_1000', 'email@email.com');
       doesEntityExist = await mongoStore
-        .doesEntityExistByField({ 'id': 'test_entity_id_1001' });
+        .existByField({ 'id': 'test_entity_id_1001' });
       assert.equal(doesEntityExist, false);
     });
 
     it('should assert that entity exists collection', async () => {
       let doesEntityExist = await mongoStore
-        .doesEntityExistByField({ 'email': 'email@aol.com' });
+        .existByField({ 'email': 'email@aol.com' });
       assert.equal(doesEntityExist, false);
       await insertUsers(1, 'test_entity_id_109', 'email@aol.com');
       doesEntityExist = await mongoStore
-        .doesEntityExistByField({ 'email': 'email@aol.com' });
+        .existByField({ 'email': 'email@aol.com' });
       assert.equal(doesEntityExist, true);
     });
 
     it('should assert that entity exists collection', async () => {
       let doesEntityExist = await mongoStore
-        .doesEntityExistByField({ 'email': 'anotheremail123@gmail.com' });
+        .existByField({ 'email': 'anotheremail123@gmail.com' });
       assert.equal(doesEntityExist, false);
       await insertUsers(1, 'test_entity_id_109', 'anotheremail123@gmail.com');
       doesEntityExist = await mongoStore
-        .doesEntityExistByField({ 'email': 'anotheremail122@gmail.com' });
+        .existByField({ 'email': 'anotheremail122@gmail.com' });
       assert.equal(doesEntityExist, false);
       doesEntityExist = await mongoStore
-        .doesEntityExistByField({ 'email': ' anotheremail123@gmail.com' });
+        .existByField({ 'email': ' anotheremail123@gmail.com' });
       assert.equal(doesEntityExist, false);
       doesEntityExist = await mongoStore
-        .doesEntityExistByField({ 'email': 'anotheremail123@gmail.com' });
+        .existByField({ 'email': 'anotheremail123@gmail.com' });
       assert.equal(doesEntityExist, true);
     });
 
     it('should assert that entity exists collection', async () => {
       let doesEntityExist: boolean = await mongoStore
-        .doesEntityExistByField({ 'email': ' ' });
+        .existByField({ 'email': ' ' });
       assert.equal(doesEntityExist, false);
       await insertUsers(1, 'test_entity_id_99', ' ');
       doesEntityExist = await mongoStore
-        .doesEntityExistByField({ 'email': '' });
+        .existByField({ 'email': '' });
       assert.equal(doesEntityExist, false);
       doesEntityExist = await mongoStore
-        .doesEntityExistByField({ 'email': '  ' });
+        .existByField({ 'email': '  ' });
       assert.equal(doesEntityExist, false);
       doesEntityExist = await mongoStore
-        .doesEntityExistByField({ 'email': ' ' });
+        .existByField({ 'email': ' ' });
       assert.equal(doesEntityExist, true);
     });
 
     it('should assert that entity does not exist collection', async () => {
       await insertUsers(3, 'test_entity_id_100', 'test_entity_email_100@yahoo.com');
       let doesEntityExist = await mongoStore
-        .doesEntityExistByField({ 'email': 'test_entity_ email_100@yahoo.com' });
+        .existByField({ 'email': 'test_entity_ email_100@yahoo.com' });
       assert.equal(doesEntityExist, false);
       doesEntityExist = await mongoStore
-        .doesEntityExistByField({ 'email': 'test_entity_email_100@yahoo.com ' });
+        .existByField({ 'email': 'test_entity_email_100@yahoo.com ' });
       assert.equal(doesEntityExist, false);
     });
 
     it('should assert that entity does not exist collection', async () => {
       await insertUsers(1, 'entity_id', undefined);
       let doesEntityExist = await mongoStore
-        .doesEntityExistByField({ 'email': 'undefined' });
+        .existByField({ 'email': 'undefined' });
       assert.equal(doesEntityExist, false);
       doesEntityExist = await mongoStore
-        .doesEntityExistByField({ 'email': '' });
+        .existByField({ 'email': '' });
       assert.equal(doesEntityExist, false);
     });
   });
 
-  describe('getEntityCount() tests', () => {
+  describe('getCount() tests', () => {
     it('should get entity count of 0', async () => {
-      const entityCount: number = await mongoStore.getEntityCount();
+      const entityCount: number = await mongoStore.getCount();
       assert.equal(entityCount, 0);
     });
 
     it('should get entity count of 1', async () => {
       await insertUsers(1, 'entity_id', 'email@email.com');
-      const entityCount: number = await mongoStore.getEntityCount();
+      const entityCount: number = await mongoStore.getCount();
       assert.equal(entityCount, 1);
     });
 
     it('should get entity count of 3', async () => {
       await insertUsers(3, 'entity_id', 'email@email.com');
-      const entityCount: number = await mongoStore.getEntityCount();
+      const entityCount: number = await mongoStore.getCount();
       assert.equal(entityCount, 3);
     });
 
     it('should get entity count of 9', async () => {
       await insertUsers(9, 'entity_id', 'email@email.com');
-      const entityCount: number = await mongoStore.getEntityCount();
+      const entityCount: number = await mongoStore.getCount();
       assert.equal(entityCount, 9);
     });
   });

@@ -12,10 +12,26 @@ const PERMISSION_DENIED: string = JSON.stringify({
   }
 });
 
-const RESOURCE_ALREADY_EXISTS: string = JSON.stringify({
+const RESOURCE_WITH_ID_ALREADY_EXISTS: string = JSON.stringify({
   error: {
-    message: "Resource already exists",
+    message: "Resource with the same id already exists",
     details: "Try checking your resource id",
+    code: 409
+  }
+});
+
+const RESOURCE_WITH_EMAIL_ALREADY_EXISTS: string = JSON.stringify({
+  error: {
+    message: "Resource with the same email already exists",
+    details: "Try checking your resource email",
+    code: 409
+  }
+});
+
+const RESOURCE_WITH_MOBILE_NUM_ALREADY_EXISTS: string = JSON.stringify({
+  error: {
+    message: "Resource with the same mobile number already exists",
+    details: "Try checking your resource mobile number",
     code: 409
   }
 });
@@ -30,6 +46,8 @@ const RESOURCE_NOT_FOUND: string = JSON.stringify({
 
 export {
   PERMISSION_DENIED,
-  RESOURCE_ALREADY_EXISTS,
+  RESOURCE_WITH_ID_ALREADY_EXISTS,
+  RESOURCE_WITH_EMAIL_ALREADY_EXISTS,
+  RESOURCE_WITH_MOBILE_NUM_ALREADY_EXISTS,
   RESOURCE_NOT_FOUND
 };

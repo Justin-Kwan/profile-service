@@ -1,10 +1,10 @@
-import { Repository } from './Repository';
+import { EntityRepository } from './EntityRepository';
 import { MongoStore } from '../database/MongoStore';
 import { RedisStore } from '../cache/RedisStore';
 import { Courier } from '../../domain/entities/users/Courier';
 import { CourierSerializer } from '../../domain/services/entity-serializers/CourierSerializer';
 
-class CourierRepository extends Repository<Courier> {
+class CourierRepository extends EntityRepository<Courier> {
 
   constructor() {
     const USER_DATABASE: string = 'User_Profiles';
@@ -19,10 +19,16 @@ class CourierRepository extends Repository<Courier> {
     );
   }
 
-  async doesCourierExistByEmail(email: string): Promise<boolean> {
+  async existByEmail(email: string): Promise<boolean> {
     const doesCourierExist = await this.databaseStore
-      .doesEntityExistByField({ 'email': email });
+      .existByField({ 'email': email });
     return doesCourierExist;
+  }
+
+  async existByMobileNum(mobileNum: string): Promise<boolean> {
+    const doesEntityExist = await this.databaseStore
+      .existByField({ 'mobileNum': mobileNum });
+    return doesEntityExist;
   }
 
 }

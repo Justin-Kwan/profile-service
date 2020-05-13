@@ -5,7 +5,9 @@ import { ConsumerController } from '../../../../src/domain/services/controllers/
 import { ConsumerRepository } from '../../../../src/storage/repository/ConsumerRepository';
 import {
   PERMISSION_DENIED,
-  RESOURCE_ALREADY_EXISTS,
+  RESOURCE_WITH_ID_ALREADY_EXISTS,
+  RESOURCE_WITH_EMAIL_ALREADY_EXISTS,
+  RESOURCE_WITH_MOBILE_NUM_ALREADY_EXISTS,
   RESOURCE_NOT_FOUND
 } from '../../../../src/domain/services/controllers/ResponseErrors';
 
@@ -59,11 +61,11 @@ describe('ConsumerController Tests', async () => {
   });
 
   afterEach(async () => {
-    await consumerRepository.clearEntities();
+    await consumerRepository.clear();
   });
 
   after(async () => {
-    await consumerRepository.dropEntityCollection();
+    await consumerRepository.dropCollection();
   });
 
   describe('createConsumer() tests', async () => {
@@ -108,7 +110,7 @@ describe('ConsumerController Tests', async () => {
         .createConsumer('test_id_2', TEST_CONSUMER_PARAMS_2);
       assert.deepEqual(
         JSON.parse(controllerResponse),
-        JSON.parse(RESOURCE_ALREADY_EXISTS)
+        JSON.parse(RESOURCE_WITH_ID_ALREADY_EXISTS)
       );
     });
   });

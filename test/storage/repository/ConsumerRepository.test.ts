@@ -44,19 +44,19 @@ describe('ConsumerRepository tests', () => {
   });
 
   afterEach(async () => {
-    await consumerRepository.clearEntities();
+    await consumerRepository.clear();
   });
 
   after(async () => {
-    await consumerRepository.dropEntityCollection();
+    await consumerRepository.dropCollection();
   });
 
-  describe('selectEntity() tests', () => {
+  describe('select() tests', () => {
     it('should select correct consumer', async () => {
       const expectedConsumer = consumerSerializer.deserialize(TEST_CONSUMER_PARAMS_1);
       const consumer = consumerSerializer.deserialize(TEST_CONSUMER_PARAMS_1);
-      await consumerRepository.insertNewEntity(consumer);
-      const selectedConsumer = await consumerRepository.selectEntity('test_id_1');
+      await consumerRepository.insert(consumer);
+      const selectedConsumer = await consumerRepository.select('test_id_1');
       // assert type and field equality of objects
       assert(_.isEqual(expectedConsumer, selectedConsumer));
     });
@@ -64,15 +64,15 @@ describe('ConsumerRepository tests', () => {
     it('should select correct consumer', async () => {
       const expectedConsumer = consumerSerializer.deserialize(TEST_CONSUMER_PARAMS_2);
       const consumer = consumerSerializer.deserialize(TEST_CONSUMER_PARAMS_2);
-      await consumerRepository.insertNewEntity(consumer);
-      const selectedConsumer = await consumerRepository.selectEntity('test_id_2');
+      await consumerRepository.insert(consumer);
+      const selectedConsumer = await consumerRepository.select('test_id_2');
       // assert type and field equality of objects
       assert(_.isEqual(expectedConsumer, selectedConsumer));
     });
 
     it('should throw error since no consumer to select (invalid id)', async () => {
       const selectedConsumer = async () => {
-        await consumerRepository.selectEntity('non_existent_id');
+        await consumerRepository.select('non_existent_id');
       }
       // assert promise rejection is thrown
       assert.rejects(selectedConsumer, Error);
@@ -81,9 +81,9 @@ describe('ConsumerRepository tests', () => {
     it('should throw error since no consumer to select (invalid id)', async () => {
       const expectedConsumer = consumerSerializer.deserialize(TEST_CONSUMER_PARAMS_1);
       const consumer = consumerSerializer.deserialize(TEST_CONSUMER_PARAMS_1);
-      await consumerRepository.insertNewEntity(consumer);
+      await consumerRepository.insert(consumer);
       const selectedConsumer = async () => {
-        await consumerRepository.selectEntity('test_id_2');
+        await consumerRepository.select('test_id_2');
       }
       // assert promise rejection is thrown
       assert.rejects(selectedConsumer, Error);
@@ -92,9 +92,9 @@ describe('ConsumerRepository tests', () => {
     it('should throw error since no consumer to select (invalid id)', async () => {
       const expectedConsumer = consumerSerializer.deserialize(TEST_CONSUMER_PARAMS_2);
       const consumer = consumerSerializer.deserialize(TEST_CONSUMER_PARAMS_2);
-      await consumerRepository.insertNewEntity(consumer);
+      await consumerRepository.insert(consumer);
       const selectedConsumer = async () => {
-        await consumerRepository.selectEntity('test_id_1');
+        await consumerRepository.select('test_id_1');
       }
       // assert promise rejection is thrown
       assert.rejects(selectedConsumer, Error);
@@ -103,9 +103,9 @@ describe('ConsumerRepository tests', () => {
     it('should throw error since no consumer to select (invalid id)', async () => {
       const expectedConsumer = consumerSerializer.deserialize(TEST_CONSUMER_PARAMS_1);
       const consumer = consumerSerializer.deserialize(TEST_CONSUMER_PARAMS_1, );
-      await consumerRepository.insertNewEntity(consumer);
+      await consumerRepository.insert(consumer);
       const selectedConsumer = async () => {
-        await consumerRepository.selectEntity(' test_id_1');
+        await consumerRepository.select(' test_id_1');
       }
       // assert promise rejection is thrown
       assert.rejects(selectedConsumer, Error);
@@ -114,9 +114,9 @@ describe('ConsumerRepository tests', () => {
     it('should throw error since no consumer to select (invalid id)', async () => {
       const expectedConsumer = consumerSerializer.deserialize(TEST_CONSUMER_PARAMS_1);
       const consumer = consumerSerializer.deserialize(TEST_CONSUMER_PARAMS_1);
-      await consumerRepository.insertNewEntity(consumer);
+      await consumerRepository.insert(consumer);
       const selectedConsumer = async () => {
-        await consumerRepository.selectEntity('test_id_1 ');
+        await consumerRepository.select('test_id_1 ');
       }
       // assert promise rejection is thrown
       assert.rejects(selectedConsumer, Error);
@@ -126,59 +126,59 @@ describe('ConsumerRepository tests', () => {
       const expectedConsumer = consumerSerializer
         .deserialize(TEST_CONSUMER_PARAMS_1);
       const consumer = consumerSerializer.deserialize(TEST_CONSUMER_PARAMS_1);
-      await consumerRepository.insertNewEntity(consumer);
+      await consumerRepository.insert(consumer);
       const selectedConsumer = async () => {
-        await consumerRepository.selectEntity('test_ id_1');
+        await consumerRepository.select('test_ id_1');
       }
       // assert promise rejection is thrown
       assert.rejects(selectedConsumer, Error);
     });
   });
 
-  describe('doesConsumerExistByEmail() tests', () => {
+  describe('existByEmail() tests', () => {
     it('should assert that consumer exists collection', async () => {
       const consumer = consumerSerializer.deserialize(TEST_CONSUMER_PARAMS_1);
-      await consumerRepository.insertNewEntity(consumer);
+      await consumerRepository.insert(consumer);
       const doesConsumerExist = await consumerRepository
-        .doesConsumerExistByEmail('test_email_1');
+        .existByEmail('test_email_1');
       assert.equal(doesConsumerExist, true);
     });
 
     it('should assert that consumer exists collection', async () => {
       const consumer = consumerSerializer.deserialize(TEST_CONSUMER_PARAMS_2);
-      await consumerRepository.insertNewEntity(consumer);
+      await consumerRepository.insert(consumer);
       const doesConsumerExist = await consumerRepository
-        .doesConsumerExistByEmail('test_email_2');
+        .existByEmail('test_email_2');
       assert.equal(doesConsumerExist, true);
     });
 
     it('should assert that consumer does not exist collection', async () => {
       let doesUserExist: boolean = await consumerRepository
-        .doesConsumerExistByEmail('non_existent_user_email');
+        .existByEmail('non_existent_user_email');
       assert.equal(doesUserExist, false);
     });
 
     it('should assert that consumer does not exist collection', async () => {
       const consumer = consumerSerializer.deserialize(TEST_CONSUMER_PARAMS_1);
-      await consumerRepository.insertNewEntity(consumer);
+      await consumerRepository.insert(consumer);
       let doesUserExist: boolean = await consumerRepository
-        .doesConsumerExistByEmail(' test_email_1');
+        .existByEmail(' test_email_1');
       assert.equal(doesUserExist, false);
     });
 
     it('should assert that consumer does not exist collection', async () => {
       const consumer = consumerSerializer.deserialize(TEST_CONSUMER_PARAMS_1);
-      await consumerRepository.insertNewEntity(consumer);
+      await consumerRepository.insert(consumer);
       let doesUserExist: boolean = await consumerRepository
-        .doesConsumerExistByEmail('test_email_1 ');
+        .existByEmail('test_email_1 ');
       assert.equal(doesUserExist, false);
     });
 
     it('should assert that consumer does not exist collection', async () => {
       const consumer = consumerSerializer.deserialize(TEST_CONSUMER_PARAMS_1);
-      await consumerRepository.insertNewEntity(consumer);
+      await consumerRepository.insert(consumer);
       let doesUserExist: boolean = await consumerRepository
-        .doesConsumerExistByEmail('test_ email_1');
+        .existByEmail('test_ email_1');
       assert.equal(doesUserExist, false);
     });
   });

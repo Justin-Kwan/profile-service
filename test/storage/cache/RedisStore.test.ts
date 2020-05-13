@@ -78,19 +78,19 @@ describe('RedisStore Tests', () => {
   });
 
   afterEach(async () => {
-    await redisStore.clearEntities();
+    await redisStore.clear();
   });
 
   after(async () => {
     redisStore.closeConnection();
   });
 
-  describe('insertNewEntity() tests', () => {
+  describe('insert() tests', () => {
     it('should insert a generic entity object with few fields', async () => {
       // function under test
-      await redisStore.insertNewEntity(TEST_ENTITY_1.id, TEST_ENTITY_1);
+      await redisStore.insert(TEST_ENTITY_1.id, TEST_ENTITY_1);
       // function under test
-      const selectedEntityString = await redisStore.selectEntity(TEST_ENTITY_1.id);
+      const selectedEntityString = await redisStore.select(TEST_ENTITY_1.id);
       assert.deepEqual(
         JSON.parse(selectedEntityString),
         TEST_ENTITY_1
@@ -99,9 +99,9 @@ describe('RedisStore Tests', () => {
 
     it('should insert a generic entity object with many fields', async () => {
       // function under test
-      await redisStore.insertNewEntity(TEST_ENTITY_2.id, TEST_ENTITY_2);
+      await redisStore.insert(TEST_ENTITY_2.id, TEST_ENTITY_2);
       // function under test
-      const selectedEntityString = await redisStore.selectEntity(TEST_ENTITY_2.id);
+      const selectedEntityString = await redisStore.select(TEST_ENTITY_2.id);
       assert.deepEqual(
         JSON.parse(selectedEntityString),
         TEST_ENTITY_2
@@ -110,12 +110,12 @@ describe('RedisStore Tests', () => {
 
     it('should insert a generic entity object with empty string fields', async () => {
       // function under test
-      await redisStore.insertNewEntity(
+      await redisStore.insert(
         TEST_ENTITY_EMPTY_STRING_FIELDS.id,
         TEST_ENTITY_EMPTY_STRING_FIELDS
       );
       // function under test
-      const selectedEntityString = await redisStore.selectEntity(TEST_ENTITY_2.id);
+      const selectedEntityString = await redisStore.select(TEST_ENTITY_2.id);
       // redis does not store anything with all empty fields
       assert.deepEqual(
         selectedEntityString,
@@ -125,12 +125,12 @@ describe('RedisStore Tests', () => {
 
     it('should insert a generic entity object with null fields', async () => {
       // function under test
-      await redisStore.insertNewEntity(
+      await redisStore.insert(
         TEST_ENTITY_NULL_FIELDS.id,
         TEST_ENTITY_NULL_FIELDS
       );
       // function under test
-      const selectedEntityString = await redisStore.selectEntity(TEST_ENTITY_NULL_FIELDS.id);
+      const selectedEntityString = await redisStore.select(TEST_ENTITY_NULL_FIELDS.id);
       // redis maintains null fields
       assert.deepEqual(
         JSON.parse(selectedEntityString),
@@ -140,12 +140,12 @@ describe('RedisStore Tests', () => {
 
     it('should insert a generic entity object with undefined fields', async () => {
       // function under test
-      await redisStore.insertNewEntity(
+      await redisStore.insert(
         TEST_ENTITY_UNDEFINED_FIELDS.id,
         TEST_ENTITY_UNDEFINED_FIELDS
       );
       // function under test
-      const selectedEntityString = await redisStore.selectEntity(TEST_ENTITY_UNDEFINED_FIELDS.id);
+      const selectedEntityString = await redisStore.select(TEST_ENTITY_UNDEFINED_FIELDS.id);
       // redis truncates undefined fields
       assert.deepEqual(
         JSON.parse(selectedEntityString),
@@ -154,15 +154,15 @@ describe('RedisStore Tests', () => {
     });
   });
 
-  describe('updateEntity() tests', () => {
+  describe('update() tests', () => {
     it('should update an existing entity in collection with same id', async () => {
-      await redisStore.insertNewEntity(
+      await redisStore.insert(
         TEST_ENTITY_1.id,
         TEST_ENTITY_1
       );
       // function under test
-      await redisStore.updateEntity(TEST_ENTITY_1.id, TEST_ENTITY_1_UPDATED);
-      const selectedEntityString = await redisStore.selectEntity(TEST_ENTITY_1.id);
+      await redisStore.update(TEST_ENTITY_1.id, TEST_ENTITY_1_UPDATED);
+      const selectedEntityString = await redisStore.select(TEST_ENTITY_1.id);
       assert.deepEqual(
         JSON.parse(selectedEntityString),
         TEST_ENTITY_1_UPDATED
@@ -170,13 +170,13 @@ describe('RedisStore Tests', () => {
     });
 
     it('should update an existing entity in collection, giving a new id, but keeping same key', async () => {
-      await redisStore.insertNewEntity(
+      await redisStore.insert(
         TEST_ENTITY_1.id,
         TEST_ENTITY_1
       );
       // function under test
-      await redisStore.updateEntity(TEST_ENTITY_1.id, TEST_ENTITY_2);
-      const selectedEntityString = await redisStore.selectEntity(TEST_ENTITY_1.id);
+      await redisStore.update(TEST_ENTITY_1.id, TEST_ENTITY_2);
+      const selectedEntityString = await redisStore.select(TEST_ENTITY_1.id);
       assert.deepEqual(
         JSON.parse(selectedEntityString),
         TEST_ENTITY_2
@@ -184,16 +184,16 @@ describe('RedisStore Tests', () => {
     });
 
     it('should update an existing entity in collection, with less fields', async () => {
-      await redisStore.insertNewEntity(
+      await redisStore.insert(
         TEST_ENTITY_2.id,
         TEST_ENTITY_2
       );
       // function under test
-      await redisStore.updateEntity(
+      await redisStore.update(
         TEST_ENTITY_2.id,
         TEST_ENTITY_2_SMALL_FIELDS
       );
-      const selectedEntityString = await redisStore.selectEntity(TEST_ENTITY_2.id);
+      const selectedEntityString = await redisStore.select(TEST_ENTITY_2.id);
       assert.deepEqual(
         JSON.parse(selectedEntityString),
         TEST_ENTITY_2_SMALL_FIELDS
@@ -201,135 +201,135 @@ describe('RedisStore Tests', () => {
     });
   });
 
-  describe('doesEntityExistById() tests', () => {
+  describe('existById() tests', () => {
     it('should assert that entity does not exist', async () => {
-      const doesEntityExist = await redisStore.doesEntityExistById(TEST_ENTITY_1.id);
+      const doesEntityExist = await redisStore.existById(TEST_ENTITY_1.id);
       assert.equal(doesEntityExist, false);
     });
 
     it('should assert that entity does not exist', async () => {
-      const doesEntityExist = await redisStore.doesEntityExistById(TEST_ENTITY_2.id);
-      assert.equal(doesEntityExist, false);
-    });
-
-    it('should assert that entity does not exist', async () => {
-      // setup
-      // inserting wrong id key for entity
-      await redisStore.insertNewEntity(
-        TEST_ENTITY_1.id,
-        TEST_ENTITY_2
-      );
-      // function under test
-      const doesEntityExist = await redisStore.doesEntityExistById(TEST_ENTITY_2.id);
+      const doesEntityExist = await redisStore.existById(TEST_ENTITY_2.id);
       assert.equal(doesEntityExist, false);
     });
 
     it('should assert that entity does not exist', async () => {
       // setup
       // inserting wrong id key for entity
-      await redisStore.insertNewEntity(
+      await redisStore.insert(
+        TEST_ENTITY_1.id,
+        TEST_ENTITY_2
+      );
+      // function under test
+      const doesEntityExist = await redisStore.existById(TEST_ENTITY_2.id);
+      assert.equal(doesEntityExist, false);
+    });
+
+    it('should assert that entity does not exist', async () => {
+      // setup
+      // inserting wrong id key for entity
+      await redisStore.insert(
         TEST_ENTITY_2.id,
         TEST_ENTITY_1
       );
       // function under test
-      const doesEntityExist = await redisStore.doesEntityExistById(TEST_ENTITY_1.id);
+      const doesEntityExist = await redisStore.existById(TEST_ENTITY_1.id);
       assert.equal(doesEntityExist, false);
     });
 
     it('should assert that entity exists', async () => {
       // setup
-      await redisStore.insertNewEntity(
+      await redisStore.insert(
         TEST_ENTITY_1.id,
         TEST_ENTITY_1
       );
       // function under test
-      const doesEntityExist = await redisStore.doesEntityExistById(TEST_ENTITY_1.id);
+      const doesEntityExist = await redisStore.existById(TEST_ENTITY_1.id);
       assert.equal(doesEntityExist, true);
     });
 
     it('should assert that entity exists', async () => {
       // setup
-      await redisStore.insertNewEntity(
+      await redisStore.insert(
         TEST_ENTITY_2.id,
         TEST_ENTITY_2
       );
       // function under test
-      const doesEntityExist = await redisStore.doesEntityExistById(TEST_ENTITY_2.id);
+      const doesEntityExist = await redisStore.existById(TEST_ENTITY_2.id);
       assert.equal(doesEntityExist, true);
     });
 
     it('should assert that entity exists', async () => {
       // setup
-      await redisStore.insertNewEntity(
+      await redisStore.insert(
         TEST_ENTITY_1_UPDATED.id,
         TEST_ENTITY_1_UPDATED
       );
       // function under test
-      const doesEntityExist = await redisStore.doesEntityExistById(TEST_ENTITY_1_UPDATED.id);
+      const doesEntityExist = await redisStore.existById(TEST_ENTITY_1_UPDATED.id);
       assert.equal(doesEntityExist, true);
     });
 
     it('should assert that entity exists', async () => {
       // setup
-      await redisStore.insertNewEntity(
+      await redisStore.insert(
         TEST_ENTITY_NULL_FIELDS.id,
         TEST_ENTITY_NULL_FIELDS
       );
       // function under test
-      const doesEntityExist = await redisStore.doesEntityExistById(TEST_ENTITY_NULL_FIELDS.id);
+      const doesEntityExist = await redisStore.existById(TEST_ENTITY_NULL_FIELDS.id);
       assert.equal(doesEntityExist, true);
     });
   });
 
-  describe('deleteEntity() tests', () => {
+  describe('delete() tests', () => {
     it('should delete an entity', async () => {
       // setup
-      await redisStore.insertNewEntity(
+      await redisStore.insert(
         TEST_ENTITY_1.id,
         TEST_ENTITY_1
       );
-      let selectedEntityString = await redisStore.selectEntity(TEST_ENTITY_1.id);
+      let selectedEntityString = await redisStore.select(TEST_ENTITY_1.id);
       assert.deepEqual(
         JSON.parse(selectedEntityString),
         TEST_ENTITY_1
       );
       // function under test
-      await redisStore.deleteEntity(TEST_ENTITY_1.id);
-      selectedEntityString = await redisStore.selectEntity(TEST_ENTITY_1.id);
+      await redisStore.delete(TEST_ENTITY_1.id);
+      selectedEntityString = await redisStore.select(TEST_ENTITY_1.id);
       assert.equal(selectedEntityString, null);
     });
 
     it('should delete an entity', async () => {
       // setup
-      await redisStore.insertNewEntity(
+      await redisStore.insert(
         TEST_ENTITY_2.id,
         TEST_ENTITY_2
       );
-      let selectedEntityString = await redisStore.selectEntity(TEST_ENTITY_2.id);
+      let selectedEntityString = await redisStore.select(TEST_ENTITY_2.id);
       assert.deepEqual(
         JSON.parse(selectedEntityString),
         TEST_ENTITY_2
       );
       // function under test
-      await redisStore.deleteEntity(TEST_ENTITY_2.id);
-      selectedEntityString = await redisStore.selectEntity(TEST_ENTITY_2.id);
+      await redisStore.delete(TEST_ENTITY_2.id);
+      selectedEntityString = await redisStore.select(TEST_ENTITY_2.id);
       assert.equal(selectedEntityString, null);
     });
 
     it('should delete an entity', async () => {
       // setup
-      await redisStore.insertNewEntity(
+      await redisStore.insert(
         TEST_ENTITY_1_UPDATED.id,
         TEST_ENTITY_1_UPDATED
       );
-      let selectedEntityString = await redisStore.selectEntity(TEST_ENTITY_1_UPDATED.id);
+      let selectedEntityString = await redisStore.select(TEST_ENTITY_1_UPDATED.id);
       assert.deepEqual(
         JSON.parse(selectedEntityString),
         TEST_ENTITY_1_UPDATED
       );
       // function under test
-      await redisStore.deleteEntity(TEST_ENTITY_1_UPDATED.id);
-      selectedEntityString = await redisStore.selectEntity(TEST_ENTITY_1_UPDATED.id);
+      await redisStore.delete(TEST_ENTITY_1_UPDATED.id);
+      selectedEntityString = await redisStore.select(TEST_ENTITY_1_UPDATED.id);
       assert.equal(selectedEntityString, null);
     });
   });

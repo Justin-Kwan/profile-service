@@ -1,13 +1,13 @@
 import { MongoStore } from  '../../../src/storage/database/MongoStore';
 import { RedisStore } from  '../../../src/storage/cache/RedisStore';
-import { Repository } from '../../../src/storage/repository/Repository';
+import { EntityRepository } from '../../../src/storage/repository/EntityRepository';
 import { MockUser } from '../../domain/entities/users/MockUser';
 import { MockUserSerializer } from '../../domain/services/entity-serializers/MockUserSerializer';
 
 /**
  * mock repository class for testing abstract Repository class
  */
-class MockRepository extends Repository<MockUser> {
+class MockRepository extends EntityRepository<MockUser> {
 
   constructor() {
     const TEST_DATABASE: string = 'Test_Database';

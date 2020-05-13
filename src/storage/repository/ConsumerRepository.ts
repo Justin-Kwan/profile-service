@@ -1,10 +1,10 @@
-import { Repository } from './Repository';
+import { EntityRepository } from './EntityRepository';
 import { MongoStore } from '../database/MongoStore';
 import { RedisStore } from '../cache/RedisStore';
 import { Consumer } from '../../domain/entities/users/Consumer';
 import { ConsumerSerializer } from '../../domain/services/entity-serializers/ConsumerSerializer';
 
-class ConsumerRepository extends Repository<Consumer> {
+class ConsumerRepository extends EntityRepository<Consumer> {
 
   constructor() {
     const USER_DATABASE: string = 'User_Profiles';
@@ -19,10 +19,17 @@ class ConsumerRepository extends Repository<Consumer> {
     );
   }
 
-  async doesConsumerExistByEmail(email: string): Promise<boolean> {
-    const doesConsumerExist = await this.databaseStore
-      .doesEntityExistByField({ 'email': email });
-    return doesConsumerExist;
+  async existByEmail(email: string): Promise<boolean> {
+    const doesEntityExist = await this.databaseStore
+      .existByField({ 'email': email });
+    return doesEntityExist;
+  }
+
+  // todo: test!
+  async existByMobileNum(mobileNum: string): Promise<boolean> {
+    const doesEntityExist = await this.databaseStore
+      .existByField({ 'mobileNum': mobileNum });
+    return doesEntityExist;
   }
 
 }

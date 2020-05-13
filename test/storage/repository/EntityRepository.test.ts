@@ -112,7 +112,7 @@ async function insertMockUsers(entityCount: number): Promise<any> {
   for (let i = 0; i < entityCount; ++i) {
     let mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_1);
     asyncInsertOperations.push(
-      mockRepository.insertNewEntity(mockUser)
+      mockRepository.insert(mockUser)
     );
   }
   // wait for all repository insert promise operations to resolve
@@ -122,7 +122,7 @@ async function insertMockUsers(entityCount: number): Promise<any> {
 /**
  * unit testing abstract Repository class via mock repository object
  */
-describe('Repository tests', () => {
+describe('EntityRepository tests', () => {
 
   before(async () => {
     await mockRepository.initDatastoreObjects();
@@ -134,22 +134,22 @@ describe('Repository tests', () => {
   });
 
   afterEach(async () => {
-    await mockRepository.clearEntities();
+    await mockRepository.clear();
     // closing local datastore connections
     closeDbCacheConnection();
   });
 
   after(async () => {
-    await mockRepository.dropEntityCollection();
+    await mockRepository.dropCollection();
   });
 
-  describe('insertNewEntity() tests', () => {
+  describe('insert() tests', () => {
     it('should insert an entity', async () => {
       // setup
       const mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_1);
       // function under test
-      await mockRepository.insertNewEntity(mockUser);
-      const dbEntityString = await mongoStore.selectEntity('test_id_1');
+      await mockRepository.insert(mockUser);
+      const dbEntityString = await mongoStore.select('test_id_1');
       assert.deepEqual(
         {
           verificationStatus: true,
@@ -164,7 +164,7 @@ describe('Repository tests', () => {
         },
         JSON.parse(dbEntityString)
       );
-      const cacheEntityString = await redisStore.selectEntity('test_id_1');
+      const cacheEntityString = await redisStore.select('test_id_1');
       assert.deepEqual(
         {
           verificationStatus: true,
@@ -185,9 +185,9 @@ describe('Repository tests', () => {
       // setup
       const mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_2);
       // function under test
-      await mockRepository.insertNewEntity(mockUser);
+      await mockRepository.insert(mockUser);
       await mongoStore.createConnection();
-      const entityString = await mongoStore.selectEntity('test_id_2');
+      const entityString = await mongoStore.select('test_id_2');
       mongoStore.closeConnection();
       assert.deepEqual(
         {
@@ -205,16 +205,16 @@ describe('Repository tests', () => {
     });
   });
 
-  describe('updateEntity() tests', () => {
+  describe('update() tests', () => {
     it('should update all of entity\'s fields', async () => {
       // setup
       const mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_1);
-      await mockRepository.insertNewEntity(mockUser);
+      await mockRepository.insert(mockUser);
       const updatedMockUser = mockUserSerializer
         .deserialize(TEST_UPDATED_ENTITY_PARAMS_1);
       // function under test
-      await mockRepository.updateEntity(updatedMockUser);
-      const dbEntityString = await mongoStore.selectEntity('test_id_1');
+      await mockRepository.update(updatedMockUser);
+      const dbEntityString = await mongoStore.select('test_id_1');
       assert.deepEqual(
         {
           verificationStatus: false,
@@ -229,7 +229,7 @@ describe('Repository tests', () => {
         },
         JSON.parse(dbEntityString)
       );
-      const cacheEntityString = await redisStore.selectEntity('test_id_1');
+      const cacheEntityString = await redisStore.select('test_id_1');
       assert.deepEqual(
         {
           verificationStatus: false,
@@ -249,12 +249,12 @@ describe('Repository tests', () => {
     it('should update all of entity\'s fields', async () => {
       // setup
       const mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_2);
-      await mockRepository.insertNewEntity(mockUser);
+      await mockRepository.insert(mockUser);
       const updatedMockUser = mockUserSerializer
         .deserialize(TEST_UPDATED_ENTITY_PARAMS_2);
       // function under test
-      mockRepository.updateEntity(updatedMockUser);
-      const dbEntityString = await mongoStore.selectEntity('test_id_2');
+      mockRepository.update(updatedMockUser);
+      const dbEntityString = await mongoStore.select('test_id_2');
       assert.deepEqual(
         {
           verificationStatus: false,
@@ -269,7 +269,7 @@ describe('Repository tests', () => {
         },
         JSON.parse(dbEntityString)
       );
-      const cacheEntityString = await redisStore.selectEntity('test_id_2');
+      const cacheEntityString = await redisStore.select('test_id_2');
       assert.deepEqual(
         {
           verificationStatus: false,
@@ -289,12 +289,12 @@ describe('Repository tests', () => {
     it('should update entity\'s first name field', async () => {
       // setup
       const mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_2);
-      await mockRepository.insertNewEntity(mockUser);
+      await mockRepository.insert(mockUser);
       const updatedMockUser = mockUserSerializer
         .deserialize(TEST_FIRST_NAME_UPDATED_ENTITY_PARAMS_2);
       // function under test
-      mockRepository.updateEntity(updatedMockUser);
-      const dbEntityString = await mongoStore.selectEntity('test_id_2');
+      mockRepository.update(updatedMockUser);
+      const dbEntityString = await mongoStore.select('test_id_2');
       assert.deepEqual(
         {
           verificationStatus: true,
@@ -309,7 +309,7 @@ describe('Repository tests', () => {
         },
         JSON.parse(dbEntityString)
       );
-      const cacheEntityString: string = await redisStore.selectEntity('test_id_2');
+      const cacheEntityString: string = await redisStore.select('test_id_2');
       assert.deepEqual(
         {
           verificationStatus: true,
@@ -329,12 +329,12 @@ describe('Repository tests', () => {
     it('should update entity\'s email field', async () => {
       // setup
       const mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_2);
-      await mockRepository.insertNewEntity(mockUser);
+      await mockRepository.insert(mockUser);
       const updatedMockUser = mockUserSerializer
         .deserialize(TEST_EMAIL_UPDATED_ENTITY_PARAMS_2);
       // function under test
-      await mockRepository.updateEntity(updatedMockUser);
-      const dbEntityString = await mongoStore.selectEntity('test_id_2');
+      await mockRepository.update(updatedMockUser);
+      const dbEntityString = await mongoStore.select('test_id_2');
       assert.deepEqual(
         {
           verificationStatus: true,
@@ -349,7 +349,7 @@ describe('Repository tests', () => {
         },
         JSON.parse(dbEntityString)
       );
-      const cacheEntityString = await redisStore.selectEntity('test_id_2');
+      const cacheEntityString = await redisStore.select('test_id_2');
       assert.deepEqual(
         {
           verificationStatus: true,
@@ -367,17 +367,17 @@ describe('Repository tests', () => {
     });
   });
 
-  describe('deleteEntity() tests', () => {
+  describe('delete() tests', () => {
     it('should delete a single entity', async () => {
       // setup
       const mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_1);
-      await mockRepository.insertNewEntity(mockUser);
+      await mockRepository.insert(mockUser);
       // function under test
-      mockRepository.deleteEntity(mockUser.getId());
+      mockRepository.delete(mockUser.getId());
       const isEntityInDb = await mongoStore
-        .doesEntityExistByField({ 'id': mockUser.getId() });
+        .existByField({ 'id': mockUser.getId() });
       const isEntityInCache = await redisStore
-        .doesEntityExistById(mockUser.getId());
+        .existById(mockUser.getId());
       assert.equal(isEntityInDb, false);
       assert.equal(isEntityInCache, false);
     });
@@ -385,13 +385,13 @@ describe('Repository tests', () => {
     it('should delete a single entity', async () => {
       // setup
       const mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_2);
-      await mockRepository.insertNewEntity(mockUser);
+      await mockRepository.insert(mockUser);
       // function under test
-      mockRepository.deleteEntity(mockUser.getId());
+      mockRepository.delete(mockUser.getId());
       const isEntityInDb = await mongoStore
-        .doesEntityExistByField({ id: mockUser.getId() });
+        .existByField({ id: mockUser.getId() });
       const isEntityInCache = await redisStore
-        .doesEntityExistById(mockUser.getId());
+        .existById(mockUser.getId());
       assert.equal(isEntityInDb, false);
       assert.equal(isEntityInCache, false);
     });
@@ -399,166 +399,166 @@ describe('Repository tests', () => {
     it('should delete a single entity', async () => {
       // setup
       const mockUser = mockUserSerializer.deserialize(TEST_FIRST_NAME_UPDATED_ENTITY_PARAMS_2);
-      await mockRepository.insertNewEntity(mockUser);
+      await mockRepository.insert(mockUser);
       // function under test
-      mockRepository.deleteEntity(mockUser.getId());
+      mockRepository.delete(mockUser.getId());
       const isEntityInDb = await mongoStore
-        .doesEntityExistByField({ id: mockUser.getId() });
+        .existByField({ id: mockUser.getId() });
       const isEntityInCache = await redisStore
-        .doesEntityExistById(mockUser.getId());
+        .existById(mockUser.getId());
       assert.equal(isEntityInDb, false);
       assert.equal(isEntityInCache, false);
     });
   });
 
-  describe('doesEntityExistById() tests', () => {
+  describe('existById() tests', () => {
     it('should assert that mock entity exists collection', async () => {
       const mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_1);
-      await mockRepository.insertNewEntity(mockUser);
+      await mockRepository.insert(mockUser);
       const doesMockUserExist = await mockRepository
-        .doesEntityExistById('test_id_1');
+        .existById('test_id_1');
       assert.equal(doesMockUserExist, true);
     });
 
     it('should assert that mock entity exists collection', async () => {
       const mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_2);
-      await mockRepository.insertNewEntity(mockUser);
+      await mockRepository.insert(mockUser);
       const doesMockUserExist = await mockRepository
-        .doesEntityExistById('test_id_2');
+        .existById('test_id_2');
       assert.equal(doesMockUserExist, true);
     });
 
     it('should assert that mock entity does not exist in collection', async () => {
       const doesMockUserExist = await mockRepository
-        .doesEntityExistById('non_existent_id');
+        .existById('non_existent_id');
       assert.equal(doesMockUserExist, false);
     });
 
     it('should assert that mock entity does not exist in collection', async () => {
       const mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_1);
-      await mockRepository.insertNewEntity(mockUser);
+      await mockRepository.insert(mockUser);
       const doesMockUserExist = await mockRepository
-        .doesEntityExistById(' test_id_1');
+        .existById(' test_id_1');
       assert.equal(doesMockUserExist, false);
     });
 
     it('should assert that mock entity does not exist in collection', async () => {
       const mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_1);
-      await mockRepository.insertNewEntity(mockUser);
+      await mockRepository.insert(mockUser);
       const doesMockUserExist = await mockRepository
-        .doesEntityExistById('test_id_1 ');
+        .existById('test_id_1 ');
       assert.equal(doesMockUserExist, false);
     });
 
     it('should assert that mock entity does not exist in collection', async () => {
       const mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_1);
-      await mockRepository.insertNewEntity(mockUser);
+      await mockRepository.insert(mockUser);
       const doesMockUserExist = await mockRepository
-        .doesEntityExistById('test_id _1');
+        .existById('test_id _1');
       assert.equal(doesMockUserExist, false);
     });
 
     it('should assert that mock entity does not exist in collection', async () => {
       // insert 2 entities into repository
       let mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_1);
-      await mockRepository.insertNewEntity(mockUser);
+      await mockRepository.insert(mockUser);
       mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_2);
-      await mockRepository.insertNewEntity(mockUser);
+      await mockRepository.insert(mockUser);
       const doesMockUserExist = await mockRepository
-        .doesEntityExistById('test_id _1');
+        .existById('test_id _1');
       assert.equal(doesMockUserExist, false);
     });
 
     it('should assert that mock entity does not exist in collection', async () => {
       // insert 2 entities into repository
       let mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_1);
-      await mockRepository.insertNewEntity(mockUser);
+      await mockRepository.insert(mockUser);
       mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_2);
-      await mockRepository.insertNewEntity(mockUser);
+      await mockRepository.insert(mockUser);
       const doesMockUserExist = await mockRepository
-        .doesEntityExistById('test_id_3');
+        .existById('test_id_3');
       assert.equal(doesMockUserExist, false);
     });
 
     it('should assert that mock entity does not exist in collection', async () => {
       // insert 2 entities into repository
       let mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_1);
-      await mockRepository.insertNewEntity(mockUser);
+      await mockRepository.insert(mockUser);
       mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_2);
-      await mockRepository.insertNewEntity(mockUser);
+      await mockRepository.insert(mockUser);
       const doesMockUserExist = await mockRepository
-        .doesEntityExistById('test_id_0');
+        .existById('test_id_0');
       assert.equal(doesMockUserExist, false);
     });
 
     it('should assert that mock entity does not exist in collection', async () => {
       // insert 2 entities into repository
       let mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_1);
-      await mockRepository.insertNewEntity(mockUser);
+      await mockRepository.insert(mockUser);
       mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_2);
-      await mockRepository.insertNewEntity(mockUser);
+      await mockRepository.insert(mockUser);
       const doesMockUserExist = await mockRepository
-        .doesEntityExistById('test_id');
+        .existById('test_id');
       assert.equal(doesMockUserExist, false);
     });
   });
 
-  describe('getEntityCount() tests', () => {
+  describe('getCount() tests', () => {
     it('should assert an entity count of 0', async () => {
-      const entityCount = await mockRepository.getEntityCount();
+      const entityCount = await mockRepository.getCount();
       assert.equal(entityCount, 0);
     });
 
     it('should assert an entity count of 1', async () => {
       await insertMockUsers(1);
-      const entityCount = await mockRepository.getEntityCount();
+      const entityCount = await mockRepository.getCount();
       assert.equal(entityCount, 1);
     });
 
     it('should assert an entity count of 2', async () => {
       await insertMockUsers(2);
-      const entityCount = await mockRepository.getEntityCount();
+      const entityCount = await mockRepository.getCount();
       assert.equal(entityCount, 2);
     });
 
     it('should assert an entity count of 36', async () => {
       await insertMockUsers(36);
-      const entityCount = await mockRepository.getEntityCount();
+      const entityCount = await mockRepository.getCount();
       assert.equal(entityCount, 36);
     });
   });
 
-  describe('clearEntities() tests', () => {
+  describe('clear() tests', () => {
     it('should clear all 1 entity', async () => {
       // setup
       await insertMockUsers(1);
-      let entityCount = await mockRepository.getEntityCount();
+      let entityCount = await mockRepository.getCount();
       assert.equal(entityCount, 1);
       // function under test
-      await mockRepository.clearEntities();
-      entityCount = await mockRepository.getEntityCount();
+      await mockRepository.clear();
+      entityCount = await mockRepository.getCount();
       assert.equal(entityCount, 0);
     });
 
     it('should clear all 12 entities', async () => {
       // setup
       await insertMockUsers(12);
-      let entityCount = await mockRepository.getEntityCount();
+      let entityCount = await mockRepository.getCount();
       assert.equal(entityCount, 12);
       // function under test
-      await mockRepository.clearEntities();
-      entityCount = await mockRepository.getEntityCount();
+      await mockRepository.clear();
+      entityCount = await mockRepository.getCount();
       assert.equal(entityCount, 0);
     });
 
     it('should clear all 65 entities', async () => {
       // setup
       await insertMockUsers(65);
-      let entityCount = await mockRepository.getEntityCount();
+      let entityCount = await mockRepository.getCount();
       assert.equal(entityCount, 65);
       // function under test
-      await mockRepository.clearEntities();
-      entityCount = await mockRepository.getEntityCount();
+      await mockRepository.clear();
+      entityCount = await mockRepository.getCount();
       assert.equal(entityCount, 0);
     });
   });

@@ -4,7 +4,7 @@ import { IEntity } from '../../domain/entities/IEntity';
 import { IEntitySerializer } from '../../domain/services/entity-serializers/IEntitySerializer';
 
 
-abstract class Repository<T extends IEntity> {
+abstract class EntityRepository<T extends IEntity> {
 
   protected databaseStore: IDatabaseStore<T>;
   protected cacheStore: ICacheStore<T>;
@@ -36,7 +36,7 @@ abstract class Repository<T extends IEntity> {
   }
 
   /**
-   * inserts new entity into database collection and cache
+   * inserts entity into database collection and cache
    * precondition: entity with same id must not exist in db or cache
    * @param {string} - id of entity to insert
    * @param {T} - generic type
@@ -44,11 +44,11 @@ abstract class Repository<T extends IEntity> {
    * @effects - writes to database and cache
    * @effects - mongo client addes _id field to entity object
    */
-  async insertNewEntity(entity: T): Promise<void> {
+  async insert(entity: T): Promise<void> {
     const entityCopy: T = Object.assign({}, entity);
     await Promise.all([
-      this.databaseStore.insertNewEntity(entity),
-      this.cacheStore.insertNewEntity(entity.getId(), entityCopy)
+      this.databaseStore.insert(entity),
+      this.cacheStore.insert(entity.getId(), entityCopy)
     ]);
   }
 
@@ -61,11 +61,11 @@ abstract class Repository<T extends IEntity> {
    * @effects - writes to database and cache
    * @effects - mongo client adds _id field to entity object
    */
-  async updateEntity(entity: T): Promise<void> {
+  async update(entity: T): Promise<void> {
     const entityCopy: T = Object.assign({}, entity);
     await Promise.all([
-      this.databaseStore.updateEntity(entity.getId(), entity),
-      this.cacheStore.updateEntity(entity.getId(), entityCopy)
+      this.databaseStore.update(entity.getId(), entity),
+      this.cacheStore.update(entity.getId(), entityCopy)
     ]);
   }
 
@@ -76,17 +76,17 @@ abstract class Repository<T extends IEntity> {
    * @param {string} - id of entity to update
    * @return {T} - generic object type of entity
    */
-  async selectEntity(entityId: string): Promise<T> {
+  async select(entityId: string): Promise<T> {
     let entity: T;
     let entityString: string;
 
-    entityString = await this.cacheStore.selectEntity(entityId);
+    entityString = await this.cacheStore.select(entityId);
     const isEntityNotInCache: boolean = entityString === null;
 
     if (isEntityNotInCache) {
-      entityString = await this.databaseStore.selectEntity(entityId);
+      entityString = await this.databaseStore.select(entityId);
       entity = this.entitySerializer.deserialize(entityString);
-      this.cacheStore.updateEntity(entityId, entity);
+      this.cacheStore.update(entityId, entity);
     }
 
     entity = this.entitySerializer.deserialize(entityString);
@@ -99,10 +99,10 @@ abstract class Repository<T extends IEntity> {
    * @param {string} - id of entity to delete
    * @return {void}
    */
-  async deleteEntity(entityId: string): Promise<void> {
+  async delete(entityId: string): Promise<void> {
     await Promise.all([
-      this.databaseStore.deleteEntity(entityId),
-      this.cacheStore.deleteEntity(entityId)
+      this.databaseStore.delete(entityId),
+      this.cacheStore.delete(entityId)
     ]);
   }
 
@@ -111,13 +111,13 @@ abstract class Repository<T extends IEntity> {
    * @param {string} - id of entity
    * @return {boolean}
    */
-  async doesEntityExistById(entityId: string): Promise<boolean> {
+  async existById(entityId: string): Promise<boolean> {
     const isEntityInCache: boolean = await this.cacheStore
-      .doesEntityExistById(entityId);
+      .existById(entityId);
 
     if (!isEntityInCache) {
       const isEntityInDb: boolean = await this.databaseStore
-        .doesEntityExistByField({ id: entityId });
+        .existByField({ id: entityId });
       return isEntityInDb;
     }
 
@@ -129,8 +129,8 @@ abstract class Repository<T extends IEntity> {
    * @param {void}
    * @return {integer}
    */
-  async getEntityCount(): Promise<number> {
-    return await this.databaseStore.getEntityCount();
+  async getCount(): Promise<number> {
+    return await this.databaseStore.getCount();
   }
 
   /**
@@ -140,10 +140,10 @@ abstract class Repository<T extends IEntity> {
    * @return {void}
    * @effects - deletes from database and cache
    */
-  async clearEntities(): Promise<void> {
+  async clear(): Promise<void> {
     await Promise.all([
-      this.databaseStore.clearEntities(),
-      this.cacheStore.clearEntities()
+      this.databaseStore.clear(),
+      this.cacheStore.clear()
     ]);
   }
 
@@ -153,10 +153,10 @@ abstract class Repository<T extends IEntity> {
    * @return {void}
    * @effects - deletes from database
    */
-  async dropEntityCollection(): Promise<void> {
-    await this.databaseStore.dropEntityCollection();
+  async dropCollection(): Promise<void> {
+    await this.databaseStore.dropCollection();
   }
 
 }
 
-export { Repository };
+export { EntityRepository };

@@ -5,14 +5,14 @@
  */
 interface IDatabaseStore<T> {
   createConnection(): Promise<void>;
-  insertNewEntity(entity: T): Promise<void>;
-  updateEntity(entityId: string, entity: T): Promise<void>;
-  selectEntity(entityId: string): Promise<string>;
-  deleteEntity(entityId: string): Promise<void>;
-  doesEntityExistByField(field: object): Promise<boolean>;
-  getEntityCount(): Promise<number>;
-  clearEntities(): Promise<void>;
-  dropEntityCollection(): Promise<void>;
+  insert(entity: T): Promise<void>;
+  update(entityId: string, entity: T): Promise<void>;
+  select(entityId: string): Promise<string>;
+  delete(entityId: string): Promise<void>;
+  existByField(field: object): Promise<boolean>;
+  getCount(): Promise<number>;
+  clear(): Promise<void>;
+  dropCollection(): Promise<void>;
   closeConnection(): void;
 }
 
