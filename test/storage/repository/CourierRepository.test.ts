@@ -79,10 +79,7 @@ describe('CourierRepository tests', () => {
         await courierRepository.select('non_existent_id');
       }
       // assert promise rejection is thrown
-      assert.rejects(
-        selectedCourier,
-        Error
-      );
+      assert.rejects(selectedCourier, Error);
     });
 
     it('should throw error since no courier to select (invalid id)', async () => {
@@ -93,10 +90,7 @@ describe('CourierRepository tests', () => {
         await courierRepository.select('test_id_2');
       }
       // assert promise rejection is thrown
-      assert.rejects(
-        selectedCourier,
-        Error
-      );
+      assert.rejects(selectedCourier, Error);
     });
 
     it('should throw error since no courier to select (invalid id)', async () => {
@@ -107,10 +101,7 @@ describe('CourierRepository tests', () => {
         await courierRepository.select('test_id_1');
       }
       // assert promise rejection is thrown
-      assert.rejects(
-        selectedCourier,
-        Error
-      );
+      assert.rejects(selectedCourier, Error);
     });
 
     it('should throw error since no courier to select (invalid id)', async () => {
@@ -121,10 +112,7 @@ describe('CourierRepository tests', () => {
         await courierRepository.select(' test_id_1');
       }
       // assert promise rejection is thrown
-      assert.rejects(
-        selectedCourier,
-        Error
-      );
+      assert.rejects(selectedCourier, Error);
     });
 
     it('should throw error since no courier to select (invalid id)', async () => {
@@ -135,10 +123,7 @@ describe('CourierRepository tests', () => {
         await courierRepository.select('test_id_1 ');
       }
       // assert promise rejection is thrown
-      assert.rejects(
-        selectedCourier,
-        Error
-      );
+      assert.rejects(selectedCourier, Error);
     });
 
     it('should throw error since no courier to select (invalid id)', async () => {
@@ -149,52 +134,89 @@ describe('CourierRepository tests', () => {
         await courierRepository.select('test_ id_1');
       }
       // assert promise rejection is thrown
-      assert.rejects(
-        selectedCourier,
-        Error
-      );
+      assert.rejects(selectedCourier, Error);
     });
   });
 
   describe('existByEmail() tests', () => {
-    it('should assert that courier exists collection', async () => {
+    it('should assert that courier with same email exists collection', async () => {
       const courier = courierSerializer.deserialize(TEST_COURIER_PARAMS_1);
       await courierRepository.insert(courier);
       const doesCourierExist = await courierRepository.existByEmail('test_email_1');
       assert.equal(doesCourierExist, true);
     });
 
-    it('should assert that courier exists collection', async () => {
+    it('should assert that courier with same email exists collection', async () => {
       const courier = courierSerializer.deserialize(TEST_COURIER_PARAMS_2);
       await courierRepository.insert(courier);
       const doesCourierExist = await courierRepository.existByEmail('test_email_2');
       assert.equal(doesCourierExist, true);
     });
 
-    it('should assert that courier does not exist in collection', async () => {
+    it('should assert that courier with same email does not exist in collection', async () => {
       let doesUserExist: boolean = await courierRepository.existByEmail('non_existent_user_email');
       assert.equal(doesUserExist, false);
     });
 
-    it('should assert that courier does not exist in collection', async () => {
+    it('should assert that courier with same email does not exist in collection', async () => {
       const courier = courierSerializer.deserialize(TEST_COURIER_PARAMS_1);
       await courierRepository.insert(courier);
       let doesUserExist: boolean = await courierRepository.existByEmail(' test_email_1');
       assert.equal(doesUserExist, false);
     });
 
-    it('should assert that courier does not exist in collection', async () => {
+    it('should assert that courier with same email does not exist in collection', async () => {
       const courier = courierSerializer.deserialize(TEST_COURIER_PARAMS_1);
       await courierRepository.insert(courier);
       let doesUserExist: boolean = await courierRepository.existByEmail('test_email_1 ');
       assert.equal(doesUserExist, false);
     });
 
-    it('should assert that courier does not exist in collection', async () => {
+    it('should assert that courier with same email does not exist in collection', async () => {
       const courier = courierSerializer.deserialize(TEST_COURIER_PARAMS_1);
       await courierRepository.insert(courier);
       let doesUserExist: boolean = await courierRepository.existByEmail('test_ email_1');
       assert.equal(doesUserExist, false);
+    });
+  });
+
+  describe('existByMobileNum() tests', () => {
+    it('should assert that courier with same mobile number exists in collection', async () => {
+      const courier = courierSerializer.deserialize(TEST_COURIER_PARAMS_1);
+      await courierRepository.insert(courier);
+      let doesCourierExist: boolean = await courierRepository
+        .existByMobileNum('test_mobile_num_1');
+      assert.equal(doesCourierExist, true);
+    });
+
+    it('should assert that courier with same mobile number exists in collection', async () => {
+      const courier = courierSerializer.deserialize(TEST_COURIER_PARAMS_2);
+      await courierRepository.insert(courier);
+      let doesCourierExist: boolean = await courierRepository
+        .existByMobileNum('test_mobile_num_2');
+      assert.equal(doesCourierExist, true);
+    });
+
+    it('should assert that courier with same mobile number does not exist in collection', async () => {
+      let doesCourierExist: boolean = await courierRepository
+        .existByMobileNum('non_existent_user_mobile_num');
+      assert.equal(doesCourierExist, false);
+    });
+
+    it('should assert that courier with same mobile number does not exist in collection', async () => {
+      const courier = courierSerializer.deserialize(TEST_COURIER_PARAMS_1);
+      await courierRepository.insert(courier);
+      let doesCourierExist: boolean = await courierRepository
+        .existByMobileNum('test_mobile_num_2');
+      assert.equal(doesCourierExist, false);
+    });
+
+    it('should assert that courier with same mobile number does not exist in collection', async () => {
+      const courier = courierSerializer.deserialize(TEST_COURIER_PARAMS_2);
+      await courierRepository.insert(courier);
+      let doesCourierExist: boolean = await courierRepository
+        .existByMobileNum('test_mobile_num_1');
+      assert.equal(doesCourierExist, false);
     });
   });
 

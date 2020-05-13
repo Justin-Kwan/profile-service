@@ -136,7 +136,7 @@ describe('ConsumerRepository tests', () => {
   });
 
   describe('existByEmail() tests', () => {
-    it('should assert that consumer exists collection', async () => {
+    it('should assert that consumer with same email exists collection', async () => {
       const consumer = consumerSerializer.deserialize(TEST_CONSUMER_PARAMS_1);
       await consumerRepository.insert(consumer);
       const doesConsumerExist = await consumerRepository
@@ -144,7 +144,7 @@ describe('ConsumerRepository tests', () => {
       assert.equal(doesConsumerExist, true);
     });
 
-    it('should assert that consumer exists collection', async () => {
+    it('should assert that consumer with same email exists collection', async () => {
       const consumer = consumerSerializer.deserialize(TEST_CONSUMER_PARAMS_2);
       await consumerRepository.insert(consumer);
       const doesConsumerExist = await consumerRepository
@@ -152,34 +152,74 @@ describe('ConsumerRepository tests', () => {
       assert.equal(doesConsumerExist, true);
     });
 
-    it('should assert that consumer does not exist collection', async () => {
-      let doesUserExist: boolean = await consumerRepository
+    it('should assert that consumer with same email does not exist collection', async () => {
+      let doesConsumerExist: boolean = await consumerRepository
         .existByEmail('non_existent_user_email');
-      assert.equal(doesUserExist, false);
+      assert.equal(doesConsumerExist, false);
     });
 
-    it('should assert that consumer does not exist collection', async () => {
+    it('should assert that consumer with same email does not exist collection', async () => {
       const consumer = consumerSerializer.deserialize(TEST_CONSUMER_PARAMS_1);
       await consumerRepository.insert(consumer);
-      let doesUserExist: boolean = await consumerRepository
+      let doesConsumerExist: boolean = await consumerRepository
         .existByEmail(' test_email_1');
-      assert.equal(doesUserExist, false);
+      assert.equal(doesConsumerExist, false);
     });
 
-    it('should assert that consumer does not exist collection', async () => {
+    it('should assert that consumer with same email does not exist collection', async () => {
       const consumer = consumerSerializer.deserialize(TEST_CONSUMER_PARAMS_1);
       await consumerRepository.insert(consumer);
-      let doesUserExist: boolean = await consumerRepository
+      let doesConsumerExist: boolean = await consumerRepository
         .existByEmail('test_email_1 ');
-      assert.equal(doesUserExist, false);
+      assert.equal(doesConsumerExist, false);
     });
 
-    it('should assert that consumer does not exist collection', async () => {
+    it('should assert that consumer with same email does not exist collection', async () => {
       const consumer = consumerSerializer.deserialize(TEST_CONSUMER_PARAMS_1);
       await consumerRepository.insert(consumer);
-      let doesUserExist: boolean = await consumerRepository
+      let doesConsumerExist: boolean = await consumerRepository
         .existByEmail('test_ email_1');
-      assert.equal(doesUserExist, false);
+      assert.equal(doesConsumerExist, false);
+    });
+  });
+
+  describe('existByMobileNum() tests', () => {
+    it('should assert that consumer with same mobile number exists in collection', async () => {
+      const consumer = consumerSerializer.deserialize(TEST_CONSUMER_PARAMS_1);
+      await consumerRepository.insert(consumer);
+      let doesConsumerExist: boolean = await consumerRepository
+        .existByMobileNum('test_mobile_num_1');
+      assert.equal(doesConsumerExist, true);
+    });
+
+    it('should assert that consumer with same mobile number exists in collection', async () => {
+      const consumer = consumerSerializer.deserialize(TEST_CONSUMER_PARAMS_2);
+      await consumerRepository.insert(consumer);
+      let doesConsumerExist: boolean = await consumerRepository
+        .existByMobileNum('test_mobile_num_2');
+      assert.equal(doesConsumerExist, true);
+    });
+
+    it('should assert that consumer with same mobile number does not exist in collection', async () => {
+      let doesConsumerExist: boolean = await consumerRepository
+        .existByMobileNum('non_existent_user_mobile_num');
+      assert.equal(doesConsumerExist, false);
+    });
+
+    it('should assert that consumer with same mobile number does not exist in collection', async () => {
+      const consumer = consumerSerializer.deserialize(TEST_CONSUMER_PARAMS_1);
+      await consumerRepository.insert(consumer);
+      let doesConsumerExist: boolean = await consumerRepository
+        .existByMobileNum('test_mobile_num_2');
+      assert.equal(doesConsumerExist, false);
+    });
+
+    it('should assert that consumer with same mobile number does not exist in collection', async () => {
+      const consumer = consumerSerializer.deserialize(TEST_CONSUMER_PARAMS_2);
+      await consumerRepository.insert(consumer);
+      let doesConsumerExist: boolean = await consumerRepository
+        .existByMobileNum('test_mobile_num_1');
+      assert.equal(doesConsumerExist, false);
     });
   });
 

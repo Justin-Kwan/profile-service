@@ -13,8 +13,8 @@ class ConsumerRepository extends EntityRepository<Consumer> {
     // injecting datastore and entity dependencies to
     // base repository class
     super(
-      new MongoStore(USER_DATABASE, CONSUMER_COLLECTION),
-      new RedisStore(),
+      new MongoStore<Consumer>(USER_DATABASE, CONSUMER_COLLECTION),
+      new RedisStore<Consumer>(),
       new ConsumerSerializer()
     );
   }
@@ -25,7 +25,6 @@ class ConsumerRepository extends EntityRepository<Consumer> {
     return doesEntityExist;
   }
 
-  // todo: test!
   async existByMobileNum(mobileNum: string): Promise<boolean> {
     const doesEntityExist = await this.databaseStore
       .existByField({ 'mobileNum': mobileNum });

@@ -253,7 +253,7 @@ describe('EntityRepository tests', () => {
       const updatedMockUser = mockUserSerializer
         .deserialize(TEST_UPDATED_ENTITY_PARAMS_2);
       // function under test
-      mockRepository.update(updatedMockUser);
+      await mockRepository.update(updatedMockUser);
       const dbEntityString = await mongoStore.select('test_id_2');
       assert.deepEqual(
         {
@@ -293,7 +293,7 @@ describe('EntityRepository tests', () => {
       const updatedMockUser = mockUserSerializer
         .deserialize(TEST_FIRST_NAME_UPDATED_ENTITY_PARAMS_2);
       // function under test
-      mockRepository.update(updatedMockUser);
+      await mockRepository.update(updatedMockUser);
       const dbEntityString = await mongoStore.select('test_id_2');
       assert.deepEqual(
         {
@@ -373,7 +373,7 @@ describe('EntityRepository tests', () => {
       const mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_1);
       await mockRepository.insert(mockUser);
       // function under test
-      mockRepository.delete(mockUser.getId());
+      await mockRepository.delete(mockUser.getId());
       const isEntityInDb = await mongoStore
         .existByField({ 'id': mockUser.getId() });
       const isEntityInCache = await redisStore
@@ -387,7 +387,7 @@ describe('EntityRepository tests', () => {
       const mockUser = mockUserSerializer.deserialize(TEST_ENTITY_PARAMS_2);
       await mockRepository.insert(mockUser);
       // function under test
-      mockRepository.delete(mockUser.getId());
+      await mockRepository.delete(mockUser.getId());
       const isEntityInDb = await mongoStore
         .existByField({ id: mockUser.getId() });
       const isEntityInCache = await redisStore
@@ -401,7 +401,7 @@ describe('EntityRepository tests', () => {
       const mockUser = mockUserSerializer.deserialize(TEST_FIRST_NAME_UPDATED_ENTITY_PARAMS_2);
       await mockRepository.insert(mockUser);
       // function under test
-      mockRepository.delete(mockUser.getId());
+      await mockRepository.delete(mockUser.getId());
       const isEntityInDb = await mongoStore
         .existByField({ id: mockUser.getId() });
       const isEntityInCache = await redisStore

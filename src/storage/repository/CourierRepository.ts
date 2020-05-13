@@ -13,8 +13,8 @@ class CourierRepository extends EntityRepository<Courier> {
     // injecting datastore and entity dependencies to
     // base repository class
     super(
-      new MongoStore(USER_DATABASE, COURIER_COLLECTION),
-      new RedisStore(),
+      new MongoStore<Courier>(USER_DATABASE, COURIER_COLLECTION),
+      new RedisStore<Courier>(),
       new CourierSerializer()
     );
   }
