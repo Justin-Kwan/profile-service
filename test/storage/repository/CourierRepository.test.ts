@@ -4,7 +4,7 @@ import * as _ from "lodash";
 
 import { CourierRepository } from '../../../src/storage/repository/CourierRepository';
 import { Courier } from '../../../src/domain/entities/users/Courier';
-import { CourierSerializer } from '../../../src/domain/entities/object-serializers/CourierSerializer';
+import { CourierSerializer } from '../../../src/domain/services/object-serializers/CourierSerializer';
 
 const courierRepository = new CourierRepository();
 const courierSerializer = new CourierSerializer();

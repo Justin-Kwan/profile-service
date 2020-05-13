@@ -1,4 +1,4 @@
-import { Consumer } from '../users/Consumer';
+import { Consumer } from '../../entities/users/Consumer';
 
 class ConsumerSerializer {
 

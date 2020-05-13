@@ -1,6 +1,6 @@
 import { ConsumerRepository } from '../../../storage/repository/ConsumerRepository';
-import { ConsumerFactory } from '../../entities/factories/ConsumerFactory';
-import { ConsumerSerializer } from '../../entities/object-serializers/ConsumerSerializer';
+import { ConsumerFactory } from '../../services/factories/ConsumerFactory';
+import { ConsumerSerializer } from '../../services/object-serializers/ConsumerSerializer';
 import { Consumer } from '../../entities/users/Consumer';
 import {
   PERMISSION_DENIED,
@@ -23,6 +23,11 @@ class ConsumerController {
     this.consumerRepository.initDatastoreObjects();
   }
 
+  // TODO: figure out proper returns
+  //       add extra functions for getting specific fields
+  //       figure out how to organize interfaces, folders
+
+  // ok (ish)
   async createConsumer(consumerId: string, consumerParams: string): Promise<string> {
     const doesConsumerExist: boolean = await this.consumerRepository
       .doesEntityExistById(consumerId);
@@ -36,7 +41,6 @@ class ConsumerController {
     return "resource created";
   }
 
-  // consumerParams does not contain id
   async updateConsumer(consumerId: string, consumerParams: string): Promise<string> {
     const doesConsumerExist: boolean = await this.consumerRepository
       .doesEntityExistById(consumerId);

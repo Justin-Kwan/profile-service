@@ -1,6 +1,6 @@
 import { MongoStore } from '../database/MongoStore';
 import { RedisStore } from '../cache/RedisStore';
-import { IEntity } from '../../domain/entities/users/IEntity';
+import { IEntity } from '../../domain/entities/IEntity';
 
 
 abstract class Repository<T extends IEntity> {

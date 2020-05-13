@@ -1,8 +1,6 @@
 import { Repository } from '../../../src/storage/repository/Repository';
 import { MockUser } from '../../domain/entities/users/MockUser';
-import {
-  MockUserSerializer
-} from '../../domain/entities/object-serializers/MockUserSerializer';
+import { MockUserSerializer } from '../../domain/services/object-serializers/MockUserSerializer';
 
 /**
  * mock repository class for testing abstract Repository class

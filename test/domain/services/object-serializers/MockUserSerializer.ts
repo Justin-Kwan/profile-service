@@ -1,4 +1,4 @@
-import { MockUser } from '../users/MockUser';
+import { MockUser } from '../../entities/users/MockUser';
 
 class MockUserSerializer {
 

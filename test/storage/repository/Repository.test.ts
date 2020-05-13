@@ -5,9 +5,7 @@ import { MockUser } from '../../domain/entities/users/MockUser';
 import { MongoStore } from '../../../src/storage/database/MongoStore';
 import { RedisStore } from '../../../src/storage/cache/RedisStore';
 import { MockRepository } from './MockRepository';
-import {
-  MockUserSerializer
-} from '../../domain/entities/object-serializers/MockUserSerializer';
+import { MockUserSerializer } from '../../domain/services/object-serializers/MockUserSerializer';
 
 const TEST_ENTITY_PARAMS_1: string = `{
   "id": "test_id_1",

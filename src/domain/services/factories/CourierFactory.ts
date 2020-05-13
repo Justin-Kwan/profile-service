@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 import { EntityFactory } from './EntityFactory';
-import { Courier } from '../users/Courier';
+import { Courier } from '../../entities/users/Courier';
 
 class CourierFactory extends EntityFactory {
 

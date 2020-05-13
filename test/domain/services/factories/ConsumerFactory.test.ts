@@ -1,7 +1,7 @@
 import 'mocha';
 import { strict as assert } from 'assert';
 
-import { ConsumerFactory } from '../../../../src/domain/entities/factories/ConsumerFactory';
+import { ConsumerFactory } from '../../../../src/domain/services/factories/ConsumerFactory';
 import { Consumer } from '../../../../src/domain/entities/users/Consumer';
 
 const test_consumer_1: any = {

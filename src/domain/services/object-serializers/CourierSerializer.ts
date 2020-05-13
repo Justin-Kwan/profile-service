@@ -1,4 +1,4 @@
-import { Courier } from '../users/Courier';
+import { Courier } from '../../entities/users/Courier';
 
 class CourierSerializer {
 
