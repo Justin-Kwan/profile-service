@@ -4,13 +4,13 @@
  * in implementation
  */
 interface ICacheStore<T> {
-  createConnection(): Promise<any>;
-  insertNewEntity(entityId: string, entity: T): Promise<any>;
-  updateEntity(entityId: string, entity: T): Promise<any>;
+  createConnection(): Promise<void>;
+  insertNewEntity(entityId: string, entity: T): Promise<void>;
+  updateEntity(entityId: string, entity: T): Promise<void>;
   selectEntity(entityId: string): Promise<string>;
+  deleteEntity(entityId: string): Promise<void>;
   doesEntityExistById(entityId: string): Promise<boolean>;
-  deleteEntity(entityId: string): Promise<any>;
-  clearEntities(): Promise<any>;
+  clearEntities(): Promise<void>;
   closeConnection(): void;
 }
 

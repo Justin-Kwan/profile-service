@@ -27,10 +27,10 @@ class MongoStore<T> implements IDatabaseStore<T> {
 	 * creates mongodb client connection
    * precondition: mongodb client must be disconnected
 	 * @param {void}
-	 * @return {Error} - throws error
+	 * @return {void}
 	 */
-  createConnection(): Promise<any> {
-    const promise = new Promise<any>((resolve, reject) => {
+  createConnection(): Promise<void> {
+    const promise = new Promise<void>((resolve, reject) => {
       MongoClient.connect(this.MONGO_URL, {
         useUnifiedTopology: true
       },
@@ -50,12 +50,12 @@ class MongoStore<T> implements IDatabaseStore<T> {
 	 * precondition: mongodb client must be connected
    *               entity must have unique id
 	 * @param {T} - generic type
-   * @return {Error} - throws error
+   * @return {void}
 	 * @effects add '_id' field to obj
 	 * @effects writes to mongodb collection
 	 */
-  insertNewEntity(entity: T): Promise<any> {
-    const promise = new Promise<any>((resolve, reject) => {
+  insertNewEntity(entity: T): Promise<void> {
+    const promise = new Promise<void>((resolve, reject) => {
       this.entityCollection.insertOne(entity,
         (err, res) => {
           if (err) reject(err);
@@ -72,11 +72,11 @@ class MongoStore<T> implements IDatabaseStore<T> {
    *               entity must exist in collection
    * @param {string} - id of entity to update
    * @param {T} - generic type
-   * @return {Error} - throws error
+   * @return {void}
    * @effects writes to mongodb collection
    */
-  updateEntity(entityId: string, entity: T): Promise<any> {
-    const promise = new Promise<any>((resolve, reject) => {
+  updateEntity(entityId: string, entity: T): Promise<void> {
+    const promise = new Promise<void>((resolve, reject) => {
       this.entityCollection.replaceOne({ 'id': entityId }, entity,
         (err, res) => {
           if (err) reject(err);
@@ -92,11 +92,11 @@ class MongoStore<T> implements IDatabaseStore<T> {
 	 * precondition: mongodb client must be connected
    *               entity must exist in collection
 	 * @param {string} - id of entity to select
-	 * @return {Error / string} - throws error or returns string
+	 * @return {string} - entity string representation
    *                            representation of object
 	 */
   selectEntity(entityId: string): Promise<string> {
-    const promise = new Promise<any>((resolve, reject) => {
+    const promise = new Promise<string>((resolve, reject) => {
       this.entityCollection.find({ 'id': entityId }, {
         projection: {
           _id: 0
@@ -117,10 +117,10 @@ class MongoStore<T> implements IDatabaseStore<T> {
 	 * precondition: mongodb client must be connected and
    *               entity must exist in collection
 	 * @param {string} - id of entity to delete
-	 * @return {Error / string} - throws error
+	 * @return {void}
 	 */
-  deleteEntity(entityId: string): Promise<any> {
-    const promise = new Promise<any>((resolve, reject) => {
+  deleteEntity(entityId: string): Promise<void> {
+    const promise = new Promise<void>((resolve, reject) => {
       this.entityCollection.deleteOne({ 'id': entityId },
         (err, res) => {
           if (err) reject(err);
@@ -137,10 +137,10 @@ class MongoStore<T> implements IDatabaseStore<T> {
    * precondition: mongodb client must be connected
    *               correct paramater fields for object must be passed in
 	 * @param {object} - entity id field object
-	 * @returns {Error / boolean} - throws error or returns boolean
+	 * @returns {boolean} - represents if entity exists
 	 */
   doesEntityExistByField(field: object): Promise<boolean> {
-    const promise = new Promise<any>((resolve, reject) => {
+    const promise = new Promise<boolean>((resolve, reject) => {
       this.entityCollection.find(field).limit(1).count(
         (err, entityCount) => {
           if (err) reject(err);
@@ -156,10 +156,10 @@ class MongoStore<T> implements IDatabaseStore<T> {
 	 * returns the number of entity objects in mongodb collection
    * precondition: mongodb client must be connected
 	 * @param {void}
-	 * @returns {Error / number} - throws error or returns integer
+	 * @returns {number} - entity count in collection
 	 */
   getEntityCount(): Promise<number> {
-    const promise = new Promise<any>((resolve, reject) => {
+    const promise = new Promise<number>((resolve, reject) => {
       this.entityCollection.countDocuments(
         (err, entityCount) => {
           if (err) reject(err);
@@ -174,11 +174,11 @@ class MongoStore<T> implements IDatabaseStore<T> {
    * clears mongodb collection of objects
    * precondition: mongodb client must be connected
    * @param {void}
-   * @return {Error} - throws error
+   * @return {void}
    * @effects clears mongodb collection
    */
-  clearEntities(): Promise<any> {
-    const promise = new Promise<any>((resolve, reject) => {
+  clearEntities(): Promise<void> {
+    const promise = new Promise<void>((resolve, reject) => {
       this.entityCollection.deleteMany({},
         (err, isDropSuccessful) => {
           if (err) reject(err);
@@ -192,11 +192,11 @@ class MongoStore<T> implements IDatabaseStore<T> {
    * drops mongodb collection
    * precondition: mongodb client must be connected
    * @param {void}
-   * @return {Error} - throws error
+   * @return {void}
    * @effects clears mongodb collection
    */
-  dropEntityCollection(): Promise<any> {
-    const promise = new Promise<any>((resolve, reject) => {
+  dropEntityCollection(): Promise<void> {
+    const promise = new Promise<void>((resolve, reject) => {
       this.entityCollection.drop(
         (err, isDropSuccessful) => {
           if (err) reject(err);

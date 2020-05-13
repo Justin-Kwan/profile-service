@@ -1,45 +1,37 @@
-import { MongoStore } from '../database/MongoStore';
-import { RedisStore } from '../cache/RedisStore';
+import { IDatabaseStore } from '../database/IDatabaseStore';
+import { ICacheStore } from '../cache/ICacheStore';
 import { IEntity } from '../../domain/entities/IEntity';
 import { IEntitySerializer } from '../../domain/services/entity-serializers/IEntitySerializer';
 
 
 abstract class Repository<T extends IEntity> {
 
-  protected databaseName: string;
-  protected collectionName: string;
-  protected mongoStore: MongoStore<T>;
-  protected redisStore: RedisStore<T>;
+  protected databaseStore: IDatabaseStore<T>;
+  protected cacheStore: ICacheStore<T>;
   private entitySerializer: IEntitySerializer<T>;
 
   /**
-   * @param {string} - name of database to connect to
-   * @param {string} - name of datbase collection to use
-   * @param {any} - custom entity object serializer is injected
+   * @param {IDatabaseStore<T>} - injected database access object
+   * @param {ICacheStore<T>} - injected cache access object
+   * @param {IEntitySerializer<T>} - injected entity object serializer
    */
-  constructor(databaseName: string,
-              collectionName: string,
+  constructor(databaseStore: IDatabaseStore<T>,
+              cacheStore: ICacheStore<T>,
               entitySerializer: IEntitySerializer<T>) {
-    this.databaseName = databaseName;
-    this.collectionName = collectionName;
+    this.databaseStore = databaseStore;
+    this.cacheStore = cacheStore;
     this.entitySerializer = entitySerializer;
   }
 
   /**
-   * instantiates data access objects and creates connections
-   * to datastores
+   * creates connections for datastore objects
    * @param {void}
    * @return {void}
    */
-  async initDatastoreObjects(): Promise<any> {
-    this.mongoStore = new MongoStore<T>(
-      this.databaseName,
-      this.collectionName
-    );
-    this.redisStore = new RedisStore<T>();
+  async initDatastoreObjects(): Promise<void> {
     await Promise.all([
-      this.mongoStore.createConnection(),
-      this.redisStore.createConnection()
+      this.databaseStore.createConnection(),
+      this.cacheStore.createConnection()
     ]);
   }
 
@@ -55,8 +47,8 @@ abstract class Repository<T extends IEntity> {
   async insertNewEntity(entity: T): Promise<void> {
     const entityCopy: T = Object.assign({}, entity);
     await Promise.all([
-      this.mongoStore.insertNewEntity(entity),
-      this.redisStore.insertNewEntity(entity.getId(), entityCopy)
+      this.databaseStore.insertNewEntity(entity),
+      this.cacheStore.insertNewEntity(entity.getId(), entityCopy)
     ]);
   }
 
@@ -72,8 +64,8 @@ abstract class Repository<T extends IEntity> {
   async updateEntity(entity: T): Promise<void> {
     const entityCopy: T = Object.assign({}, entity);
     await Promise.all([
-      this.mongoStore.updateEntity(entity.getId(), entity),
-      this.redisStore.updateEntity(entity.getId(), entityCopy)
+      this.databaseStore.updateEntity(entity.getId(), entity),
+      this.cacheStore.updateEntity(entity.getId(), entityCopy)
     ]);
   }
 
@@ -88,13 +80,13 @@ abstract class Repository<T extends IEntity> {
     let entity: T;
     let entityString: string;
 
-    entityString = await this.redisStore.selectEntity(entityId);
+    entityString = await this.cacheStore.selectEntity(entityId);
     const isEntityNotInCache: boolean = entityString === null;
 
     if (isEntityNotInCache) {
-      entityString = await this.mongoStore.selectEntity(entityId);
+      entityString = await this.databaseStore.selectEntity(entityId);
       entity = this.entitySerializer.deserialize(entityString);
-      this.redisStore.updateEntity(entityId, entity);
+      this.cacheStore.updateEntity(entityId, entity);
     }
 
     entity = this.entitySerializer.deserialize(entityString);
@@ -107,10 +99,10 @@ abstract class Repository<T extends IEntity> {
    * @param {string} - id of entity to delete
    * @return {void}
    */
-  async deleteEntity(entityId: string): Promise<any> {
+  async deleteEntity(entityId: string): Promise<void> {
     await Promise.all([
-      this.mongoStore.deleteEntity(entityId),
-      this.redisStore.deleteEntity(entityId)
+      this.databaseStore.deleteEntity(entityId),
+      this.cacheStore.deleteEntity(entityId)
     ]);
   }
 
@@ -120,11 +112,11 @@ abstract class Repository<T extends IEntity> {
    * @return {boolean}
    */
   async doesEntityExistById(entityId: string): Promise<boolean> {
-    const isEntityInCache: boolean = await this.redisStore
+    const isEntityInCache: boolean = await this.cacheStore
       .doesEntityExistById(entityId);
 
     if (!isEntityInCache) {
-      const isEntityInDb: boolean = await this.mongoStore
+      const isEntityInDb: boolean = await this.databaseStore
         .doesEntityExistByField({ id: entityId });
       return isEntityInDb;
     }
@@ -138,7 +130,7 @@ abstract class Repository<T extends IEntity> {
    * @return {integer}
    */
   async getEntityCount(): Promise<number> {
-    return await this.mongoStore.getEntityCount();
+    return await this.databaseStore.getEntityCount();
   }
 
   /**
@@ -150,8 +142,8 @@ abstract class Repository<T extends IEntity> {
    */
   async clearEntities(): Promise<void> {
     await Promise.all([
-      this.mongoStore.clearEntities(),
-      this.redisStore.clearEntities()
+      this.databaseStore.clearEntities(),
+      this.cacheStore.clearEntities()
     ]);
   }
 
@@ -162,7 +154,7 @@ abstract class Repository<T extends IEntity> {
    * @effects - deletes from database
    */
   async dropEntityCollection(): Promise<void> {
-    await this.mongoStore.dropEntityCollection();
+    await this.databaseStore.dropEntityCollection();
   }
 
 }

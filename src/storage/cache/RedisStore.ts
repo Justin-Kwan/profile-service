@@ -13,10 +13,10 @@ class RedisStore<T> implements ICacheStore<T> {
 	 * creates redis client connection
    * precondition: redis client must be disconnected
 	 * @param {void}
-	 * @return {Error} - throws error
+	 * @return {void}
 	 */
-  createConnection(): Promise<any> {
-    const promise = new Promise<any>((resolve, reject) => {
+  createConnection(): Promise<void> {
+    const promise = new Promise<void>((resolve, reject) => {
       this.redisClient = redis.createClient(this.REDIS_PORT, this.REDIS_HOST);
       resolve();
     });
@@ -31,13 +31,13 @@ class RedisStore<T> implements ICacheStore<T> {
    *               entity must have unique id field
    * @param {string} - id of entity to insert
 	 * @param {T} - generic type
-   * @return {Error} - throws error
+   * @return {void}
 	 * @effects writes to redis store
 	 */
-  insertNewEntity(entityId: string, entity: T): Promise<any> {
+  insertNewEntity(entityId: string, entity: T): Promise<void> {
     const entityString = JSON.stringify(entity);
 
-    const promise = new Promise<any>((resolve, reject) => {
+    const promise = new Promise<void>((resolve, reject) => {
       this.redisClient.set(entityId, entityString, (err, res) => {
         if (err) reject(err);
         resolve();
@@ -53,10 +53,10 @@ class RedisStore<T> implements ICacheStore<T> {
    * precondition: redis client must be connected
    * @param {string} - id of entity to update
    * @param {T} - generic type
-   * @return {Error} - throws error
+   * @return {void}
    * @effects writes to redis store
    */
-  async updateEntity(entityId: string, entity: T): Promise<any> {
+  async updateEntity(entityId: string, entity: T): Promise<void> {
     await this.deleteEntity(entityId);
     await this.insertNewEntity(entityId, entity);
   }
@@ -70,7 +70,7 @@ class RedisStore<T> implements ICacheStore<T> {
    *                            representation of object
 	 */
   selectEntity(entityId: string): Promise<string> {
-    const promise = new Promise<any>((resolve, reject) => {
+    const promise = new Promise<string>((resolve, reject) => {
       this.redisClient.get(entityId, (err, res) => {
         if (err) reject(err);
         const entityString: string = res;
@@ -86,10 +86,10 @@ class RedisStore<T> implements ICacheStore<T> {
    * precondition: redis client must be connected
    *               entity must exist in redis store
    * @param {string} - id of entity to delete
-   * @return {Error / string} - throws error
+   * @return {void}
    */
-  deleteEntity(entityId: string): Promise<any> {
-    const promise = new Promise<any>((resolve, reject) => {
+  deleteEntity(entityId: string): Promise<void> {
+    const promise = new Promise<void>((resolve, reject) => {
       this.redisClient.del(entityId, (err, res) => {
         if (err) reject(err);
         resolve();
@@ -105,7 +105,7 @@ class RedisStore<T> implements ICacheStore<T> {
    * precondition: redis client must be connected
    *               correct entity id must be passed in
 	 * @param {object} - entity id field object
-	 * @returns {Error / boolean} - throws error or returns boolean
+	 * @returns {boolean} - represents if entity exists
 	 */
   doesEntityExistById(entityId: string): Promise<boolean> {
     const promise = new Promise<boolean>((resolve, reject) => {
@@ -123,11 +123,11 @@ class RedisStore<T> implements ICacheStore<T> {
    * clears redis store of entity string key value pairs
    * precondition: redis client must be connected
    * @param {void}
-   * @return {Error} - throws error
+   * @return {void}
    * @effects clears redis store
    */
-  clearEntities(): Promise<any> {
-    const promise = new Promise<any>((resolve, reject) => {
+  clearEntities(): Promise<void> {
+    const promise = new Promise<void>((resolve, reject) => {
       this.redisClient.flushdb((err, res) => {
         if (err) reject(err);
         resolve();
