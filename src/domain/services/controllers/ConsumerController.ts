@@ -3,12 +3,15 @@ import { ConsumerFactory } from '../../services/factories/ConsumerFactory';
 import { ConsumerSerializer } from '../../services/entity-serializers/ConsumerSerializer';
 import { Consumer } from '../../entities/users/Consumer';
 import {
+  RESOURCE_CREATED,
+  RESOURCE_UPDATED,
+  RESOURCE_DELETED,
   PERMISSION_DENIED,
-  RESOURCE_WITH_ID_ALREADY_EXISTS,
-  RESOURCE_WITH_EMAIL_ALREADY_EXISTS,
-  RESOURCE_WITH_MOBILE_NUM_ALREADY_EXISTS,
+  RESOURCE_ID_ALREADY_EXISTS,
+  RESOURCE_EMAIL_ALREADY_EXISTS,
+  RESOURCE_MOBILE_NUM_ALREADY_EXISTS,
   RESOURCE_NOT_FOUND
-} from './ResponseErrors';
+} from './ResponseConstants';
 
 class ConsumerController {
 
@@ -27,43 +30,70 @@ class ConsumerController {
 
   // TODO: figure out proper returns
   //       add extra functions for getting specific fields
-  //       figure out how to organize interfaces, folders
 
-  // check conflicting email and phone num
+  // ok
   async createConsumer(consumerId: string, consumerParams: string): Promise<string> {
-    const consumer: Consumer = await this.consumerFactory
-      .createNewConsumer(consumerId, consumerParams);
+    const consumerObj = JSON.parse(consumerParams);
+    const newEmail: string = consumerObj.email;
+    const newMobileNum: string = consumerObj.mobileNum;
 
     const doesIdExist: boolean = await this.consumerRepository
       .existById(consumerId);
     const doesEmailExist: boolean = await this.consumerRepository
-      .existByEmail(consumer.getEmail());
+      .existByEmail(newEmail);
     const doesMobileNumExist: boolean = await this.consumerRepository
-      .existByMobileNum(consumer.getMobileNum());
+      .existByMobileNum(newMobileNum);
 
     if (doesIdExist) {
-      return RESOURCE_WITH_ID_ALREADY_EXISTS;
-    } if (doesEmailExist) {
-      return RESOURCE_WITH_EMAIL_ALREADY_EXISTS;
-    } if (doesMobileNumExist) {
-      return RESOURCE_WITH_MOBILE_NUM_ALREADY_EXISTS;
+      return RESOURCE_ID_ALREADY_EXISTS;
+    }
+    if (doesEmailExist) {
+      return RESOURCE_EMAIL_ALREADY_EXISTS;
+    }
+    if (doesMobileNumExist) {
+      return RESOURCE_MOBILE_NUM_ALREADY_EXISTS;
     }
 
+    const consumer: Consumer = await this.consumerFactory
+      .createNewConsumer(consumerId, consumerParams);
     await this.consumerRepository.insert(consumer);
-    return "resource created";
+
+    return RESOURCE_CREATED;
   }
 
-  // todo: check conflicting email and phone
+  // todo: handle checking if email and mobile num already exists
+  //       on a different user
   async updateConsumer(consumerId: string, consumerParams: string): Promise<string> {
-    const doesConsumerExist: boolean = await this.consumerRepository
+    const consumerObj = JSON.parse(consumerParams);
+    const updatedEmail: string = consumerObj.email;
+    const updatedMobileNum: string = consumerObj.mobileNum;
+
+    const doesIdExist: boolean = await this.consumerRepository
       .existById(consumerId);
 
-    if (!doesConsumerExist) return RESOURCE_NOT_FOUND;
+    if (!doesIdExist) {
+      return RESOURCE_NOT_FOUND;
+    }
 
     const consumer: Consumer = await this.consumerRepository
       .select(consumerId);
-    const consumerObj = JSON.parse(consumerParams);
 
+    const doesEmailExist: boolean = await this.consumerRepository
+      .existByEmail(updatedEmail);
+    const doesMobileNumExist: boolean = await this.consumerRepository
+      .existByMobileNum(updatedMobileNum);
+
+    // if changing field but new field arg already exists
+    if (updatedEmail !== consumer.getEmail()
+      && doesEmailExist) {
+      return RESOURCE_EMAIL_ALREADY_EXISTS;
+    }
+    if (updatedMobileNum !== consumer.getMobileNum()
+      && doesMobileNumExist) {
+      return RESOURCE_MOBILE_NUM_ALREADY_EXISTS;
+    }
+
+    // updating entity
     consumer.setFirstName(consumerObj.firstName);
     consumer.setLastName(consumerObj.lastName);
     consumer.setEmail(consumerObj.email);
@@ -71,6 +101,7 @@ class ConsumerController {
     consumer.setLocationId(consumerObj.locationId);
     consumer.setMobileNum(consumerObj.mobileNum);
     consumer.setOrderZone(consumerObj.orderZone);
+
     this.consumerRepository.update(consumer);
 
     return this.consumerSerializer.serializeForClient(consumer);
@@ -81,7 +112,9 @@ class ConsumerController {
     const doesConsumerExist: boolean = await this.consumerRepository
       .existById(consumerId);
 
-    if (!doesConsumerExist) return RESOURCE_NOT_FOUND;
+    if (!doesConsumerExist) {
+      return RESOURCE_NOT_FOUND;
+    }
 
     const consumer: Consumer = await this.consumerRepository
       .select(consumerId);
@@ -94,10 +127,12 @@ class ConsumerController {
     const doesConsumerExist: boolean = await this.consumerRepository
       .existById(consumerId);
 
-    if (!doesConsumerExist) return RESOURCE_NOT_FOUND;
+    if (!doesConsumerExist) {
+      return RESOURCE_NOT_FOUND;
+    }
 
     await this.consumerRepository.delete(consumerId);
-    return "user deleted";
+    return RESOURCE_DELETED;
   }
 
   // ok
