@@ -1,5 +1,5 @@
 import { IEntitySerializer } from './IEntitySerializer';
-import { Courier } from '../../entities/users/Courier';
+import { Courier } from '../entities/users/Courier';
 
 
 class CourierSerializer implements IEntitySerializer<Courier> {
@@ -33,8 +33,8 @@ class CourierSerializer implements IEntitySerializer<Courier> {
    * @param {Courier}
    * @return {string}
    */
-  serializeForClient(courier: Courier): string {
-    return JSON.stringify({
+  serializeForClient(courier: Courier): object {
+    return {
       firstName: courier.getFirstName(),
       lastName: courier.getLastName(),
       email: courier.getEmail(),
@@ -43,7 +43,7 @@ class CourierSerializer implements IEntitySerializer<Courier> {
       mobileNum: courier.getMobileNum(),
       vehicleType: courier.getVehicleType(),
       preferredZone: courier.getPreferredZone(),
-    });
+    };
   }
 
 }

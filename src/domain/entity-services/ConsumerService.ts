@@ -1,7 +1,7 @@
-import { ConsumerRepository } from '../../../storage/repository/ConsumerRepository';
-import { ConsumerFactory } from '../../services/factories/ConsumerFactory';
-import { ConsumerSerializer } from '../../services/entity-serializers/ConsumerSerializer';
-import { Consumer } from '../../entities/users/Consumer';
+import { ConsumerRepository } from '../../storage/repository/ConsumerRepository';
+import { ConsumerFactory } from '../factories/ConsumerFactory';
+import { ConsumerSerializer } from '../entity-serializers/ConsumerSerializer';
+import { Consumer } from '../entities/users/Consumer';
 import {
   RESOURCE_CREATED,
   RESOURCE_UPDATED,
@@ -13,7 +13,7 @@ import {
   RESOURCE_NOT_FOUND
 } from './ResponseConstants';
 
-class ConsumerController {
+class ConsumerService {
 
   private readonly consumerRepository: ConsumerRepository =
     new ConsumerRepository();
@@ -32,10 +32,9 @@ class ConsumerController {
   //       add extra functions for getting specific fields
 
   // ok
-  async createConsumer(consumerId: string, consumerParams: string): Promise<string> {
-    const consumerObj = JSON.parse(consumerParams);
-    const newEmail: string = consumerObj.email;
-    const newMobileNum: string = consumerObj.mobileNum;
+  async createConsumer(consumerId: string, consumerParams: any): Promise<object> {
+    const newEmail: string = consumerParams.email;
+    const newMobileNum: string = consumerParams.mobileNum;
 
     const doesIdExist: boolean = await this.consumerRepository
       .existById(consumerId);
@@ -55,7 +54,7 @@ class ConsumerController {
     }
 
     const consumer: Consumer = await this.consumerFactory
-      .createNewConsumer(consumerId, consumerParams);
+      .createNew(consumerId, JSON.stringify(consumerParams));
     await this.consumerRepository.insert(consumer);
 
     return RESOURCE_CREATED;
@@ -63,10 +62,9 @@ class ConsumerController {
 
   // todo: handle checking if email and mobile num already exists
   //       on a different user
-  async updateConsumer(consumerId: string, consumerParams: string): Promise<string> {
-    const consumerObj = JSON.parse(consumerParams);
-    const updatedEmail: string = consumerObj.email;
-    const updatedMobileNum: string = consumerObj.mobileNum;
+  async updateConsumer(consumerId: string, consumerParams: any): Promise<object> {
+    const updatedEmail: string = consumerParams.email;
+    const updatedMobileNum: string = consumerParams.mobileNum;
 
     const doesIdExist: boolean = await this.consumerRepository
       .existById(consumerId);
@@ -94,13 +92,13 @@ class ConsumerController {
     }
 
     // updating entity
-    consumer.setFirstName(consumerObj.firstName);
-    consumer.setLastName(consumerObj.lastName);
-    consumer.setEmail(consumerObj.email);
-    consumer.setCountry(consumerObj.country);
-    consumer.setLocationId(consumerObj.locationId);
-    consumer.setMobileNum(consumerObj.mobileNum);
-    consumer.setOrderZone(consumerObj.orderZone);
+    consumer.setFirstName(consumerParams.firstName);
+    consumer.setLastName(consumerParams.lastName);
+    consumer.setEmail(consumerParams.email);
+    consumer.setCountry(consumerParams.country);
+    consumer.setLocationId(consumerParams.locationId);
+    consumer.setMobileNum(consumerParams.mobileNum);
+    consumer.setOrderZone(consumerParams.orderZone);
 
     this.consumerRepository.update(consumer);
 
@@ -108,7 +106,7 @@ class ConsumerController {
   }
 
   // ok
-  async getConsumer(consumerId: string): Promise<string> {
+  async getConsumer(consumerId: string): Promise<object> {
     const doesConsumerExist: boolean = await this.consumerRepository
       .existById(consumerId);
 
@@ -123,7 +121,7 @@ class ConsumerController {
   }
 
   // ok
-  async deleteConsumer(consumerId: string): Promise<string> {
+  async deleteConsumer(consumerId: string): Promise<object> {
     const doesConsumerExist: boolean = await this.consumerRepository
       .existById(consumerId);
 
@@ -144,4 +142,4 @@ class ConsumerController {
 
 }
 
-export { ConsumerController };
+export { ConsumerService };

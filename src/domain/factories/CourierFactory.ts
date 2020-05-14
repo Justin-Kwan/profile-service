@@ -1,15 +1,11 @@
 import moment from 'moment';
 
-import { EntityFactory } from './EntityFactory';
-import { Courier } from '../../entities/users/Courier';
+import { IEntityFactory } from './IEntityFactory';
+import { Courier } from '../entities/users/Courier';
 
-class CourierFactory extends EntityFactory {
+class CourierFactory implements IEntityFactory<Courier> {
 
-  constructor() {
-    super();
-  }
-
-  createNewCourier(courierId: string, courierString: string): Courier {
+  createNew(courierId: string, courierString: string): Courier {
     const courierObj = JSON.parse(courierString);
     const courier: Courier = new Courier();
     courier.setId(courierId);

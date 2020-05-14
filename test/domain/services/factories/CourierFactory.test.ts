@@ -1,7 +1,7 @@
 import 'mocha';
 import { strict as assert } from 'assert';
 
-import { CourierFactory } from '../../../../src/domain/services/factories/CourierFactory';
+import { CourierFactory } from '../../../../src/domain/factories/CourierFactory';
 import { Courier } from '../../../../src/domain/entities/users/Courier';
 
 const courierFactory = new CourierFactory();
@@ -35,9 +35,9 @@ const test_courier_2: any = {
 
 describe('CourierFactory Tests', () => {
 
-  describe('createNewCourier() Tests', () => {
+  describe('createNew() Tests', () => {
     it('should create a courier object', () => {
-      const courier = courierFactory.createNewCourier(
+      const courier = courierFactory.createNew(
         'test_id_1',
         `{
         "firstName": "test_first_name_1",
@@ -65,7 +65,7 @@ describe('CourierFactory Tests', () => {
     });
 
     it('should create a courier object', () => {
-      const courier = courierFactory.createNewCourier(
+      const courier = courierFactory.createNew(
         'test_id_2',
         `{
         "firstName": "test_first_name_2",

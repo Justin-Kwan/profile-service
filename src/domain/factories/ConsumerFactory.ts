@@ -1,15 +1,11 @@
 import moment from 'moment';
 
-import { EntityFactory } from './EntityFactory';
-import { Consumer } from '../../entities/users/Consumer';
+import { IEntityFactory } from './IEntityFactory';
+import { Consumer } from '../entities/users/Consumer';
 
-class ConsumerFactory extends EntityFactory {
+class ConsumerFactory implements IEntityFactory<Consumer> {
 
-  constructor() {
-    super();
-  }
-
-  createNewConsumer(consumerId: string, consumerString: string): Consumer {
+  createNew(consumerId: string, consumerString: string): Consumer {
     const consumerObj = JSON.parse(consumerString);
     const consumer: Consumer = new Consumer();
     consumer.setId(consumerId);

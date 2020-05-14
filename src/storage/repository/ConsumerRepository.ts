@@ -2,7 +2,7 @@ import { EntityRepository } from './EntityRepository';
 import { MongoStore } from '../database/MongoStore';
 import { RedisStore } from '../cache/RedisStore';
 import { Consumer } from '../../domain/entities/users/Consumer';
-import { ConsumerSerializer } from '../../domain/services/entity-serializers/ConsumerSerializer';
+import { ConsumerSerializer } from '../../domain/entity-serializers/ConsumerSerializer';
 
 class ConsumerRepository extends EntityRepository<Consumer> {
 

@@ -1,7 +1,7 @@
 import { IDatabaseStore } from '../database/IDatabaseStore';
 import { ICacheStore } from '../cache/ICacheStore';
 import { IEntity } from '../../domain/entities/IEntity';
-import { IEntitySerializer } from '../../domain/services/entity-serializers/IEntitySerializer';
+import { IEntitySerializer } from '../../domain/entity-serializers/IEntitySerializer';
 
 
 abstract class EntityRepository<T extends IEntity> {

@@ -2,7 +2,7 @@ import { EntityRepository } from './EntityRepository';
 import { MongoStore } from '../database/MongoStore';
 import { RedisStore } from '../cache/RedisStore';
 import { Courier } from '../../domain/entities/users/Courier';
-import { CourierSerializer } from '../../domain/services/entity-serializers/CourierSerializer';
+import { CourierSerializer } from '../../domain/entity-serializers/CourierSerializer';
 
 class CourierRepository extends EntityRepository<Courier> {
 

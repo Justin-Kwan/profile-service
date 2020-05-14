@@ -1,7 +1,7 @@
 import 'mocha';
 import { strict as assert } from 'assert';
 
-import { ConsumerFactory } from '../../../../src/domain/services/factories/ConsumerFactory';
+import { ConsumerFactory } from '../../../../src/domain/factories/ConsumerFactory';
 import { Consumer } from '../../../../src/domain/entities/users/Consumer';
 
 const test_consumer_1: any = {
@@ -34,7 +34,7 @@ describe('ConsumerFactory Tests', () => {
 
   describe('createNewConsumer() tests', () => {
     it('should create a consumer object', () => {
-      const consumer: Consumer = consumerFactory.createNewConsumer(
+      const consumer: Consumer = consumerFactory.createNew(
       'test_id_1',
       `{
         "firstName": "test_first_name_1",
@@ -60,7 +60,7 @@ describe('ConsumerFactory Tests', () => {
     });
 
     it('should create a consumer object', () => {
-      const consumer: Consumer = consumerFactory.createNewConsumer(
+      const consumer: Consumer = consumerFactory.createNew(
       'test_id_2',
       `{
         "firstName": "test_first_name_2",

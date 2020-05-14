@@ -1,5 +1,5 @@
 import { IEntitySerializer } from './IEntitySerializer';
-import { Consumer } from '../../entities/users/Consumer';
+import { Consumer } from '../entities/users/Consumer';
 
 class ConsumerSerializer implements IEntitySerializer<Consumer> {
 
@@ -31,8 +31,8 @@ class ConsumerSerializer implements IEntitySerializer<Consumer> {
    * @param {Consumer}
    * @return {string}
    */
-  serializeForClient(consumer: Consumer): string {
-    return JSON.stringify({
+  serializeForClient(consumer: Consumer): object {
+    return {
       firstName: consumer.getFirstName(),
       lastName: consumer.getLastName(),
       email: consumer.getEmail(),
@@ -40,7 +40,7 @@ class ConsumerSerializer implements IEntitySerializer<Consumer> {
       locationId: consumer.getLocationId(),
       mobileNum: consumer.getMobileNum(),
       orderZone: consumer.getOrderZone()
-    });
+    };
   }
 
 }

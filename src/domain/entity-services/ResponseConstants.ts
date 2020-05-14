@@ -7,25 +7,25 @@
 /**
  * success response payloads
  */
-const RESOURCE_CREATED: string = JSON.stringify({
+const RESOURCE_CREATED: object = {
   body: {},
   code: 201
-});
+};
 
-const RESOURCE_UPDATED: string = JSON.stringify({
+const RESOURCE_UPDATED: object = {
   body: {},
   code: 201
-});
+};
 
-const RESOURCE_DELETED: string = JSON.stringify({
+const RESOURCE_DELETED: object = {
   body: {},
   code: 204
-});
+};
 
 /**
  * error response payloads
  */
-const PERMISSION_DENIED: string = JSON.stringify({
+const PERMISSION_DENIED: object = {
   body: {
     error: {
       message: "Resource access permission is denied",
@@ -34,9 +34,9 @@ const PERMISSION_DENIED: string = JSON.stringify({
     }
   },
   code: 403
-});
+};
 
-const RESOURCE_ID_ALREADY_EXISTS: string = JSON.stringify({
+const RESOURCE_ID_ALREADY_EXISTS: object = {
   body: {
     error: {
       message: "Resource with the same id already exists",
@@ -45,9 +45,9 @@ const RESOURCE_ID_ALREADY_EXISTS: string = JSON.stringify({
     }
   },
   code: 409
-});
+};
 
-const RESOURCE_EMAIL_ALREADY_EXISTS: string = JSON.stringify({
+const RESOURCE_EMAIL_ALREADY_EXISTS: object = {
   body: {
     error: {
       message: "Resource with the same email already exists",
@@ -56,9 +56,9 @@ const RESOURCE_EMAIL_ALREADY_EXISTS: string = JSON.stringify({
     }
   },
   code: 409
-});
+};
 
-const RESOURCE_MOBILE_NUM_ALREADY_EXISTS: string = JSON.stringify({
+const RESOURCE_MOBILE_NUM_ALREADY_EXISTS: object = {
   body: {
     error: {
       message: "Resource with the same mobile number already exists",
@@ -67,9 +67,9 @@ const RESOURCE_MOBILE_NUM_ALREADY_EXISTS: string = JSON.stringify({
     }
   },
   code: 409
-});
+};
 
-const RESOURCE_NOT_FOUND: string = JSON.stringify({
+const RESOURCE_NOT_FOUND: object = {
   body: {
     error: {
       message: "Resource not found",
@@ -78,7 +78,7 @@ const RESOURCE_NOT_FOUND: string = JSON.stringify({
     }
   },
   code: 404
-});
+};
 
 export {
   RESOURCE_CREATED,

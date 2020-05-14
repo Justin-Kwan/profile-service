@@ -4,7 +4,7 @@
  */
 interface IEntitySerializer<T> {
   deserialize(entityString: string): T;
-  serializeForClient(entity: T): string;
+  serializeForClient(entity: T): object;
 }
 
 export { IEntitySerializer };

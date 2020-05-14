@@ -1,5 +1,5 @@
 import { MockUser } from '../../entities/users/MockUser';
-import { IEntitySerializer } from '../../../../src/domain/services/entity-serializers/IEntitySerializer';
+import { IEntitySerializer } from '../../../../src/domain/entity-serializers/IEntitySerializer';
 
 class MockUserSerializer implements IEntitySerializer<MockUser> {
 
@@ -18,15 +18,15 @@ class MockUserSerializer implements IEntitySerializer<MockUser> {
     return mockUser;
   }
 
-  serializeForClient(mockUser: MockUser): string {
-    return JSON.stringify({
+  serializeForClient(mockUser: MockUser): object {
+    return {
       firstName: mockUser.getFirstName(),
       lastName: mockUser.getLastName(),
       email: mockUser.getEmail(),
       country: mockUser.getCountry(),
       locationId: mockUser.getLocationId(),
       mobileNum: mockUser.getMobileNum()
-    });
+    };
   }
 
 }
