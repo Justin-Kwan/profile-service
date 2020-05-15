@@ -180,17 +180,17 @@ describe('ConsumerService Tests', async () => {
     await consumerRepository.dropCollection();
   });
 
-  describe('createConsumer() tests', async () => {
+  describe('createUser() tests', async () => {
     it('should create a new consumer', async () => {
       // asserting response
       // function under test
       const controllerResponse = await consumerService
-        .createConsumer('test_id_1', TEST_CONSUMER_PARAMS_1);
+        .createUser('test_id_1', TEST_CONSUMER_PARAMS_1);
       assert.equal(controllerResponse, RESOURCE_CREATED);
       // asserting side effect (inserting consumer to db)
       // function under test
       const consumerString = await consumerService
-        .getConsumer('test_id_1');
+        .getUser('test_id_1');
       assert.deepEqual(
         consumerString,
         TEST_CONSUMER_RESPONSE_1
@@ -201,12 +201,12 @@ describe('ConsumerService Tests', async () => {
       // asserting response
       // function under test
       const controllerResponse = await consumerService
-        .createConsumer('test_id_2', TEST_CONSUMER_PARAMS_2);
+        .createUser('test_id_2', TEST_CONSUMER_PARAMS_2);
       assert.equal(controllerResponse, RESOURCE_CREATED);
       // asserting side effect (inserting consumer to db)
       // function under test
       const consumerString = await consumerService
-        .getConsumer('test_id_2');
+        .getUser('test_id_2');
       assert.deepEqual(
         consumerString,
         TEST_CONSUMER_RESPONSE_2
@@ -216,9 +216,9 @@ describe('ConsumerService Tests', async () => {
     it('should assert that a consumer with same id already exists', async () => {
       // setup
       await consumerService
-        .createConsumer('test_id_2', TEST_CONSUMER_PARAMS_2);
+        .createUser('test_id_2', TEST_CONSUMER_PARAMS_2);
       // function under test
-      const controllerResponse = await consumerService.createConsumer(
+      const controllerResponse = await consumerService.createUser(
         'test_id_2',
         TEST_CONSUMER_PARAMS_2
       );
@@ -231,9 +231,9 @@ describe('ConsumerService Tests', async () => {
     it('should assert that a consumer with same email already exists', async () => {
       // setup
       await consumerService
-        .createConsumer('test_id_1', TEST_CONSUMER_PARAMS_1);
+        .createUser('test_id_1', TEST_CONSUMER_PARAMS_1);
       // function under test
-      const controllerResponse = await consumerService.createConsumer(
+      const controllerResponse = await consumerService.createUser(
         'new_test_id_1',
         TEST_CONSUMER_PARAMS_SAME_EMAIL_1
       );
@@ -246,9 +246,9 @@ describe('ConsumerService Tests', async () => {
     it('should assert that a consumer with same mobile number already exists', async () => {
       // setup
       await consumerService
-        .createConsumer('test_id_1', TEST_CONSUMER_PARAMS_1);
+        .createUser('test_id_1', TEST_CONSUMER_PARAMS_1);
       // function under test
-      const controllerResponse = await consumerService.createConsumer(
+      const controllerResponse = await consumerService.createUser(
         'new_test_id_1',
         TEST_CONSUMER_PARAMS_SAME_MOBILE_NUM_1
       );
@@ -259,15 +259,15 @@ describe('ConsumerService Tests', async () => {
     });
   });
 
-  describe('updateConsumer() tests', async () => {
+  describe('updateUser() tests', async () => {
     it('should update a single consumer with all different fields', async () => {
       // setup
-      await consumerService.createConsumer(
+      await consumerService.createUser(
         'test_id_1',
         TEST_CONSUMER_PARAMS_1
       );
       // function under test
-      const updatedConsumer = await consumerService.updateConsumer(
+      const updatedConsumer = await consumerService.updateUser(
         'test_id_1',
         TEST_CONSUMER_PARAMS_UPDATED_1
       );
@@ -279,12 +279,12 @@ describe('ConsumerService Tests', async () => {
 
     it('should update a single consumer with all different fields', async () => {
       // setup
-      await consumerService.createConsumer(
+      await consumerService.createUser(
         'test_id_2',
         TEST_CONSUMER_PARAMS_2
       );
       // function under test
-      const updatedConsumer = await consumerService.updateConsumer(
+      const updatedConsumer = await consumerService.updateUser(
         'test_id_2',
         TEST_CONSUMER_PARAMS_UPDATED_2
       );
@@ -296,12 +296,12 @@ describe('ConsumerService Tests', async () => {
 
     it('should update a single consumer, keeping same email', async () => {
       // setup
-      await consumerService.createConsumer(
+      await consumerService.createUser(
         'test_id_1',
         TEST_CONSUMER_PARAMS_1
       );
       // function under test
-      const updatedConsumer = await consumerService.updateConsumer(
+      const updatedConsumer = await consumerService.updateUser(
         'test_id_1',
         TEST_CONSUMER_PARAMS_SAME_EMAIL_1
       );
@@ -313,12 +313,12 @@ describe('ConsumerService Tests', async () => {
 
     it('should update a single consumer, keeping same mobile number', async () => {
       // setup
-      await consumerService.createConsumer(
+      await consumerService.createUser(
         'test_id_1',
         TEST_CONSUMER_PARAMS_1
       );
       // function under test
-      const updatedConsumer = await consumerService.updateConsumer(
+      const updatedConsumer = await consumerService.updateUser(
         'test_id_1',
         TEST_CONSUMER_PARAMS_SAME_MOBILE_NUM_1
       );
@@ -330,12 +330,12 @@ describe('ConsumerService Tests', async () => {
 
     it('should update a single consumer, keeping all same fields', async () => {
       // setup
-      await consumerService.createConsumer(
+      await consumerService.createUser(
         'test_id_1',
         TEST_CONSUMER_PARAMS_1
       );
       // function under test
-      const updatedConsumer = await consumerService.updateConsumer(
+      const updatedConsumer = await consumerService.updateUser(
         'test_id_1',
         TEST_CONSUMER_PARAMS_1
       );
@@ -347,16 +347,16 @@ describe('ConsumerService Tests', async () => {
 
     it('should update a single consumer with all different fields, without affecting other consumers', async () => {
       // setup
-      await consumerService.createConsumer(
+      await consumerService.createUser(
         'test_id_1',
         TEST_CONSUMER_PARAMS_1
       );
-      await consumerService.createConsumer(
+      await consumerService.createUser(
         'test_id_2',
         TEST_CONSUMER_PARAMS_2
       );
       // function under test
-      const updatedConsumer = await consumerService.updateConsumer(
+      const updatedConsumer = await consumerService.updateUser(
         'test_id_1',
         TEST_CONSUMER_PARAMS_UPDATED_1
       );
@@ -366,7 +366,7 @@ describe('ConsumerService Tests', async () => {
         TEST_CONSUMER_RESPONSE_UPDATED_1
       );
       const unaffectedConsumer = await consumerService
-        .getConsumer('test_id_2');
+        .getUser('test_id_2');
       // assert other consumer is unaffected
       assert.deepEqual(
         unaffectedConsumer,
@@ -376,16 +376,16 @@ describe('ConsumerService Tests', async () => {
 
     it('should update a single consumer with all different fields, without affecting other consumers', async () => {
       // setup
-      await consumerService.createConsumer(
+      await consumerService.createUser(
         'test_id_1',
         TEST_CONSUMER_PARAMS_1
       );
-      await consumerService.createConsumer(
+      await consumerService.createUser(
         'test_id_2',
         TEST_CONSUMER_PARAMS_2
       );
       // function under test
-      const updatedConsumer = await consumerService.updateConsumer(
+      const updatedConsumer = await consumerService.updateUser(
         'test_id_2',
         TEST_CONSUMER_PARAMS_UPDATED_2
       );
@@ -395,7 +395,7 @@ describe('ConsumerService Tests', async () => {
         TEST_CONSUMER_RESPONSE_UPDATED_2
       );
       const unaffectedConsumer = await consumerService
-        .getConsumer('test_id_1');
+        .getUser('test_id_1');
       // assert other consumer is unaffected
       assert.deepEqual(
         unaffectedConsumer,
@@ -405,7 +405,7 @@ describe('ConsumerService Tests', async () => {
 
     it('should assert that resource is not found', async () => {
       // function under test
-      const updatedConsumer = await consumerService.updateConsumer(
+      const updatedConsumer = await consumerService.updateUser(
         'non_existent_id',
         TEST_CONSUMER_PARAMS_UPDATED_1
       );
@@ -417,12 +417,12 @@ describe('ConsumerService Tests', async () => {
 
     it('should assert that resource is not found', async () => {
       // setup
-      await consumerService.createConsumer(
+      await consumerService.createUser(
         'test_id_1',
         TEST_CONSUMER_PARAMS_1
       );
       // function under test
-      const updatedConsumer = await consumerService.updateConsumer(
+      const updatedConsumer = await consumerService.updateUser(
         'test_id_2',
         TEST_CONSUMER_PARAMS_UPDATED_1
       );
@@ -436,16 +436,16 @@ describe('ConsumerService Tests', async () => {
     // updating one of the users to have same email as the other
     it('should assert that a consumer with same email already exists', async () => {
       // setup
-      await consumerService.createConsumer(
+      await consumerService.createUser(
         'test_id_1',
         TEST_CONSUMER_PARAMS_1
       );
-      await consumerService.createConsumer(
+      await consumerService.createUser(
         'new_test_id_1',
         TEST_CONSUMER_PARAMS_UPDATED_1
       );
       // function under test
-      const updatedConsumer = await consumerService.updateConsumer(
+      const updatedConsumer = await consumerService.updateUser(
         'new_test_id_1',
         TEST_CONSUMER_PARAMS_SAME_EMAIL_1
       );
@@ -459,16 +459,16 @@ describe('ConsumerService Tests', async () => {
     // updating one of the users to have same mobile number as the other
     it('should assert that a consumer with same email already exists', async () => {
       // setup
-      await consumerService.createConsumer(
+      await consumerService.createUser(
         'test_id_1',
         TEST_CONSUMER_PARAMS_1
       );
-      await consumerService.createConsumer(
+      await consumerService.createUser(
         'new_test_id_1',
         TEST_CONSUMER_PARAMS_UPDATED_1
       );
       // function under test
-      const updatedConsumer = await consumerService.updateConsumer(
+      const updatedConsumer = await consumerService.updateUser(
         'new_test_id_1',
         TEST_CONSUMER_PARAMS_SAME_MOBILE_NUM_1
       );
@@ -479,11 +479,11 @@ describe('ConsumerService Tests', async () => {
     });
   });
 
-  describe('getConsumer() tests', async () => {
+  describe('getUser() tests', async () => {
     it('should assert that resource is not found', async () => {
       // function under test
       const controllerResponse = await consumerService
-        .getConsumer('test_id_1');
+        .getUser('test_id_1');
       assert.deepEqual(
         controllerResponse,
         RESOURCE_NOT_FOUND
@@ -493,10 +493,10 @@ describe('ConsumerService Tests', async () => {
     it('should assert that resource is not found', async () => {
       // setup
       await consumerService
-        .createConsumer('test_id_1', TEST_CONSUMER_PARAMS_1);
+        .createUser('test_id_1', TEST_CONSUMER_PARAMS_1);
       // function under test
       const controllerResponse = await consumerService
-        .getConsumer('test_id_2');
+        .getUser('test_id_2');
       assert.deepEqual(
         controllerResponse,
         RESOURCE_NOT_FOUND
@@ -506,10 +506,10 @@ describe('ConsumerService Tests', async () => {
     it('should assert that resource is not found', async () => {
       // setup
       await consumerService
-        .createConsumer('test_id_2', TEST_CONSUMER_PARAMS_2);
+        .createUser('test_id_2', TEST_CONSUMER_PARAMS_2);
       // function under test
       const controllerResponse = await consumerService
-        .getConsumer('test_id_1');
+        .getUser('test_id_1');
       assert.deepEqual(
         controllerResponse,
         RESOURCE_NOT_FOUND
@@ -517,11 +517,11 @@ describe('ConsumerService Tests', async () => {
     });
   });
 
-  describe('deleteConsumer() tests', async () => {
+  describe('deleteUser() tests', async () => {
     it('should assert that resource is not found', async () => {
       // function under test
       const controllerResponse = await consumerService
-        .deleteConsumer('non_existent_id');
+        .deleteUser('non_existent_id');
       assert.deepEqual(
         controllerResponse,
         RESOURCE_NOT_FOUND
@@ -531,10 +531,10 @@ describe('ConsumerService Tests', async () => {
     it('should assert that resource is not found', async () => {
       // setup
       await consumerService
-        .createConsumer('test_id_1', TEST_CONSUMER_PARAMS_1);
+        .createUser('test_id_1', TEST_CONSUMER_PARAMS_1);
       // function under test
       const controllerResponse = await consumerService
-        .deleteConsumer('test_id_2');
+        .deleteUser('test_id_2');
       assert.deepEqual(
         controllerResponse,
         RESOURCE_NOT_FOUND
@@ -544,10 +544,10 @@ describe('ConsumerService Tests', async () => {
     it('should assert that resource is not found', async () => {
       // setup
       await consumerService
-        .createConsumer('test_id_2', TEST_CONSUMER_PARAMS_2);
+        .createUser('test_id_2', TEST_CONSUMER_PARAMS_2);
       // function under test
       const controllerResponse = await consumerService
-        .deleteConsumer('test_id_1');
+        .deleteUser('test_id_1');
       assert.deepEqual(
         controllerResponse,
         RESOURCE_NOT_FOUND
@@ -557,10 +557,10 @@ describe('ConsumerService Tests', async () => {
     it('should delete a single consumer', async () => {
       // setup
       await consumerService
-        .createConsumer('test_id_1', TEST_CONSUMER_PARAMS_1);
+        .createUser('test_id_1', TEST_CONSUMER_PARAMS_1);
       // function under test
       const controllerResponse = await consumerService
-        .deleteConsumer('test_id_1');
+        .deleteUser('test_id_1');
       const doesDeletedConsumerExist = await consumerRepository
         .existById('test_id_1');
       assert.equal(doesDeletedConsumerExist, false);
@@ -569,10 +569,10 @@ describe('ConsumerService Tests', async () => {
     it('should delete a single consumer', async () => {
       // setup
       await consumerService
-        .createConsumer('test_id_2', TEST_CONSUMER_PARAMS_2);
+        .createUser('test_id_2', TEST_CONSUMER_PARAMS_2);
       // function under test
       const controllerResponse = await consumerService
-        .deleteConsumer('test_id_2');
+        .deleteUser('test_id_2');
       const doesDeletedConsumerExist = await consumerRepository
         .existById('test_id_2');
       assert.equal(doesDeletedConsumerExist, false);
@@ -581,12 +581,12 @@ describe('ConsumerService Tests', async () => {
     it('should delete a single consumer without affecting other consumers', async () => {
       // setup
       await consumerService
-        .createConsumer('test_id_1', TEST_CONSUMER_PARAMS_1);
+        .createUser('test_id_1', TEST_CONSUMER_PARAMS_1);
       await consumerService
-        .createConsumer('test_id_2', TEST_CONSUMER_PARAMS_2);
+        .createUser('test_id_2', TEST_CONSUMER_PARAMS_2);
       // function under test
       const controllerResponse = await consumerService
-        .deleteConsumer('test_id_2');
+        .deleteUser('test_id_2');
       assert.equal(controllerResponse, RESOURCE_DELETED);
       const doesDeletedConsumerExist = await consumerRepository
         .existById('test_id_2');
@@ -599,12 +599,12 @@ describe('ConsumerService Tests', async () => {
     it('should delete a single consumer without affecting other consumers', async () => {
       // setup
       await consumerService
-        .createConsumer('test_id_1', TEST_CONSUMER_PARAMS_1);
+        .createUser('test_id_1', TEST_CONSUMER_PARAMS_1);
       await consumerService
-        .createConsumer('test_id_2', TEST_CONSUMER_PARAMS_2);
+        .createUser('test_id_2', TEST_CONSUMER_PARAMS_2);
       // function under test
       const controllerResponse = await consumerService
-        .deleteConsumer('test_id_1');
+        .deleteUser('test_id_1');
       assert.equal(controllerResponse, RESOURCE_DELETED);
       const doesDeletedConsumerExist = await consumerRepository
         .existById('test_id_1');

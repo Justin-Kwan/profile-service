@@ -192,17 +192,17 @@ describe('CourierService Tests', async () => {
     await courierRepository.dropCollection();
   });
 
-  describe('createCourier() tests', async () => {
+  describe('createUser() tests', async () => {
     it('should create a new courier', async () => {
       // asserting response
       // function under test
       const controllerResponse = await courierService
-        .createCourier('test_id_1', TEST_COURIER_PARAMS_1);
+        .createUser('test_id_1', TEST_COURIER_PARAMS_1);
       assert.equal(controllerResponse, RESOURCE_CREATED);
       // asserting side effect (inserting courier to db)
       // function under test
       const courierString = await courierService
-        .getCourier('test_id_1');
+        .getUser('test_id_1');
       assert.deepEqual(
         courierString,
         TEST_COURIER_RESPONSE_1
@@ -213,12 +213,12 @@ describe('CourierService Tests', async () => {
       // asserting response
       // function under test
       const controllerResponse = await courierService
-        .createCourier('test_id_2', TEST_COURIER_PARAMS_2);
+        .createUser('test_id_2', TEST_COURIER_PARAMS_2);
       assert.equal(controllerResponse, RESOURCE_CREATED);
       // asserting side effect (inserting courier to db)
       // function under test
       const courierString = await courierService
-        .getCourier('test_id_2');
+        .getUser('test_id_2');
       assert.deepEqual(
         courierString,
         TEST_COURIER_RESPONSE_2
@@ -228,9 +228,9 @@ describe('CourierService Tests', async () => {
     it('should assert that a courier with same id already exists', async () => {
       // setup
       await courierService
-        .createCourier('test_id_2', TEST_COURIER_PARAMS_2);
+        .createUser('test_id_2', TEST_COURIER_PARAMS_2);
       // function under test
-      const controllerResponse = await courierService.createCourier(
+      const controllerResponse = await courierService.createUser(
         'test_id_2',
         TEST_COURIER_PARAMS_2
       );
@@ -243,9 +243,9 @@ describe('CourierService Tests', async () => {
     it('should assert that a courier with same email already exists', async () => {
       // setup
       await courierService
-        .createCourier('test_id_1', TEST_COURIER_PARAMS_1);
+        .createUser('test_id_1', TEST_COURIER_PARAMS_1);
       // function under test
-      const controllerResponse = await courierService.createCourier(
+      const controllerResponse = await courierService.createUser(
         'new_test_id_1',
         TEST_COURIER_PARAMS_SAME_EMAIL_1
       );
@@ -258,9 +258,9 @@ describe('CourierService Tests', async () => {
     it('should assert that a courier with same mobile number already exists', async () => {
       // setup
       await courierService
-        .createCourier('test_id_1', TEST_COURIER_PARAMS_1);
+        .createUser('test_id_1', TEST_COURIER_PARAMS_1);
       // function under test
-      const controllerResponse = await courierService.createCourier(
+      const controllerResponse = await courierService.createUser(
         'new_test_id_1',
         TEST_COURIER_PARAMS_SAME_MOBILE_NUM_1
       );
@@ -271,15 +271,15 @@ describe('CourierService Tests', async () => {
     });
   });
 
-  describe('updateCourier() tests', async () => {
+  describe('updateUser() tests', async () => {
     it('should update a single courier with all different fields', async () => {
       // setup
-      await courierService.createCourier(
+      await courierService.createUser(
         'test_id_1',
         TEST_COURIER_PARAMS_1
       );
       // function under test
-      const updatedCourier = await courierService.updateCourier(
+      const updatedCourier = await courierService.updateUser(
         'test_id_1',
         TEST_COURIER_PARAMS_UPDATED_1
       );
@@ -291,12 +291,12 @@ describe('CourierService Tests', async () => {
 
     it('should update a single courier with all different fields', async () => {
       // setup
-      await courierService.createCourier(
+      await courierService.createUser(
         'test_id_2',
         TEST_COURIER_PARAMS_2
       );
       // function under test
-      const updatedCourier = await courierService.updateCourier(
+      const updatedCourier = await courierService.updateUser(
         'test_id_2',
         TEST_COURIER_PARAMS_UPDATED_2
       );
@@ -308,12 +308,12 @@ describe('CourierService Tests', async () => {
 
     it('should update a single courier, keeping same email', async () => {
       // setup
-      await courierService.createCourier(
+      await courierService.createUser(
         'test_id_1',
         TEST_COURIER_PARAMS_1
       );
       // function under test
-      const updatedCourier = await courierService.updateCourier(
+      const updatedCourier = await courierService.updateUser(
         'test_id_1',
         TEST_COURIER_PARAMS_SAME_EMAIL_1
       );
@@ -325,12 +325,12 @@ describe('CourierService Tests', async () => {
 
     it('should update a single courier, keeping same mobile number', async () => {
       // setup
-      await courierService.createCourier(
+      await courierService.createUser(
         'test_id_1',
         TEST_COURIER_PARAMS_1
       );
       // function under test
-      const updatedCourier = await courierService.updateCourier(
+      const updatedCourier = await courierService.updateUser(
         'test_id_1',
         TEST_COURIER_PARAMS_SAME_MOBILE_NUM_1
       );
@@ -342,12 +342,12 @@ describe('CourierService Tests', async () => {
 
     it('should update a single courier, keeping all same fields', async () => {
       // setup
-      await courierService.createCourier(
+      await courierService.createUser(
         'test_id_1',
         TEST_COURIER_PARAMS_1
       );
       // function under test
-      const updatedCourier = await courierService.updateCourier(
+      const updatedCourier = await courierService.updateUser(
         'test_id_1',
         TEST_COURIER_PARAMS_1
       );
@@ -359,16 +359,16 @@ describe('CourierService Tests', async () => {
 
     it('should update a single courier with all different fields, without affecting other couriers', async () => {
       // setup
-      await courierService.createCourier(
+      await courierService.createUser(
         'test_id_1',
         TEST_COURIER_PARAMS_1
       );
-      await courierService.createCourier(
+      await courierService.createUser(
         'test_id_2',
         TEST_COURIER_PARAMS_2
       );
       // function under test
-      const updatedCourier = await courierService.updateCourier(
+      const updatedCourier = await courierService.updateUser(
         'test_id_1',
         TEST_COURIER_PARAMS_UPDATED_1
       );
@@ -378,7 +378,7 @@ describe('CourierService Tests', async () => {
         TEST_COURIER_RESPONSE_UPDATED_1
       );
       const unaffectedCourier = await courierService
-        .getCourier('test_id_2');
+        .getUser('test_id_2');
       // assert other courier is unaffected
       assert.deepEqual(
         unaffectedCourier,
@@ -388,16 +388,16 @@ describe('CourierService Tests', async () => {
 
     it('should update a single courier with all different fields, without affecting other couriers', async () => {
       // setup
-      await courierService.createCourier(
+      await courierService.createUser(
         'test_id_1',
         TEST_COURIER_PARAMS_1
       );
-      await courierService.createCourier(
+      await courierService.createUser(
         'test_id_2',
         TEST_COURIER_PARAMS_2
       );
       // function under test
-      const updatedCourier = await courierService.updateCourier(
+      const updatedCourier = await courierService.updateUser(
         'test_id_2',
         TEST_COURIER_PARAMS_UPDATED_2
       );
@@ -407,7 +407,7 @@ describe('CourierService Tests', async () => {
         TEST_COURIER_RESPONSE_UPDATED_2
       );
       const unaffectedCourier = await courierService
-        .getCourier('test_id_1');
+        .getUser('test_id_1');
       // assert other courier is unaffected
       assert.deepEqual(
         unaffectedCourier,
@@ -417,7 +417,7 @@ describe('CourierService Tests', async () => {
 
     it('should assert that resource is not found', async () => {
       // function under test
-      const updatedCourier = await courierService.updateCourier(
+      const updatedCourier = await courierService.updateUser(
         'non_existent_id',
         TEST_COURIER_PARAMS_UPDATED_1
       );
@@ -429,12 +429,12 @@ describe('CourierService Tests', async () => {
 
     it('should assert that resource is not found', async () => {
       // setup
-      await courierService.createCourier(
+      await courierService.createUser(
         'test_id_1',
         TEST_COURIER_PARAMS_1
       );
       // function under test
-      const updatedCourier = await courierService.updateCourier(
+      const updatedCourier = await courierService.updateUser(
         'test_id_2',
         TEST_COURIER_PARAMS_UPDATED_1
       );
@@ -448,16 +448,16 @@ describe('CourierService Tests', async () => {
     // updating one of the users to have same email as the other
     it('should assert that a courier with same email already exists', async () => {
       // setup
-      await courierService.createCourier(
+      await courierService.createUser(
         'test_id_1',
         TEST_COURIER_PARAMS_1
       );
-      await courierService.createCourier(
+      await courierService.createUser(
         'new_test_id_1',
         TEST_COURIER_PARAMS_UPDATED_1
       );
       // function under test
-      const updatedCourier = await courierService.updateCourier(
+      const updatedCourier = await courierService.updateUser(
         'new_test_id_1',
         TEST_COURIER_PARAMS_SAME_EMAIL_1
       );
@@ -471,16 +471,16 @@ describe('CourierService Tests', async () => {
     // updating one of the users to have same mobile number as the other
     it('should assert that a courier with same email already exists', async () => {
       // setup
-      await courierService.createCourier(
+      await courierService.createUser(
         'test_id_1',
         TEST_COURIER_PARAMS_1
       );
-      await courierService.createCourier(
+      await courierService.createUser(
         'new_test_id_1',
         TEST_COURIER_PARAMS_UPDATED_1
       );
       // function under test
-      const updatedCourier = await courierService.updateCourier(
+      const updatedCourier = await courierService.updateUser(
         'new_test_id_1',
         TEST_COURIER_PARAMS_SAME_MOBILE_NUM_1
       );
@@ -491,11 +491,11 @@ describe('CourierService Tests', async () => {
     });
   });
 
-  describe('getCourier() tests', async () => {
+  describe('getUser() tests', async () => {
     it('should assert that resource is not found', async () => {
       // function under test
       const controllerResponse = await courierService
-        .getCourier('test_id_1');
+        .getUser('test_id_1');
       assert.deepEqual(
         controllerResponse,
         RESOURCE_NOT_FOUND
@@ -505,10 +505,10 @@ describe('CourierService Tests', async () => {
     it('should assert that resource is not found', async () => {
       // setup
       await courierService
-        .createCourier('test_id_1', TEST_COURIER_PARAMS_1);
+        .createUser('test_id_1', TEST_COURIER_PARAMS_1);
       // function under test
       const controllerResponse = await courierService
-        .getCourier('test_id_2');
+        .getUser('test_id_2');
       assert.deepEqual(
         controllerResponse,
         RESOURCE_NOT_FOUND
@@ -518,10 +518,10 @@ describe('CourierService Tests', async () => {
     it('should assert that resource is not found', async () => {
       // setup
       await courierService
-        .createCourier('test_id_2', TEST_COURIER_PARAMS_2);
+        .createUser('test_id_2', TEST_COURIER_PARAMS_2);
       // function under test
       const controllerResponse = await courierService
-        .getCourier('test_id_1');
+        .getUser('test_id_1');
       assert.deepEqual(
         controllerResponse,
         RESOURCE_NOT_FOUND
@@ -529,11 +529,11 @@ describe('CourierService Tests', async () => {
     });
   });
 
-  describe('deleteCourier() tests', async () => {
+  describe('deleteUser() tests', async () => {
     it('should assert that resource is not found', async () => {
       // function under test
       const controllerResponse = await courierService
-        .deleteCourier('non_existent_id');
+        .deleteUser('non_existent_id');
       assert.deepEqual(
         controllerResponse,
         RESOURCE_NOT_FOUND
@@ -543,10 +543,10 @@ describe('CourierService Tests', async () => {
     it('should assert that resource is not found', async () => {
       // setup
       await courierService
-        .createCourier('test_id_1', TEST_COURIER_PARAMS_1);
+        .createUser('test_id_1', TEST_COURIER_PARAMS_1);
       // function under test
       const controllerResponse = await courierService
-        .deleteCourier('test_id_2');
+        .deleteUser('test_id_2');
       assert.deepEqual(
         controllerResponse,
         RESOURCE_NOT_FOUND
@@ -556,10 +556,10 @@ describe('CourierService Tests', async () => {
     it('should assert that resource is not found', async () => {
       // setup
       await courierService
-        .createCourier('test_id_2', TEST_COURIER_PARAMS_2);
+        .createUser('test_id_2', TEST_COURIER_PARAMS_2);
       // function under test
       const controllerResponse = await courierService
-        .deleteCourier('test_id_1');
+        .deleteUser('test_id_1');
       assert.deepEqual(
         controllerResponse,
         RESOURCE_NOT_FOUND
@@ -569,10 +569,10 @@ describe('CourierService Tests', async () => {
     it('should delete a single courier', async () => {
       // setup
       await courierService
-        .createCourier('test_id_1', TEST_COURIER_PARAMS_1);
+        .createUser('test_id_1', TEST_COURIER_PARAMS_1);
       // function under test
       const controllerResponse = await courierService
-        .deleteCourier('test_id_1');
+        .deleteUser('test_id_1');
       const doesDeletedCourierExist = await courierRepository
         .existById('test_id_1');
       assert.equal(doesDeletedCourierExist, false);
@@ -581,10 +581,10 @@ describe('CourierService Tests', async () => {
     it('should delete a single courier', async () => {
       // setup
       await courierService
-        .createCourier('test_id_2', TEST_COURIER_PARAMS_2);
+        .createUser('test_id_2', TEST_COURIER_PARAMS_2);
       // function under test
       const controllerResponse = await courierService
-        .deleteCourier('test_id_2');
+        .deleteUser('test_id_2');
       const doesDeletedCourierExist = await courierRepository
         .existById('test_id_2');
       assert.equal(doesDeletedCourierExist, false);
@@ -593,12 +593,12 @@ describe('CourierService Tests', async () => {
     it('should delete a single courier without affecting other couriers', async () => {
       // setup
       await courierService
-        .createCourier('test_id_1', TEST_COURIER_PARAMS_1);
+        .createUser('test_id_1', TEST_COURIER_PARAMS_1);
       await courierService
-        .createCourier('test_id_2', TEST_COURIER_PARAMS_2);
+        .createUser('test_id_2', TEST_COURIER_PARAMS_2);
       // function under test
       const controllerResponse = await courierService
-        .deleteCourier('test_id_2');
+        .deleteUser('test_id_2');
       assert.equal(controllerResponse, RESOURCE_DELETED);
       const doesDeletedCourierExist = await courierRepository
         .existById('test_id_2');
@@ -611,12 +611,12 @@ describe('CourierService Tests', async () => {
     it('should delete a single courier without affecting other couriers', async () => {
       // setup
       await courierService
-        .createCourier('test_id_1', TEST_COURIER_PARAMS_1);
+        .createUser('test_id_1', TEST_COURIER_PARAMS_1);
       await courierService
-        .createCourier('test_id_2', TEST_COURIER_PARAMS_2);
+        .createUser('test_id_2', TEST_COURIER_PARAMS_2);
       // function under test
       const controllerResponse = await courierService
-        .deleteCourier('test_id_1');
+        .deleteUser('test_id_1');
       assert.equal(controllerResponse, RESOURCE_DELETED);
       const doesDeletedCourierExist = await courierRepository
         .existById('test_id_1');

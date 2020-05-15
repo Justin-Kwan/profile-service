@@ -1,6 +1,6 @@
 import { IDatabaseStore } from '../database/IDatabaseStore';
 import { ICacheStore } from '../cache/ICacheStore';
-import { IUser } from '../../domain/entities/IUser';
+import { IUser } from '../../domain/entities/users/IUser';
 import { IUserSerializer } from '../../domain/user-serializers/IUserSerializer';
 
 
@@ -15,9 +15,10 @@ abstract class UserRepository<T extends IUser> {
    * @param {ICacheStore<T>} - injected cache access object
    * @param {IUserSerializer<T>} - injected user object serializer
    */
-  constructor(databaseStore: IDatabaseStore<T>,
-              cacheStore: ICacheStore<T>,
-              userSerializer: IUserSerializer<T>) {
+  constructor(
+    databaseStore: IDatabaseStore<T>,
+    cacheStore: ICacheStore<T>,
+    userSerializer: IUserSerializer<T>) {
     this.databaseStore = databaseStore;
     this.cacheStore = cacheStore;
     this.userSerializer = userSerializer;
