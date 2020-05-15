@@ -4,7 +4,6 @@ import { CourierSerializer } from '../entity-serializers/CourierSerializer';
 import { Courier } from '../entities/users/Courier';
 import {
   RESOURCE_CREATED,
-  RESOURCE_UPDATED,
   RESOURCE_DELETED,
   PERMISSION_DENIED,
   RESOURCE_ID_ALREADY_EXISTS,
@@ -101,7 +100,10 @@ class CourierService {
     courier.setPreferredZone(courierParams.preferredZone);
     this.courierRepository.update(courier);
 
-    return this.courierSerializer.serializeForClient(courier);
+    return {
+      body: this.courierSerializer.serializeForClient(courier),
+      code: 200
+    };
   }
 
   /**
@@ -117,7 +119,11 @@ class CourierService {
 
     const courier: Courier = await this.courierRepository
       .select(courierId);
-    return this.courierSerializer.serializeForClient(courier);
+
+    return {
+      body: this.courierSerializer.serializeForClient(courier),
+      code: 200
+    };
   }
 
   /**

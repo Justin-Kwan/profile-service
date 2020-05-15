@@ -4,7 +4,6 @@ import { ConsumerSerializer } from '../entity-serializers/ConsumerSerializer';
 import { Consumer } from '../entities/users/Consumer';
 import {
   RESOURCE_CREATED,
-  RESOURCE_UPDATED,
   RESOURCE_DELETED,
   PERMISSION_DENIED,
   RESOURCE_ID_ALREADY_EXISTS,
@@ -100,7 +99,10 @@ class ConsumerService {
     consumer.setOrderZone(consumerParams.orderZone);
     this.consumerRepository.update(consumer);
 
-    return this.consumerSerializer.serializeForClient(consumer);
+    return {
+      body: this.consumerSerializer.serializeForClient(consumer),
+      code: 200
+    };
   }
 
   /**
@@ -116,7 +118,11 @@ class ConsumerService {
 
     const consumer: Consumer = await this.consumerRepository
       .select(consumerId);
-    return this.consumerSerializer.serializeForClient(consumer);
+
+    return {
+      body: this.consumerSerializer.serializeForClient(consumer),
+      code: 200
+    };
   }
 
   /**

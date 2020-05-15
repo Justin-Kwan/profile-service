@@ -12,11 +12,6 @@ const RESOURCE_CREATED: object = {
   code: 201
 };
 
-const RESOURCE_UPDATED: object = {
-  body: {},
-  code: 201
-};
-
 const RESOURCE_DELETED: object = {
   body: {},
   code: 204
