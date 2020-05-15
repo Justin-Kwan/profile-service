@@ -28,6 +28,12 @@ class ConsumerService {
     this.consumerRepository.initDatastoreObjects();
   }
 
+  /**
+   * creates new consumer entity
+   * @param {string} - id of consumer to create
+   * @param {any} - JSON object of consumer fields for new consumer
+   * @return {object} - JSON response object (error or success)
+   */
   async createConsumer(consumerId: string, consumerParams: any): Promise<object> {
     const newEmail: string = consumerParams.email;
     const newMobileNum: string = consumerParams.mobileNum;
@@ -39,8 +45,8 @@ class ConsumerService {
     const doesMobileNumExist: boolean = await this.consumerRepository
       .existByMobileNum(newMobileNum);
 
-    if (doesIdExist)        return RESOURCE_ID_ALREADY_EXISTS;
-    if (doesEmailExist)     return RESOURCE_EMAIL_ALREADY_EXISTS;
+    if (doesIdExist) return RESOURCE_ID_ALREADY_EXISTS;
+    if (doesEmailExist) return RESOURCE_EMAIL_ALREADY_EXISTS;
     if (doesMobileNumExist) return RESOURCE_MOBILE_NUM_ALREADY_EXISTS;
 
     const consumer: Consumer = await this.consumerFactory
@@ -50,29 +56,41 @@ class ConsumerService {
     return RESOURCE_CREATED;
   }
 
+  /**
+   * updates consumer entity by consumer id, given new consumer
+   * field arguments
+   * @param {string} - id of consumer to update
+   * @param {any} - JSON object of consumer fields to update
+   * @return {object} - JSON response object (error or consumer)
+   */
   async updateConsumer(consumerId: string, consumerParams: any): Promise<object> {
-    const updatedEmail: string = consumerParams.email;
-    const updatedMobileNum: string = consumerParams.mobileNum;
+    const newEmail: string = consumerParams.email;
+    const newMobileNum: string = consumerParams.mobileNum;
 
     const doesIdExist: boolean = await this.consumerRepository
       .existById(consumerId);
     const doesEmailExist: boolean = await this.consumerRepository
-      .existByEmail(updatedEmail);
+      .existByEmail(newEmail);
     const doesMobileNumExist: boolean = await this.consumerRepository
-      .existByMobileNum(updatedMobileNum);
+      .existByMobileNum(newMobileNum);
 
     if (!doesIdExist) return RESOURCE_NOT_FOUND;
 
     const consumer: Consumer = await this.consumerRepository
       .select(consumerId);
 
-    // if updating email but new email already exists on another account
-    if (updatedEmail !== consumer.getEmail() && doesEmailExist)
+    const isEmailDifferent: boolean =
+      newEmail !== consumer.getEmail();
+    const isMobileNumDifferent: boolean =
+      newMobileNum !== consumer.getMobileNum();
+
+    // if new email provided already exists
+    if (isEmailDifferent && doesEmailExist)
       return RESOURCE_EMAIL_ALREADY_EXISTS;
-    if (updatedMobileNum !== consumer.getMobileNum() && doesMobileNumExist)
+    // if new mobile number provided already exists
+    if (isMobileNumDifferent && doesMobileNumExist)
       return RESOURCE_MOBILE_NUM_ALREADY_EXISTS;
 
-    // updating entity
     consumer.setFirstName(consumerParams.firstName);
     consumer.setLastName(consumerParams.lastName);
     consumer.setEmail(consumerParams.email);
@@ -80,13 +98,16 @@ class ConsumerService {
     consumer.setLocationId(consumerParams.locationId);
     consumer.setMobileNum(consumerParams.mobileNum);
     consumer.setOrderZone(consumerParams.orderZone);
-
     this.consumerRepository.update(consumer);
 
     return this.consumerSerializer.serializeForClient(consumer);
   }
 
-  // ok
+  /**
+   * gets consumer entity by consumer id
+   * @param {string} - id of consumer to get
+   * @return {object} - JSON response object (error or consumer)
+   */
   async getConsumer(consumerId: string): Promise<object> {
     const doesIdExist: boolean = await this.consumerRepository
       .existById(consumerId);
@@ -98,7 +119,11 @@ class ConsumerService {
     return this.consumerSerializer.serializeForClient(consumer);
   }
 
-  // ok
+  /**
+   * deletes consumer entity by consumer id
+   * @param {string} - id of consumer to delete
+   * @return {object} - JSON response object (error or success)
+   */
   async deleteConsumer(consumerId: string): Promise<object> {
     const doesIdExist: boolean = await this.consumerRepository
       .existById(consumerId);

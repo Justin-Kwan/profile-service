@@ -1,7 +1,6 @@
 
 
 class EntityController<T> {
-  
 
   createEntity(req: Request, res: Response): void {
     const response: any = entityService.create(req.body);
@@ -22,6 +21,5 @@ class EntityController<T> {
     const response: any = entityService.delete(req.body);
     res.status(response.code).send(response.body);
   }
-
 
 }
