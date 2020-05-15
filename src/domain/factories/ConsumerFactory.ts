@@ -1,9 +1,9 @@
 import moment from 'moment';
 
-import { IEntityFactory } from './IEntityFactory';
+import { IUserFactory } from './IUserFactory';
 import { Consumer } from '../entities/users/Consumer';
 
-class ConsumerFactory implements IEntityFactory<Consumer> {
+class ConsumerFactory implements IUserFactory<Consumer> {
 
   createNew(consumerId: string, consumerString: string): Consumer {
     const consumerObj = JSON.parse(consumerString);

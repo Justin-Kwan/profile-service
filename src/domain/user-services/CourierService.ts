@@ -1,6 +1,6 @@
 import { CourierRepository } from '../../storage/repository/CourierRepository';
 import { CourierFactory } from '../factories/CourierFactory';
-import { CourierSerializer } from '../entity-serializers/CourierSerializer';
+import { CourierSerializer } from '../user-serializers/CourierSerializer';
 import { Courier } from '../entities/users/Courier';
 import {
   RESOURCE_CREATED,
@@ -28,7 +28,7 @@ class CourierService {
   }
 
   /**
-   * creates new courier entity
+   * creates new courier user
    * @param {string} - id of courier to create
    * @param {any} - JSON object of courier fields for new courier
    * @return {object} - JSON response object (error or success)
@@ -56,7 +56,7 @@ class CourierService {
   }
 
   /**
-   * updates courier entity by courier id, given new courier
+   * updates courier user by courier id, given new courier
    * field arguments
    * @param {string} - id of courier to update
    * @param {any} - JSON object of courier fields to update
@@ -107,7 +107,7 @@ class CourierService {
   }
 
   /**
-   * gets courier entity by courier id
+   * gets courier user by courier id
    * @param {string} - id of courier to get
    * @return {object} - JSON response object (error or courier)
    */
@@ -127,7 +127,7 @@ class CourierService {
   }
 
   /**
-   * deletes courier entity by courier id
+   * deletes courier user by courier id
    * @param {string} - id of courier to delete
    * @return {object} - JSON response object (error or success)
    */

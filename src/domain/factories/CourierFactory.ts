@@ -1,9 +1,9 @@
 import moment from 'moment';
 
-import { IEntityFactory } from './IEntityFactory';
+import { IUserFactory } from './IUserFactory';
 import { Courier } from '../entities/users/Courier';
 
-class CourierFactory implements IEntityFactory<Courier> {
+class CourierFactory implements IUserFactory<Courier> {
 
   createNew(courierId: string, courierString: string): Courier {
     const courierObj = JSON.parse(courierString);

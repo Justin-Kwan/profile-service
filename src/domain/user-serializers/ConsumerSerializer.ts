@@ -1,7 +1,7 @@
-import { IEntitySerializer } from './IEntitySerializer';
+import { IUserSerializer } from './IUserSerializer';
 import { Consumer } from '../entities/users/Consumer';
 
-class ConsumerSerializer implements IEntitySerializer<Consumer> {
+class ConsumerSerializer implements IUserSerializer<Consumer> {
 
   /**
    * deserializes consumer json string into consumer object, copying

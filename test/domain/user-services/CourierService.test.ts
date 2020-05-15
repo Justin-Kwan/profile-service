@@ -1,7 +1,7 @@
 import 'mocha';
 import { strict as assert } from 'assert';
 
-import { CourierService } from '../../../src/domain/entity-services/CourierService';
+import { CourierService } from '../../../src/domain/user-services/CourierService';
 import { CourierRepository } from '../../../src/storage/repository/CourierRepository';
 import {
   RESOURCE_CREATED,
@@ -11,7 +11,7 @@ import {
   RESOURCE_EMAIL_ALREADY_EXISTS,
   RESOURCE_MOBILE_NUM_ALREADY_EXISTS,
   RESOURCE_NOT_FOUND
-} from '../../../src/domain/entity-services/ResponseConstants';
+} from '../../../src/domain/user-services/ResponseConstants';
 
 const TEST_COURIER_PARAMS_1: object = {
   firstName: 'test_first_name_1',

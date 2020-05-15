@@ -1,7 +1,7 @@
 import { MockUser } from '../entities/users/MockUser';
-import { IEntitySerializer } from '../../../src/domain/entity-serializers/IEntitySerializer';
+import { IUserSerializer } from '../../../src/domain/user-serializers/IUserSerializer';
 
-class MockUserSerializer implements IEntitySerializer<MockUser> {
+class MockUserSerializer implements IUserSerializer<MockUser> {
 
   deserialize(userString: string): MockUser {
     const userObj = JSON.parse(userString);

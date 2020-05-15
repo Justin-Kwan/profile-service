@@ -1,6 +1,6 @@
 import { ConsumerRepository } from '../../storage/repository/ConsumerRepository';
 import { ConsumerFactory } from '../factories/ConsumerFactory';
-import { ConsumerSerializer } from '../entity-serializers/ConsumerSerializer';
+import { ConsumerSerializer } from '../user-serializers/ConsumerSerializer';
 import { Consumer } from '../entities/users/Consumer';
 import {
   RESOURCE_CREATED,
@@ -28,7 +28,7 @@ class ConsumerService {
   }
 
   /**
-   * creates new consumer entity
+   * creates new consumer user
    * @param {string} - id of consumer to create
    * @param {any} - JSON object of consumer fields for new consumer
    * @return {object} - JSON response object (error or success)
@@ -56,7 +56,7 @@ class ConsumerService {
   }
 
   /**
-   * updates consumer entity by consumer id, given new consumer
+   * updates consumer user by consumer id, given new consumer
    * field arguments
    * @param {string} - id of consumer to update
    * @param {any} - JSON object of consumer fields to update
@@ -106,7 +106,7 @@ class ConsumerService {
   }
 
   /**
-   * gets consumer entity by consumer id
+   * gets consumer user by consumer id
    * @param {string} - id of consumer to get
    * @return {object} - JSON response object (error or consumer)
    */
@@ -126,7 +126,7 @@ class ConsumerService {
   }
 
   /**
-   * deletes consumer entity by consumer id
+   * deletes consumer user by consumer id
    * @param {string} - id of consumer to delete
    * @return {object} - JSON response object (error or success)
    */

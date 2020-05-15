@@ -1,6 +1,6 @@
 
-interface IEntityFactory<T> {
+interface IUserFactory<T> {
   createNew(entityId: string, entityString: string): T;
 }
 
-export { IEntityFactory };
+export { IUserFactory };

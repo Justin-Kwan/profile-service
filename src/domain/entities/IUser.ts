@@ -2,8 +2,8 @@
 /**
  * functions common to all entity objects
  */
-interface IEntity {
+interface IUser {
   getId(): string;
 }
 
-export { IEntity };
+export { IUser };

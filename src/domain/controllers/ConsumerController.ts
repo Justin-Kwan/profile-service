@@ -1,4 +1,4 @@
-import { ConsumerService } from '../entity-services/ConsumerService';
+import { ConsumerService } from '../user-services/ConsumerService';
 
 class ConsumerController {
 

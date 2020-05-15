@@ -1,4 +1,4 @@
-import { CourierService } from '../entity-services/CourierService';
+import { CourierService } from '../user-services/CourierService';
 
 class CourierController {
 
