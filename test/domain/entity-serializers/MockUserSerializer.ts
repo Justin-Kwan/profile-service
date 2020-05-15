@@ -1,5 +1,5 @@
-import { MockUser } from '../../entities/users/MockUser';
-import { IEntitySerializer } from '../../../../src/domain/entity-serializers/IEntitySerializer';
+import { MockUser } from '../entities/users/MockUser';
+import { IEntitySerializer } from '../../../src/domain/entity-serializers/IEntitySerializer';
 
 class MockUserSerializer implements IEntitySerializer<MockUser> {
 

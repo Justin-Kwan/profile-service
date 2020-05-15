@@ -26,20 +26,22 @@ class ConsumerSerializer implements IEntitySerializer<Consumer> {
   }
 
   /**
-   * serializes consumer object into json string, hiding
-   * sensitive values for web client
+   * serializes consumer object into json string, filtering
+   * out sensitive fields for web client
    * @param {Consumer}
    * @return {string}
    */
   serializeForClient(consumer: Consumer): object {
     return {
+      id: consumer.getId(),
       firstName: consumer.getFirstName(),
       lastName: consumer.getLastName(),
       email: consumer.getEmail(),
       country: consumer.getCountry(),
       locationId: consumer.getLocationId(),
       mobileNum: consumer.getMobileNum(),
-      orderZone: consumer.getOrderZone()
+      orderZone: consumer.getOrderZone(),
+      verificationStatus: consumer.isVerified()
     };
   }
 

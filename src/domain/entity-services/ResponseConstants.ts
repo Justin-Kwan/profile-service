@@ -30,7 +30,6 @@ const PERMISSION_DENIED: object = {
     error: {
       message: "Resource access permission is denied",
       details: "Ensure you have the appropriate permissions to access this resource",
-      code: 403
     }
   },
   code: 403
@@ -41,7 +40,6 @@ const RESOURCE_ID_ALREADY_EXISTS: object = {
     error: {
       message: "Resource with the same id already exists",
       details: "Try checking your resource id",
-      code: 409
     }
   },
   code: 409
@@ -52,7 +50,6 @@ const RESOURCE_EMAIL_ALREADY_EXISTS: object = {
     error: {
       message: "Resource with the same email already exists",
       details: "Try checking your resource email",
-      code: 409
     }
   },
   code: 409
@@ -62,8 +59,7 @@ const RESOURCE_MOBILE_NUM_ALREADY_EXISTS: object = {
   body: {
     error: {
       message: "Resource with the same mobile number already exists",
-      details: "Try checking your resource mobile number",
-      code: 409
+      details: "Try checking your resource mobile number"
     }
   },
   code: 409
@@ -74,7 +70,6 @@ const RESOURCE_NOT_FOUND: object = {
     error: {
       message: "Resource not found",
       details: "Try checking your resource id",
-      code: 404
     }
   },
   code: 404

@@ -1,8 +1,8 @@
 import 'mocha';
 import { strict as assert } from 'assert';
 
-import { CourierFactory } from '../../../../src/domain/factories/CourierFactory';
-import { Courier } from '../../../../src/domain/entities/users/Courier';
+import { CourierFactory } from '../../../src/domain/factories/CourierFactory';
+import { Courier } from '../../../src/domain/entities/users/Courier';
 
 const courierFactory = new CourierFactory();
 

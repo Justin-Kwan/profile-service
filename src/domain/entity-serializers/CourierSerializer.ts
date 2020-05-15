@@ -28,13 +28,14 @@ class CourierSerializer implements IEntitySerializer<Courier> {
   }
 
   /**
-   * serializes courier object into json string, hiding
-   * sensitive values for web client
+   * serializes courier object into json string, filtering
+   * out sensitive fields for web client
    * @param {Courier}
    * @return {string}
    */
   serializeForClient(courier: Courier): object {
     return {
+      id: courier.getId(),
       firstName: courier.getFirstName(),
       lastName: courier.getLastName(),
       email: courier.getEmail(),
@@ -43,6 +44,7 @@ class CourierSerializer implements IEntitySerializer<Courier> {
       mobileNum: courier.getMobileNum(),
       vehicleType: courier.getVehicleType(),
       preferredZone: courier.getPreferredZone(),
+      verificationStatus: courier.isVerified()
     };
   }
 

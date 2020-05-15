@@ -1,8 +1,8 @@
 import 'mocha';
 import { strict as assert } from 'assert';
 
-import { ConsumerFactory } from '../../../../src/domain/factories/ConsumerFactory';
-import { Consumer } from '../../../../src/domain/entities/users/Consumer';
+import { ConsumerFactory } from '../../../src/domain/factories/ConsumerFactory';
+import { Consumer } from '../../../src/domain/entities/users/Consumer';
 
 const test_consumer_1: any = {
   id: 'test_id_1',
