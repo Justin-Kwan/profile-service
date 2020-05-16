@@ -1,7 +1,6 @@
 import { IUserSerializer } from './IUserSerializer';
 import { Courier } from '../entities/users/Courier';
 
-
 class CourierSerializer implements IUserSerializer<Courier> {
 
   /**

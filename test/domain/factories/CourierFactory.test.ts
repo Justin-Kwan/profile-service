@@ -32,7 +32,6 @@ const test_courier_2: any = {
   preferredZone: "test_preferred_zone_2"
 }
 
-
 describe('CourierFactory Tests', () => {
 
   describe('createNew() Tests', () => {

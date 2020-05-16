@@ -9,6 +9,9 @@ class MockUser extends User {
     super();
   }
 
+  updateFields(userParams: any): void {
+  }
+
 }
 
 export { MockUser };

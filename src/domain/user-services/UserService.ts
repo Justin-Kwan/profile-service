@@ -1,7 +1,6 @@
-import { IUserRepository } from '../../storage/repository/IUserRepository';
+import { IUser } from '../entities/users/IUser';
 import { IUserFactory } from '../factories/IUserFactory';
 import { IUserSerializer } from '../user-serializers/IUserSerializer';
-import { IUser } from '../entities/users/IUser';
 import {
   RESOURCE_CREATED,
   RESOURCE_DELETED,
@@ -14,12 +13,12 @@ import {
 
 abstract class UserService<T extends IUser> {
 
-  private readonly userRepository: IUserRepository<T>;
-  private readonly userFactory: IUserFactory<T>;
-  private readonly userSerializer: IUserSerializer<T>;
+  protected readonly userRepository: any;
+  protected readonly userFactory: IUserFactory<T>;
+  protected readonly userSerializer: IUserSerializer<T>;
 
   constructor(
-    userRepository: IUserRepository<T>,
+    userRepository: any,
     userFactory: IUserFactory<T>,
     userSerializer: IUserSerializer<T>) {
     this.userRepository = userRepository;
@@ -63,7 +62,7 @@ abstract class UserService<T extends IUser> {
    * @param {any} - JSON object of user fields to update
    * @return {object} - JSON response object (error or user)
    */
-  async updateUser(userId: string, userParams: any): Promise<any> {
+  async updateUser(userId: string, userParams: any): Promise<object> {
     const newEmail: string = userParams.email;
     const newMobileNum: string = userParams.mobileNum;
 
@@ -76,7 +75,7 @@ abstract class UserService<T extends IUser> {
 
     if (!doesIdExist) return RESOURCE_NOT_FOUND;
 
-    let user: T = await this.userRepository.select(userId);
+    const user: T = await this.userRepository.select(userId);
 
     const isEmailDifferent: boolean =
       newEmail !== user.getEmail();
@@ -90,8 +89,7 @@ abstract class UserService<T extends IUser> {
     if (isMobileNumDifferent && doesMobileNumExist)
       return RESOURCE_MOBILE_NUM_ALREADY_EXISTS;
 
-    // call to child class to decide how to update
-    user = this.updateUserObject(userParams, user);
+    user.updateFields(userParams);
     this.userRepository.update(user);
 
     return {
@@ -132,10 +130,6 @@ abstract class UserService<T extends IUser> {
     await this.userRepository.delete(userId);
     return RESOURCE_DELETED;
   }
-
-  // abstract template method for child user classes
-  // to update their respective objects
-  abstract updateUserObject(userParams: object, user: T): T;
 
 }
 

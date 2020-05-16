@@ -1,13 +1,33 @@
-import { export } from 'express';
+import express = require('express');
 
-import { ConsumerController } from '../../../domain/controllers/CourierController';
+import { ConsumerController } from '../../../domain/controllers/ConsumerController';
 
-const app = express();
-const consumerRouter = express.Router();
+const app: express.Application = express();
+const consumerRouter: express.Router = express.Router();
 
-consumerRouter.route('/v1/consumers/{id}').post(consumerController.createEntity);
-consumerRouter.route('/v1/consumers/{id}').put(consumerController.updateEntity);
-consumerRouter.route('/v1/consumers/{id}').get(consumerController.getEntity);
-consumerRouter.route('/v1/consumers/{id}').delete(consumerController.deleteEntity);
+const consumerController = new ConsumerController();
+
+/**
+ * route definitions
+ */
+consumerRouter.route('/v1/consumers/:id').post(
+  consumerController
+  .createUser
+  .bind(consumerController));
+
+consumerRouter.route('/v1/consumers/:id').put(
+  consumerController
+  .updateUser
+  .bind(consumerController));
+
+consumerRouter.route('/v1/consumers/:id').get(
+  consumerController
+  .getUser
+  .bind(consumerController));
+
+consumerRouter.route('/v1/consumers/:id').delete(
+  consumerController
+  .deleteUser
+  .bind(consumerController));
 
 export { consumerRouter };

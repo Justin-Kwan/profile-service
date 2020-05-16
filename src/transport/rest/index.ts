@@ -1,10 +1,11 @@
-import { express } from 'express';
-import { cors } from 'cors';
+import express = require('express');
+import cors = require('cors');
 
 import { consumerRouter } from './routes/ConsumerRoutes';
 import { courierRouter } from './routes/CourierRoutes';
 
-const app: express.Application;
+const app: express.Application = express();
+
 const corsOptions: cors.CorsOptions = {
   allowedHeaders: [
     'Origin',
@@ -15,28 +16,21 @@ const corsOptions: cors.CorsOptions = {
   ],
   credentials: true,
   methods: 'GET, HEAD, OPTIONS, PUT, PATCH, POST, DELETE',
-  origin: API_URL,
+  // origin: API_URL,
   preflightContinue: false
 };
 
-function startServer(): void {
-  app.listen(3000, function() {
-    console.log(‘App is listening on port 3000!’);
-  });
-}
-
-function initServer(): void {
-  app = express();
+function initRestApiServer(): void {
   app.use(cors(corsOptions));
-  app.use('/consumers', consumerRouter);
-  app.use('/couriers', courierRouter);
+  app.use('/', consumerRouter);
+  app.use('/', courierRouter);
 }
 
-function startServer(): void {
-  app.listen(3000, function() {
-    console.log(‘App is listening on port 3000!’);
+function startRestApiServer(): void {
+  app.listen(3000, () => {
+    console.log('Server started at 127.0.0.1:3000');
   });
 }
 
-initServer();
-startServer();
+initRestApiServer();
+startRestApiServer();

@@ -11,6 +11,8 @@ abstract class User {
   private timeCreated: string;
   private verificationStatus: boolean = false;
 
+  abstract updateFields(userParams: object): void;
+
   setId(id: string): void {
     this.id = id;
   }

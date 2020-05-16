@@ -1,4 +1,4 @@
-import moment from 'moment';
+import moment = require('moment');
 
 import { IUserFactory } from './IUserFactory';
 import { Consumer } from '../entities/users/Consumer';

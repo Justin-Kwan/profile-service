@@ -1,5 +1,6 @@
 
 interface IUser {
+  updateFields(userParams: any): void;
   setId(id: string): void;
   setFirstName(firstName: string): void;
   setLastName(lastName: string): void;

@@ -14,18 +14,6 @@ class CourierService extends UserService<Courier> {
     );
   }
 
-  updateUserObject(courierParams: any, courier: Courier): Courier {
-    courier.setFirstName(courierParams.firstName);
-    courier.setLastName(courierParams.lastName);
-    courier.setEmail(courierParams.email);
-    courier.setCountry(courierParams.country);
-    courier.setLocationId(courierParams.locationId);
-    courier.setMobileNum(courierParams.mobileNum);
-    courier.setVehicleType(courierParams.vehicleType);
-    courier.setPreferredZone(courierParams.preferredZone);
-    return courier;
-  }
-
 }
 
 export { CourierService };

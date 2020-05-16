@@ -7,32 +7,37 @@
     "test": "test"
   },
   "scripts": {
+    "tsc": "tsc",
+    "dev": "ts-node src/app.ts",
+    "start": "ts-node dist/app.js",
+    "build": "tsc -p .",
     "test": "mocha --recursive --require ts-node/register 'test/**/*.ts'"
   },
   "author": "Justin Kwan",
   "license": "ISC",
   "dependencies": {
     "@types/bson": "^4.0.2",
+    "@types/chai": "^4.2.11",
     "@types/express": "^4.17.6",
-    "@types/mongodb": "^3.5.14",
-    "assert": "^2.0.0",
-    "chai": "^4.2.0",
+    "@types/jquery": "^3.3.38",
+    "@types/lodash": "^4.14.151",
+    "@types/mongodb": "^3.5.17",
+    "@types/redis": "^2.8.21",
     "cors": "^2.8.5",
+    "express": "^4.17.1",
     "helmet": "^3.22.0",
     "lodash": "^4.17.15",
     "moment": "^2.25.3",
     "mongodb": "^3.5.7",
+    "nodemon": "^2.0.4",
     "redis": "^3.0.2",
-    "ts-mocha": "^7.0.0",
     "ts-node": "^8.10.1"
   },
   "devDependencies": {
     "@types/cors": "^2.8.6",
-    "@types/lodash": "^4.14.150",
     "@types/mocha": "^7.0.2",
-    "@types/redis": "^2.8.20",
-    "express": "^4.17.1",
     "mocha": "^7.1.2",
+    "assert": "^2.0.0",
     "tslint": "^6.1.2",
     "typescript": "^3.9.2"
   }

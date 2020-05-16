@@ -1,14 +1,13 @@
+import { IUser } from '../../domain/entities/users/IUser';
 import { IDatabaseStore } from '../database/IDatabaseStore';
 import { ICacheStore } from '../cache/ICacheStore';
-import { IUser } from '../../domain/entities/users/IUser';
 import { IUserSerializer } from '../../domain/user-serializers/IUserSerializer';
-
 
 abstract class UserRepository<T extends IUser> {
 
   protected databaseStore: IDatabaseStore<T>;
   protected cacheStore: ICacheStore<T>;
-  private userSerializer: IUserSerializer<T>;
+  protected userSerializer: IUserSerializer<T>;
 
   /**
    * @param {IDatabaseStore<T>} - injected database access object

@@ -14,17 +14,6 @@ class ConsumerService extends UserService<Consumer> {
     );
   }
 
-  updateUserObject(consumerParams: any, consumer: Consumer): Consumer {
-    consumer.setFirstName(consumerParams.firstName);
-    consumer.setLastName(consumerParams.lastName);
-    consumer.setEmail(consumerParams.email);
-    consumer.setCountry(consumerParams.country);
-    consumer.setLocationId(consumerParams.locationId);
-    consumer.setMobileNum(consumerParams.mobileNum);
-    consumer.setOrderZone(consumerParams.orderZone);
-    return consumer;
-  }
-
 }
 
 export { ConsumerService };
