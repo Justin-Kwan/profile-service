@@ -10,15 +10,15 @@ const consumerController = new ConsumerController_1.ConsumerController();
 /**
  * route definitions
  */
-consumerRouter.route('/v1/consumers/:id').post(consumerController
+consumerRouter.route('/consumers/:id').post(consumerController
     .createUser
     .bind(consumerController));
-consumerRouter.route('/v1/consumers/:id').put(consumerController
+consumerRouter.route('/consumers/:id').put(consumerController
     .updateUser
     .bind(consumerController));
-consumerRouter.route('/v1/consumers/:id').get(consumerController
+consumerRouter.route('/consumers/:id').get(consumerController
     .getUser
     .bind(consumerController));
-consumerRouter.route('/v1/consumers/:id').delete(consumerController
+consumerRouter.route('/consumers/:id').delete(consumerController
     .deleteUser
     .bind(consumerController));

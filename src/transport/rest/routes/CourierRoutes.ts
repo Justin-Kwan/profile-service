@@ -10,22 +10,22 @@ const courierController = new CourierController();
 /**
  * route definitions
  */
-courierRouter.route('/v1/couriers/:id').post(
+courierRouter.route('/couriers/:id').post(
   courierController
   .createUser
   .bind(courierController));
 
-courierRouter.route('/v1/couriers/:id').put(
+courierRouter.route('/couriers/:id').put(
   courierController
   .updateUser
   .bind(courierController));
 
-courierRouter.route('/v1/couriers/:id').get(
+courierRouter.route('/couriers/:id').get(
   courierController
   .getUser
   .bind(courierController));
 
-courierRouter.route('/v1/couriers/:id').delete(
+courierRouter.route('/couriers/:id').delete(
   courierController
   .deleteUser
   .bind(courierController));

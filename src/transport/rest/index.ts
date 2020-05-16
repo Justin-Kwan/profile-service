@@ -6,6 +6,7 @@ import { courierRouter } from './routes/CourierRoutes';
 
 const app: express.Application = express();
 
+const API_VERSION_PATH: string = '/v1';
 const corsOptions: cors.CorsOptions = {
   allowedHeaders: [
     'Origin',
@@ -22,8 +23,8 @@ const corsOptions: cors.CorsOptions = {
 
 function initRestApiServer(): void {
   app.use(cors(corsOptions));
-  app.use('/', consumerRouter);
-  app.use('/', courierRouter);
+  app.use(API_VERSION_PATH, consumerRouter);
+  app.use(API_VERSION_PATH, courierRouter);
 }
 
 function startRestApiServer(): void {

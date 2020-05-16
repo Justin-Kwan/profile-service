@@ -18,10 +18,11 @@ const corsOptions = {
     // origin: API_URL,
     preflightContinue: false
 };
+const API_VERSION_PATH = '/v1';
 function initRestApiServer() {
     app.use(cors(corsOptions));
-    app.use('/', ConsumerRoutes_1.consumerRouter);
-    app.use('/', CourierRoutes_1.courierRouter);
+    app.use(API_VERSION_PATH, ConsumerRoutes_1.consumerRouter);
+    app.use(API_VERSION_PATH, CourierRoutes_1.courierRouter);
 }
 function startRestApiServer() {
     app.listen(3000, () => {
