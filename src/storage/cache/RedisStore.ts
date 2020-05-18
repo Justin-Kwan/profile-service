@@ -1,11 +1,12 @@
 import * as redis from 'redis';
+require('dotenv').config();
 
 import { ICacheStore } from './ICacheStore';
 
 class RedisStore<T> implements ICacheStore<T> {
 
-  private readonly REDIS_HOST: string = '127.0.0.1';
-  private readonly REDIS_PORT: number = 6380;
+  private readonly REDIS_HOST: string = process.env.REDIS_HOST!;
+  private readonly REDIS_PORT: number = parseInt(process.env.REDIS_PORT!);
 
   private redisClient: redis.RedisClient;
 

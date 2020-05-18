@@ -14,7 +14,6 @@ class ConsumerFactory {
         consumer.setCountry(consumerObj.country);
         consumer.setLocationId(consumerObj.locationId);
         consumer.setMobileNum(consumerObj.mobileNum);
-        consumer.setOrderZone(consumerObj.orderZone);
         consumer.setTimeCreated(moment().format());
         consumer.setVerificationStatus(false);
         return consumer;

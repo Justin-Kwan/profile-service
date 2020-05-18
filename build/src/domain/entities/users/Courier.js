@@ -14,19 +14,12 @@ class Courier extends User_1.User {
         this.setLocationId(courierParams.locationId);
         this.setMobileNum(courierParams.mobileNum);
         this.setVehicleType(courierParams.vehicleType);
-        this.setPreferredZone(courierParams.preferredZone);
     }
     setVehicleType(vehicleType) {
         this.vehicleType = vehicleType;
     }
-    setPreferredZone(preferredZone) {
-        this.preferredZone = preferredZone;
-    }
     getVehicleType() {
         return this.vehicleType;
-    }
-    getPreferredZone() {
-        return this.preferredZone;
     }
 }
 exports.Courier = Courier;

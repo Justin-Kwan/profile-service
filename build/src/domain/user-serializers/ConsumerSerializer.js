@@ -19,7 +19,6 @@ class ConsumerSerializer {
         consumer.setCountry(consumerObj.country);
         consumer.setLocationId(consumerObj.locationId);
         consumer.setMobileNum(consumerObj.mobileNum);
-        consumer.setOrderZone(consumerObj.orderZone);
         consumer.setTimeCreated(consumerObj.timeCreated);
         consumer.setVerificationStatus(consumerObj.verificationStatus);
         return consumer;
@@ -39,7 +38,6 @@ class ConsumerSerializer {
             country: consumer.getCountry(),
             locationId: consumer.getLocationId(),
             mobileNum: consumer.getMobileNum(),
-            orderZone: consumer.getOrderZone(),
             verificationStatus: consumer.isVerified()
         };
     }

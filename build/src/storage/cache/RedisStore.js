@@ -21,10 +21,11 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RedisStore = void 0;
 const redis = __importStar(require("redis"));
+require('dotenv').config();
 class RedisStore {
     constructor() {
-        this.REDIS_HOST = '127.0.0.1';
-        this.REDIS_PORT = 6380;
+        this.REDIS_HOST = process.env.REDIS_HOST;
+        this.REDIS_PORT = parseInt(process.env.REDIS_PORT);
     }
     /**
        * creates redis client connection

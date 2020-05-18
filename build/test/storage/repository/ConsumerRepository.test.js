@@ -35,8 +35,7 @@ const TEST_CONSUMER_PARAMS_1 = `{
   "mobileNum": "test_mobile_num_1",
   "timeCreated": "test_time_created_1",
   "verificationStatus": true,
-  "deletionStatus": false,
-  "orderZone": "test_order_zone_1"
+  "deletionStatus": false
 }`;
 const TEST_CONSUMER_PARAMS_2 = `{
   "id": "test_id_2",
@@ -48,8 +47,7 @@ const TEST_CONSUMER_PARAMS_2 = `{
   "mobileNum": "test_mobile_num_2",
   "timeCreated": "test_time_created_2",
   "verificationStatus": true,
-  "deletionStatus": false,
-  "orderZone": "test_order_zone_2"
+  "deletionStatus": false
 }`;
 const consumerRepository = new ConsumerRepository_1.ConsumerRepository();
 const consumerSerializer = new ConsumerSerializer_1.ConsumerSerializer();

@@ -4,8 +4,8 @@ exports.MongoStore = void 0;
 const mongodb_1 = require("mongodb");
 class MongoStore {
     constructor(databaseName, collectionName) {
-        this.MONGO_HOST = '127.0.0.1';
-        this.MONGO_PORT = '27017';
+        this.MONGO_HOST = process.env.MONGO_HOST;
+        this.MONGO_PORT = process.env.MONGO_PORT;
         this.MONGO_URL = 'mongodb://' + this.MONGO_HOST + ':' + this.MONGO_PORT;
         this.MAX_RESULTS = 1;
         this.collectionName = collectionName;

@@ -20,7 +20,6 @@ class CourierSerializer {
         courier.setLocationId(courierObj.locationId);
         courier.setMobileNum(courierObj.mobileNum);
         courier.setVehicleType(courierObj.vehicleType);
-        courier.setPreferredZone(courierObj.preferredZone);
         courier.setTimeCreated(courierObj.timeCreated);
         courier.setVerificationStatus(courierObj.verificationStatus);
         return courier;
@@ -41,7 +40,6 @@ class CourierSerializer {
             locationId: courier.getLocationId(),
             mobileNum: courier.getMobileNum(),
             vehicleType: courier.getVehicleType(),
-            preferredZone: courier.getPreferredZone(),
             verificationStatus: courier.isVerified()
         };
     }

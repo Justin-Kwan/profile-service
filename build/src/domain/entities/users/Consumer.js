@@ -13,13 +13,6 @@ class Consumer extends User_1.User {
         this.setCountry(consumerParams.country);
         this.setLocationId(consumerParams.locationId);
         this.setMobileNum(consumerParams.mobileNum);
-        this.setOrderZone(consumerParams.orderZone);
-    }
-    setOrderZone(orderZone) {
-        this.orderZone = orderZone;
-    }
-    getOrderZone() {
-        return this.orderZone;
     }
 }
 exports.Consumer = Consumer;

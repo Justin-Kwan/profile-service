@@ -15,7 +15,6 @@ class CourierFactory {
         courier.setLocationId(courierObj.locationId);
         courier.setMobileNum(courierObj.mobileNum);
         courier.setVehicleType(courierObj.vehicleType);
-        courier.setPreferredZone(courierObj.preferredZone);
         courier.setTimeCreated(moment().format());
         courier.setVerificationStatus(false);
         return courier;

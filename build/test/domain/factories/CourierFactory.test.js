@@ -13,8 +13,7 @@ const test_courier_1 = {
     locationId: "test_location_id_1",
     mobileNum: "test_mobile_num_1",
     timeCreated: "test_time_created_1",
-    vehicleType: "test_vehicle_type_1",
-    preferredZone: "test_preferred_zone_1"
+    vehicleType: "test_vehicle_type_1"
 };
 const test_courier_2 = {
     id: "test_id_2",
@@ -25,8 +24,7 @@ const test_courier_2 = {
     locationId: "test_location_id_2",
     mobileNum: "test_mobile_num_2",
     timeCreated: "test_time_created_2",
-    vehicleType: "test_vehicle_type_2",
-    preferredZone: "test_preferred_zone_2"
+    vehicleType: "test_vehicle_type_2"
 };
 describe('CourierFactory Tests', () => {
     describe('createNew() Tests', () => {
@@ -38,8 +36,7 @@ describe('CourierFactory Tests', () => {
         "country": "test_country_1",
         "locationId": "test_location_id_1",
         "mobileNum": "test_mobile_num_1",
-        "vehicleType": "test_vehicle_type_1",
-        "preferredZone": "test_preferred_zone_1"
+        "vehicleType": "test_vehicle_type_1"
       }`);
             // asserting object type equality
             assert_1.strict.equal(courier.constructor.name, 'Courier');
@@ -51,7 +48,6 @@ describe('CourierFactory Tests', () => {
             assert_1.strict.equal(courier.getLocationId(), test_courier_1.locationId);
             assert_1.strict.equal(courier.getMobileNum(), test_courier_1.mobileNum);
             assert_1.strict.equal(courier.getVehicleType(), test_courier_1.vehicleType);
-            assert_1.strict.equal(courier.getPreferredZone(), test_courier_1.preferredZone);
             assert_1.strict(courier.getTimeCreated() !== null);
             assert_1.strict.equal(courier.isVerified(), false);
         });
@@ -63,8 +59,7 @@ describe('CourierFactory Tests', () => {
         "country": "test_country_2",
         "locationId": "test_location_id_2",
         "mobileNum": "test_mobile_num_2",
-        "vehicleType": "test_vehicle_type_2",
-        "preferredZone": "test_preferred_zone_2"
+        "vehicleType": "test_vehicle_type_2"
         }`);
             // asserting object type equality
             assert_1.strict.equal(courier.constructor.name, 'Courier');
@@ -76,7 +71,6 @@ describe('CourierFactory Tests', () => {
             assert_1.strict.equal(courier.getLocationId(), test_courier_2.locationId);
             assert_1.strict.equal(courier.getMobileNum(), test_courier_2.mobileNum);
             assert_1.strict.equal(courier.getVehicleType(), test_courier_2.vehicleType);
-            assert_1.strict.equal(courier.getPreferredZone(), test_courier_2.preferredZone);
             assert_1.strict(courier.getTimeCreated() !== null);
             assert_1.strict.equal(courier.isVerified(), false);
         });

@@ -62,8 +62,6 @@ abstract class UserController {
       },
       code: number
     } = await this.userService.deleteUser(req.params.id);
-    console.log("RESPONSE: " + JSON.stringify(response));
-
     res.status(response.code).send(response.body);
   }
 

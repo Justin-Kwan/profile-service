@@ -3,12 +3,13 @@ import {
   Collection,
   Db
 } from 'mongodb';
+
 import { IDatabaseStore } from './IDatabaseStore';
 
 class MongoStore<T> implements IDatabaseStore<T> {
 
-  private readonly MONGO_HOST: string = '127.0.0.1';
-  private readonly MONGO_PORT: string = '27017';
+  private readonly MONGO_HOST: string = process.env.MONGO_HOST!;
+  private readonly MONGO_PORT: string = process.env.MONGO_PORT!;
   private readonly MONGO_URL: string = 'mongodb://' + this.MONGO_HOST + ':' + this.MONGO_PORT;
   private readonly MAX_RESULTS: number = 1;
 
