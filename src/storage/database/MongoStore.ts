@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('custom-env').env(true);
 import {
   MongoClient,
   Collection,

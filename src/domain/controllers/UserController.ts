@@ -23,7 +23,8 @@ abstract class UserController {
       },
       code: number
     } = await this.userService.createUser(req.params.id, req.body);
-    res.status(response.code).send(response.body);
+    res.status(response.code);
+    res.send(response.body);
   }
 
   async updateUser(req: Request, res: Response): Promise<void> {
@@ -36,7 +37,8 @@ abstract class UserController {
       },
       code: number
     } = await this.userService.updateUser(req.params.id, req.body);
-    res.status(response.code).send(response.body);
+    res.status(response.code);
+    res.send(response.body);
   }
 
   async getUser(req: Request, res: Response): Promise<void> {
@@ -49,7 +51,8 @@ abstract class UserController {
       },
       code: number
     } = await this.userService.getUser(req.params.id);
-    res.status(response.code).send(response.body);
+    res.status(response.code);
+    res.send(response.body);
   }
 
   async deleteUser(req: Request, res: Response): Promise<void> {
@@ -62,7 +65,8 @@ abstract class UserController {
       },
       code: number
     } = await this.userService.deleteUser(req.params.id);
-    res.status(response.code).send(response.body);
+    res.status(response.code);
+    res.send(response.body);
   }
 
 }

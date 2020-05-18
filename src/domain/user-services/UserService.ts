@@ -9,7 +9,7 @@ import {
   RESOURCE_EMAIL_ALREADY_EXISTS,
   RESOURCE_MOBILE_NUM_ALREADY_EXISTS,
   RESOURCE_NOT_FOUND
-} from './ResponseConstants';
+} from '../../constants/ResponseConstants';
 
 abstract class UserService<T extends IUser> {
 

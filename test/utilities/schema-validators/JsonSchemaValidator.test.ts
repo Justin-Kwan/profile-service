@@ -174,127 +174,144 @@ const TEST_JSON_BODY_INVALID_VEHICLE_TYPE_1: object = {
   vehicleType: 'Motor Vehicl'
 };
 
-const JSON_SCHEMA_FILE_PATH = '../../../test/utilities/schema-validators/mock-schema.json';
-const jsonSchemaValidator = new JsonSchemaValidator(JSON_SCHEMA_FILE_PATH);
+const COURIER_SCHEMA: string = 'courier schema';
+const jsonSchemaValidator = new JsonSchemaValidator();
 
 describe('JsonSchemaValidator Tests', () => {
 
   describe('isJsonBodyValid() tests', () => {
     it('should assert json body follows schema', async () => {
       const isJsonBodyValid = await jsonSchemaValidator.isJsonBodyValid(
-        TEST_JSON_BODY_1
+        TEST_JSON_BODY_1,
+        COURIER_SCHEMA
       );
       assert.equal(isJsonBodyValid, true);
     });
 
     it('should assert json body follows schema', async () => {
       const isJsonBodyValid = await jsonSchemaValidator.isJsonBodyValid(
-        TEST_JSON_BODY_1
+        TEST_JSON_BODY_1,
+        COURIER_SCHEMA
       );
       assert.equal(isJsonBodyValid, true);
     });
 
     it('should assert json body follows schema', async () => {
       const isJsonBodyValid = await jsonSchemaValidator.isJsonBodyValid(
-        TEST_JSON_BODY_3
+        TEST_JSON_BODY_3,
+        COURIER_SCHEMA
       );
       assert.equal(isJsonBodyValid, true);
     });
 
     it('should assert json body violates schema (invalid first name)', async () => {
       const isJsonBodyValid = await jsonSchemaValidator.isJsonBodyValid(
-        TEST_JSON_BODY_INVALID_FIRST_NAME_1
+        TEST_JSON_BODY_INVALID_FIRST_NAME_1,
+        COURIER_SCHEMA
       );
       assert.equal(isJsonBodyValid, false);
     });
 
     it('should assert json body violates schema (invalid first name)', async () => {
       const isJsonBodyValid = await jsonSchemaValidator.isJsonBodyValid(
-        TEST_JSON_BODY_INVALID_FIRST_NAME_2
+        TEST_JSON_BODY_INVALID_FIRST_NAME_2,
+        COURIER_SCHEMA
       );
       assert.equal(isJsonBodyValid, false);
     });
 
     it('should assert json body violates schema (invalid first name)', async () => {
       const isJsonBodyValid = await jsonSchemaValidator.isJsonBodyValid(
-        TEST_JSON_BODY_INVALID_FIRST_NAME_3
+        TEST_JSON_BODY_INVALID_FIRST_NAME_3,
+        COURIER_SCHEMA
       );
       assert.equal(isJsonBodyValid, false);
     });
 
     it('should assert json body violates schema (invalid first name)', async () => {
       const isJsonBodyValid = await jsonSchemaValidator.isJsonBodyValid(
-        TEST_JSON_BODY_INVALID_FIRST_NAME_4
+        TEST_JSON_BODY_INVALID_FIRST_NAME_4,
+        COURIER_SCHEMA
       );
       assert.equal(isJsonBodyValid, false);
     });
 
     it('should assert json body violates schema (invalid first name)', async () => {
       const isJsonBodyValid = await jsonSchemaValidator.isJsonBodyValid(
-        TEST_JSON_BODY_INVALID_FIRST_NAME_5
+        TEST_JSON_BODY_INVALID_FIRST_NAME_5,
+        COURIER_SCHEMA
       );
       assert.equal(isJsonBodyValid, false);
     });
 
     it('should assert json body violates schema (invalid email)', async () => {
       const isJsonBodyValid = await jsonSchemaValidator.isJsonBodyValid(
-        TEST_JSON_BODY_INVALID_EMAIL_1
+        TEST_JSON_BODY_INVALID_EMAIL_1,
+        COURIER_SCHEMA
       );
       assert.equal(isJsonBodyValid, false);
     });
 
     it('should assert json body violates schema (invalid email)', async () => {
       const isJsonBodyValid = await jsonSchemaValidator.isJsonBodyValid(
-        TEST_JSON_BODY_INVALID_EMAIL_2
+        TEST_JSON_BODY_INVALID_EMAIL_2,
+        COURIER_SCHEMA
       );
       assert.equal(isJsonBodyValid, false);
     });
 
     it('should assert json body violates schema (invalid email)', async () => {
       const isJsonBodyValid = await jsonSchemaValidator.isJsonBodyValid(
-        TEST_JSON_BODY_INVALID_EMAIL_3
+        TEST_JSON_BODY_INVALID_EMAIL_3,
+        COURIER_SCHEMA
       );
       assert.equal(isJsonBodyValid, false);
     });
 
     it('should assert json body violates schema (invalid country)', async () => {
       const isJsonBodyValid = await jsonSchemaValidator.isJsonBodyValid(
-        TEST_JSON_BODY_INVALID_COUNTRY_1
+        TEST_JSON_BODY_INVALID_COUNTRY_1,
+        COURIER_SCHEMA
       );
       assert.equal(isJsonBodyValid, false);
     });
 
     it('should assert json body violates schema (invalid country)', async () => {
       const isJsonBodyValid = await jsonSchemaValidator.isJsonBodyValid(
-        TEST_JSON_BODY_INVALID_COUNTRY_2
+        TEST_JSON_BODY_INVALID_COUNTRY_2,
+        COURIER_SCHEMA
       );
       assert.equal(isJsonBodyValid, false);
     });
 
     it('should assert json body violates schema (invalid mobile number)', async () => {
       const isJsonBodyValid = await jsonSchemaValidator.isJsonBodyValid(
-        TEST_JSON_BODY_INVALID_MOBILE_NUM_1
+        TEST_JSON_BODY_INVALID_MOBILE_NUM_1,
+        COURIER_SCHEMA
       );
       assert.equal(isJsonBodyValid, false);
     });
 
     it('should assert json body violates schema (invalid mobile number)', async () => {
       const isJsonBodyValid = await jsonSchemaValidator.isJsonBodyValid(
-        TEST_JSON_BODY_INVALID_MOBILE_NUM_2
+        TEST_JSON_BODY_INVALID_MOBILE_NUM_2,
+        COURIER_SCHEMA
       );
       assert.equal(isJsonBodyValid, false);
     });
 
     it('should assert json body violates schema (invalid mobile number)', async () => {
       const isJsonBodyValid = await jsonSchemaValidator.isJsonBodyValid(
-        TEST_JSON_BODY_INVALID_MOBILE_NUM_3
+        TEST_JSON_BODY_INVALID_MOBILE_NUM_3,
+        COURIER_SCHEMA
       );
       assert.equal(isJsonBodyValid, false);
     });
 
     it('should assert json body violates schema (invalid vehicle type)', async () => {
       const isJsonBodyValid = await jsonSchemaValidator.isJsonBodyValid(
-        TEST_JSON_BODY_INVALID_VEHICLE_TYPE_1
+        TEST_JSON_BODY_INVALID_VEHICLE_TYPE_1,
+        COURIER_SCHEMA
       );
       assert.equal(isJsonBodyValid, false);
     });

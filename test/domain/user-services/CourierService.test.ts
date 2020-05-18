@@ -11,7 +11,7 @@ import {
   RESOURCE_EMAIL_ALREADY_EXISTS,
   RESOURCE_MOBILE_NUM_ALREADY_EXISTS,
   RESOURCE_NOT_FOUND
-} from '../../../src/domain/user-services/ResponseConstants';
+} from '../../../src/constants/ResponseConstants';
 
 const TEST_COURIER_PARAMS_1: object = {
   firstName: 'test_first_name_1',

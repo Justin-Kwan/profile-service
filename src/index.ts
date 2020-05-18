@@ -1,4 +1,4 @@
-import * as dotenv from "dotenv";
+require('custom-env').env(true);
 import express = require('express');
 import cors = require('cors');
 
@@ -32,12 +32,11 @@ function initRestApiServer(): void {
 }
 
 function startRestApiServer(): void {
-  app.listen(process.env.NODE_PORT, () => {
+  module.exports = app.listen(process.env.NODE_PORT, () => {
     console.log('Profile service started in ' + process.env.NODE_ENV + ' mode');
     console.log('Profile service started at 127.0.0.1:' + process.env.NODE_PORT);
   });
 }
 
-dotenv.config();
 initRestApiServer();
 startRestApiServer();

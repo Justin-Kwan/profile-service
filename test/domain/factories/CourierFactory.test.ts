@@ -6,7 +6,7 @@ import { Courier } from '../../../src/domain/entities/users/Courier';
 
 const courierFactory = new CourierFactory();
 
-const test_courier_1: any = {
+const TEST_COURIER_1: any = {
   id: "test_id_1",
   firstName: "test_first_name_1",
   lastName: "test_last_name_1",
@@ -18,7 +18,7 @@ const test_courier_1: any = {
   vehicleType: "test_vehicle_type_1"
 }
 
-const test_courier_2: any = {
+const TEST_COURIER_2: any = {
   id: "test_id_2",
   firstName: "test_first_name_2",
   lastName: "test_last_name_2",
@@ -47,14 +47,14 @@ describe('CourierFactory Tests', () => {
       }`);
       // asserting object type equality
       assert.equal(courier.constructor.name, 'Courier');
-      assert.equal(courier.getId(), test_courier_1.id);
-      assert.equal(courier.getFirstName(), test_courier_1.firstName);
-      assert.equal(courier.getLastName(), test_courier_1.lastName);
-      assert.equal(courier.getEmail(), test_courier_1.email);
-      assert.equal(courier.getCountry(), test_courier_1.country);
-      assert.equal(courier.getLocationId(), test_courier_1.locationId);
-      assert.equal(courier.getMobileNum(), test_courier_1.mobileNum);
-      assert.equal(courier.getVehicleType(), test_courier_1.vehicleType);
+      assert.equal(courier.getId(), TEST_COURIER_1.id);
+      assert.equal(courier.getFirstName(), TEST_COURIER_1.firstName);
+      assert.equal(courier.getLastName(), TEST_COURIER_1.lastName);
+      assert.equal(courier.getEmail(), TEST_COURIER_1.email);
+      assert.equal(courier.getCountry(), TEST_COURIER_1.country);
+      assert.equal(courier.getLocationId(), TEST_COURIER_1.locationId);
+      assert.equal(courier.getMobileNum(), TEST_COURIER_1.mobileNum);
+      assert.equal(courier.getVehicleType(), TEST_COURIER_1.vehicleType);
       assert(courier.getTimeCreated() !== null);
       assert.equal(courier.isVerified(), false);
     });
@@ -73,14 +73,14 @@ describe('CourierFactory Tests', () => {
         }`);
       // asserting object type equality
       assert.equal(courier.constructor.name, 'Courier');
-      assert.equal(courier.getId(), test_courier_2.id);
-      assert.equal(courier.getFirstName(), test_courier_2.firstName);
-      assert.equal(courier.getLastName(), test_courier_2.lastName);
-      assert.equal(courier.getEmail(), test_courier_2.email);
-      assert.equal(courier.getCountry(), test_courier_2.country);
-      assert.equal(courier.getLocationId(), test_courier_2.locationId);
-      assert.equal(courier.getMobileNum(), test_courier_2.mobileNum);
-      assert.equal(courier.getVehicleType(), test_courier_2.vehicleType);
+      assert.equal(courier.getId(), TEST_COURIER_2.id);
+      assert.equal(courier.getFirstName(), TEST_COURIER_2.firstName);
+      assert.equal(courier.getLastName(), TEST_COURIER_2.lastName);
+      assert.equal(courier.getEmail(), TEST_COURIER_2.email);
+      assert.equal(courier.getCountry(), TEST_COURIER_2.country);
+      assert.equal(courier.getLocationId(), TEST_COURIER_2.locationId);
+      assert.equal(courier.getMobileNum(), TEST_COURIER_2.mobileNum);
+      assert.equal(courier.getVehicleType(), TEST_COURIER_2.vehicleType);
       assert(courier.getTimeCreated() !== null);
       assert.equal(courier.isVerified(), false);
     });

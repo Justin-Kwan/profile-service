@@ -11,7 +11,7 @@ import {
   RESOURCE_EMAIL_ALREADY_EXISTS,
   RESOURCE_MOBILE_NUM_ALREADY_EXISTS,
   RESOURCE_NOT_FOUND
-} from '../../../src/domain/user-services/ResponseConstants';
+} from '../../../src/constants/ResponseConstants';
 
 const TEST_CONSUMER_PARAMS_1: object = {
   firstName: 'test_first_name_1',
@@ -335,14 +335,16 @@ describe('ConsumerService Tests', async () => {
 
     it('should update a single consumer with all different fields, without affecting other consumers', async () => {
       // setup
-      await consumerService.createUser(
-        'test_id_1',
-        TEST_CONSUMER_PARAMS_1
-      );
-      await consumerService.createUser(
-        'test_id_2',
-        TEST_CONSUMER_PARAMS_2
-      );
+      await Promise.all([
+        consumerService.createUser(
+          'test_id_1',
+          TEST_CONSUMER_PARAMS_1
+        ),
+        consumerService.createUser(
+          'test_id_2',
+          TEST_CONSUMER_PARAMS_2
+        )
+      ]);
       // function under test
       const updatedConsumer = await consumerService.updateUser(
         'test_id_1',
@@ -364,14 +366,16 @@ describe('ConsumerService Tests', async () => {
 
     it('should update a single consumer with all different fields, without affecting other consumers', async () => {
       // setup
-      await consumerService.createUser(
-        'test_id_1',
-        TEST_CONSUMER_PARAMS_1
-      );
-      await consumerService.createUser(
-        'test_id_2',
-        TEST_CONSUMER_PARAMS_2
-      );
+      await Promise.all([
+        consumerService.createUser(
+          'test_id_1',
+          TEST_CONSUMER_PARAMS_1
+        ),
+        consumerService.createUser(
+          'test_id_2',
+          TEST_CONSUMER_PARAMS_2
+        )
+      ]);
       // function under test
       const updatedConsumer = await consumerService.updateUser(
         'test_id_2',
@@ -424,14 +428,16 @@ describe('ConsumerService Tests', async () => {
     // updating one of the users to have same email as the other
     it('should assert that a consumer with same email already exists', async () => {
       // setup
-      await consumerService.createUser(
-        'test_id_1',
-        TEST_CONSUMER_PARAMS_1
-      );
-      await consumerService.createUser(
-        'new_test_id_1',
-        TEST_CONSUMER_PARAMS_UPDATED_1
-      );
+      await Promise.all([
+        consumerService.createUser(
+          'test_id_1',
+          TEST_CONSUMER_PARAMS_1
+        ),
+        consumerService.createUser(
+          'new_test_id_1',
+          TEST_CONSUMER_PARAMS_UPDATED_1
+        )
+      ]);
       // function under test
       const updatedConsumer = await consumerService.updateUser(
         'new_test_id_1',
@@ -447,14 +453,16 @@ describe('ConsumerService Tests', async () => {
     // updating one of the users to have same mobile number as the other
     it('should assert that a consumer with same email already exists', async () => {
       // setup
-      await consumerService.createUser(
-        'test_id_1',
-        TEST_CONSUMER_PARAMS_1
-      );
-      await consumerService.createUser(
-        'new_test_id_1',
-        TEST_CONSUMER_PARAMS_UPDATED_1
-      );
+      await Promise.all([
+        consumerService.createUser(
+          'test_id_1',
+          TEST_CONSUMER_PARAMS_1
+        ),
+        consumerService.createUser(
+          'new_test_id_1',
+          TEST_CONSUMER_PARAMS_UPDATED_1
+        )
+      ]);
       // function under test
       const updatedConsumer = await consumerService.updateUser(
         'new_test_id_1',
@@ -568,10 +576,12 @@ describe('ConsumerService Tests', async () => {
 
     it('should delete a single consumer without affecting other consumers', async () => {
       // setup
-      await consumerService
-        .createUser('test_id_1', TEST_CONSUMER_PARAMS_1);
-      await consumerService
-        .createUser('test_id_2', TEST_CONSUMER_PARAMS_2);
+      await Promise.all([
+        consumerService
+          .createUser('test_id_1', TEST_CONSUMER_PARAMS_1),
+        consumerService
+          .createUser('test_id_2', TEST_CONSUMER_PARAMS_2)
+      ]);
       // function under test
       const controllerResponse = await consumerService
         .deleteUser('test_id_2');
@@ -586,10 +596,12 @@ describe('ConsumerService Tests', async () => {
 
     it('should delete a single consumer without affecting other consumers', async () => {
       // setup
-      await consumerService
-        .createUser('test_id_1', TEST_CONSUMER_PARAMS_1);
-      await consumerService
-        .createUser('test_id_2', TEST_CONSUMER_PARAMS_2);
+      await Promise.all([
+        consumerService
+          .createUser('test_id_1', TEST_CONSUMER_PARAMS_1),
+        consumerService
+          .createUser('test_id_2', TEST_CONSUMER_PARAMS_2)
+      ]);
       // function under test
       const controllerResponse = await consumerService
         .deleteUser('test_id_1');

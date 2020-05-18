@@ -1,17 +1,25 @@
 import Ajv from 'ajv';
+import consumerJsonSchema from '../../api/rest/consumer/consumer-schema.json';
+import courierJsonSchema from '../../api/rest/courier/courier-schema.json';
 
 class JsonSchemaValidator {
 
   private readonly schemaValidator = new Ajv();
-  private jsonSchema: object = {};
+  private readonly CONSUMER_SCHEMA: string = 'consumer schema';
+  private readonly COURIER_SCHEMA: string = 'courier schema';
 
-  constructor(jsonSchemaFilePath: string) {
-    this.jsonSchema = require(jsonSchemaFilePath);
-  }
+  async isJsonBodyValid(
+    jsonBody: object, entitySchema: string): Promise<boolean> {
+    let jsonSchema: object = {};
+    if (entitySchema === this.CONSUMER_SCHEMA) {
+      jsonSchema = consumerJsonSchema;
+    }
+    else if (entitySchema === this.COURIER_SCHEMA) {
+      jsonSchema = courierJsonSchema;
+    }
 
-  async isJsonBodyValid(jsonBody: any): Promise<boolean>  {
     const isJsonBodyValid: boolean = await this.schemaValidator
-      .validate(this.jsonSchema, jsonBody);
+      .validate(jsonSchema, jsonBody);
     return isJsonBodyValid;
   }
 
