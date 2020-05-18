@@ -42,7 +42,7 @@ const corsOptions = {
     // origin: API_URL,
     preflightContinue: false
 };
-function initEnvConfigFile() {
+function setEnvConfigFile() {
     dotenv.config({
         path: '../../../.env'
     });
@@ -54,10 +54,10 @@ function initRestApiServer() {
 }
 function startRestApiServer() {
     app.listen(process.env.NODE_PORT, () => {
-        console.log('Server started in ' + process.env.NODE_ENV + ' mode');
-        console.log('Server started at 127.0.0.1:' + process.env.NODE_PORT);
+        console.log('Profile service started in ' + process.env.NODE_ENV + ' mode');
+        console.log('Profile service started at 127.0.0.1:' + process.env.NODE_PORT);
     });
 }
-initEnvConfigFile();
+setEnvConfigFile();
 initRestApiServer();
 startRestApiServer();

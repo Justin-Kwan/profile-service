@@ -1,12 +1,12 @@
-import * as redis from 'redis';
 require('dotenv').config();
+import * as redis from 'redis';
 
 import { ICacheStore } from './ICacheStore';
 
 class RedisStore<T> implements ICacheStore<T> {
 
   private readonly REDIS_HOST: string = process.env.REDIS_HOST!;
-  private readonly REDIS_PORT: number = parseInt(process.env.REDIS_PORT!);
+  private readonly REDIS_PORT: string = process.env.REDIS_PORT!;
 
   private redisClient: redis.RedisClient;
 
@@ -18,7 +18,10 @@ class RedisStore<T> implements ICacheStore<T> {
 	 */
   createConnection(): Promise<void> {
     const promise = new Promise<void>((resolve, reject) => {
-      this.redisClient = redis.createClient(this.REDIS_PORT, this.REDIS_HOST);
+      this.redisClient = redis.createClient(
+        parseInt(this.REDIS_PORT),
+        this.REDIS_HOST
+      );
       resolve();
     });
 
