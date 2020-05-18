@@ -25,14 +25,6 @@ const corsOptions: cors.CorsOptions = {
   preflightContinue: false
 };
 
-dotenv.config({
-  path: '../../../.env'
-});
-
-function setEnvConfigFile(): void {
-  
-}
-
 function initRestApiServer(): void {
   app.use(cors(corsOptions));
   app.use(API_VERSION_PATH, consumerRouter);
@@ -46,6 +38,6 @@ function startRestApiServer(): void {
   });
 }
 
-setEnvConfigFile();
+dotenv.config();
 initRestApiServer();
 startRestApiServer();
