@@ -3,8 +3,6 @@ import { User } from './User';
 
 class Consumer extends User {
 
-  private orderZone: string;
-
   constructor() {
     super();
   }
@@ -15,8 +13,7 @@ class Consumer extends User {
     email: string,
     country: string,
     locationId: string,
-    mobileNum: string,
-    orderZone: string
+    mobileNum: string
   }): void {
     this.setFirstName(consumerParams.firstName);
     this.setLastName(consumerParams.lastName);
@@ -24,15 +21,6 @@ class Consumer extends User {
     this.setCountry(consumerParams.country);
     this.setLocationId(consumerParams.locationId);
     this.setMobileNum(consumerParams.mobileNum);
-    this.setOrderZone(consumerParams.orderZone);
-  }
-
-  setOrderZone(orderZone: string): void {
-    this.orderZone = orderZone;
-  }
-
-  getOrderZone(): string {
-    return this.orderZone;
   }
 
 }

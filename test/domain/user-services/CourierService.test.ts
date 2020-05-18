@@ -20,8 +20,7 @@ const TEST_COURIER_PARAMS_1: object = {
   country: 'test_country_1',
   locationId: 'test_location_id_1',
   mobileNum: 'test_mobile_num_1',
-  vehicleType: 'test_vehicle_type_1',
-  preferredZone: 'test_preferred_zone_1'
+  vehicleType: 'test_vehicle_type_1'
 };
 
 const TEST_COURIER_RESPONSE_1: object = {
@@ -34,7 +33,6 @@ const TEST_COURIER_RESPONSE_1: object = {
     locationId: 'test_location_id_1',
     mobileNum: 'test_mobile_num_1',
     vehicleType: 'test_vehicle_type_1',
-    preferredZone: 'test_preferred_zone_1',
     verificationStatus: false
   },
   code: 200
@@ -47,8 +45,7 @@ const TEST_COURIER_PARAMS_SAME_EMAIL_1: object = {
   country: 'same_email_test_country_1',
   locationId: 'same_email_test_location_id_1',
   mobileNum: 'same_email_test_mobile_num_1',
-  vehicleType: 'same_email_test_vehicle_type_1',
-  preferredZone: 'same_email_test_preferred_zone_1'
+  vehicleType: 'same_email_test_vehicle_type_1'
 };
 
 const TEST_COURIER_RESPONSE_SAME_EMAIL_1: object = {
@@ -61,7 +58,6 @@ const TEST_COURIER_RESPONSE_SAME_EMAIL_1: object = {
     locationId: 'same_email_test_location_id_1',
     mobileNum: 'same_email_test_mobile_num_1',
     vehicleType: 'same_email_test_vehicle_type_1',
-    preferredZone: 'same_email_test_preferred_zone_1',
     verificationStatus: false
   },
   code: 200
@@ -74,8 +70,7 @@ const TEST_COURIER_PARAMS_SAME_MOBILE_NUM_1: object = {
   country: 'same_mobile_num_test_country_1',
   locationId: 'same_mobile_num_test_location_id_1',
   mobileNum: 'test_mobile_num_1',
-  vehicleType: 'same_mobile_num_test_vehicle_type_1',
-  preferredZone: 'same_mobile_num_test_preferred_zone_1'
+  vehicleType: 'same_mobile_num_test_vehicle_type_1'
 };
 
 const TEST_COURIER_RESPONSE_SAME_MOBILE_NUM_1: object = {
@@ -88,7 +83,6 @@ const TEST_COURIER_RESPONSE_SAME_MOBILE_NUM_1: object = {
     locationId: 'same_mobile_num_test_location_id_1',
     mobileNum: 'test_mobile_num_1',
     vehicleType: 'same_mobile_num_test_vehicle_type_1',
-    preferredZone: 'same_mobile_num_test_preferred_zone_1',
     verificationStatus: false
   },
   code: 200
@@ -101,8 +95,7 @@ const TEST_COURIER_PARAMS_UPDATED_1: object = {
   country: 'updated_test_country_1',
   locationId: 'updated_test_location_id_1',
   mobileNum: 'updated_test_mobile_num_1',
-  vehicleType: 'updated_test_vehicle_type_1',
-  preferredZone: 'updated_test_preferred_zone_1'
+  vehicleType: 'updated_test_vehicle_type_1'
 };
 
 const TEST_COURIER_RESPONSE_UPDATED_1: object = {
@@ -115,7 +108,6 @@ const TEST_COURIER_RESPONSE_UPDATED_1: object = {
     locationId: 'updated_test_location_id_1',
     mobileNum: 'updated_test_mobile_num_1',
     vehicleType: 'updated_test_vehicle_type_1',
-    preferredZone: 'updated_test_preferred_zone_1',
     verificationStatus: false
   },
   code: 200
@@ -128,8 +120,7 @@ const TEST_COURIER_PARAMS_2: object = {
   country: 'test_country_2',
   locationId: 'test_location_id_2',
   mobileNum: 'test_mobile_num_2',
-  vehicleType: 'test_vehicle_type_2',
-  preferredZone: 'test_preferred_zone_2'
+  vehicleType: 'test_vehicle_type_2'
 };
 
 const TEST_COURIER_RESPONSE_2: object = {
@@ -142,7 +133,6 @@ const TEST_COURIER_RESPONSE_2: object = {
     locationId: 'test_location_id_2',
     mobileNum: 'test_mobile_num_2',
     vehicleType: 'test_vehicle_type_2',
-    preferredZone: 'test_preferred_zone_2',
     verificationStatus: false
   },
   code: 200
@@ -155,8 +145,7 @@ const TEST_COURIER_PARAMS_UPDATED_2: object = {
   country: 'updated_test_country_2',
   locationId: 'updated_test_location_id_2',
   mobileNum: 'updated_test_mobile_num_2',
-  vehicleType: 'updated_test_vehicle_type_2',
-  preferredZone: 'updated_test_preferred_zone_2'
+  vehicleType: 'updated_test_vehicle_type_2'
 };
 
 const TEST_COURIER_RESPONSE_UPDATED_2: object = {
@@ -169,7 +158,6 @@ const TEST_COURIER_RESPONSE_UPDATED_2: object = {
     locationId: 'updated_test_location_id_2',
     mobileNum: 'updated_test_mobile_num_2',
     vehicleType: 'updated_test_vehicle_type_2',
-    preferredZone: 'updated_test_preferred_zone_2',
     verificationStatus: false
   },
   code: 200

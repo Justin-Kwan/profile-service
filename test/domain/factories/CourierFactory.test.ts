@@ -15,8 +15,7 @@ const test_courier_1: any = {
   locationId: "test_location_id_1",
   mobileNum: "test_mobile_num_1",
   timeCreated: "test_time_created_1",
-  vehicleType: "test_vehicle_type_1",
-  preferredZone: "test_preferred_zone_1"
+  vehicleType: "test_vehicle_type_1"
 }
 
 const test_courier_2: any = {
@@ -28,8 +27,7 @@ const test_courier_2: any = {
   locationId: "test_location_id_2",
   mobileNum: "test_mobile_num_2",
   timeCreated: "test_time_created_2",
-  vehicleType: "test_vehicle_type_2",
-  preferredZone: "test_preferred_zone_2"
+  vehicleType: "test_vehicle_type_2"
 }
 
 describe('CourierFactory Tests', () => {
@@ -45,8 +43,7 @@ describe('CourierFactory Tests', () => {
         "country": "test_country_1",
         "locationId": "test_location_id_1",
         "mobileNum": "test_mobile_num_1",
-        "vehicleType": "test_vehicle_type_1",
-        "preferredZone": "test_preferred_zone_1"
+        "vehicleType": "test_vehicle_type_1"
       }`);
       // asserting object type equality
       assert.equal(courier.constructor.name, 'Courier');
@@ -58,7 +55,6 @@ describe('CourierFactory Tests', () => {
       assert.equal(courier.getLocationId(), test_courier_1.locationId);
       assert.equal(courier.getMobileNum(), test_courier_1.mobileNum);
       assert.equal(courier.getVehicleType(), test_courier_1.vehicleType);
-      assert.equal(courier.getPreferredZone(), test_courier_1.preferredZone);
       assert(courier.getTimeCreated() !== null);
       assert.equal(courier.isVerified(), false);
     });
@@ -73,8 +69,7 @@ describe('CourierFactory Tests', () => {
         "country": "test_country_2",
         "locationId": "test_location_id_2",
         "mobileNum": "test_mobile_num_2",
-        "vehicleType": "test_vehicle_type_2",
-        "preferredZone": "test_preferred_zone_2"
+        "vehicleType": "test_vehicle_type_2"
         }`);
       // asserting object type equality
       assert.equal(courier.constructor.name, 'Courier');
@@ -86,7 +81,6 @@ describe('CourierFactory Tests', () => {
       assert.equal(courier.getLocationId(), test_courier_2.locationId);
       assert.equal(courier.getMobileNum(), test_courier_2.mobileNum);
       assert.equal(courier.getVehicleType(), test_courier_2.vehicleType);
-      assert.equal(courier.getPreferredZone(), test_courier_2.preferredZone);
       assert(courier.getTimeCreated() !== null);
       assert.equal(courier.isVerified(), false);
     });

@@ -5,6 +5,7 @@ const cors = require("cors");
 const ConsumerRoutes_1 = require("./routes/ConsumerRoutes");
 const CourierRoutes_1 = require("./routes/CourierRoutes");
 const app = express();
+const API_VERSION_PATH = '/v1';
 const corsOptions = {
     allowedHeaders: [
         'Origin',
@@ -18,7 +19,6 @@ const corsOptions = {
     // origin: API_URL,
     preflightContinue: false
 };
-const API_VERSION_PATH = '/v1';
 function initRestApiServer() {
     app.use(cors(corsOptions));
     app.use(API_VERSION_PATH, ConsumerRoutes_1.consumerRouter);

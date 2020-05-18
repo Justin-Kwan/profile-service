@@ -19,16 +19,4 @@ describe('Courier Tests', () => {
     });
   });
 
-  describe('setPreferredZone() & getPreferredZone()', () => {
-    it('should set an empty preferred zone', () => {
-      courier.setPreferredZone('');
-      assert.equal(courier.getPreferredZone(), '');
-    });
-
-    it('should set a short preferred zone', () => {
-      courier.setPreferredZone('test_preferred_zone_1');
-      assert.equal(courier.getPreferredZone(), 'test_preferred_zone_1');
-    });
-  });
-
 });

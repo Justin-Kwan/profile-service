@@ -5,7 +5,7 @@ import { ConsumerController } from '../../../domain/controllers/ConsumerControll
 const app: express.Application = express();
 const consumerRouter: express.Router = express.Router();
 
-const consumerController = new ConsumerController();
+const consumerController: ConsumerController = new ConsumerController();
 
 /**
  * route definitions

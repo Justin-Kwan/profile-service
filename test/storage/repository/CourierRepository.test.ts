@@ -21,7 +21,6 @@ const TEST_COURIER_PARAMS_1: string = `{
   "verificationStatus": true,
   "deletionStatus": false,
   "vehicleType": "test_vehicle_type_1",
-  "preferredZone": "test_preferred_zone_1",
   "inviteCode": "test_invite_code_1"
 }`;
 
@@ -37,7 +36,6 @@ const TEST_COURIER_PARAMS_2: string = `{
   "verificationStatus": true,
   "deletionStatus": false,
   "vehicleType": "test_vehicle_type_2",
-  "preferredZone": "test_preferred_zone_2",
   "inviteCode": "test_invite_code_2"
 }`;
 

@@ -5,7 +5,7 @@ import { CourierController } from '../../../domain/controllers/CourierController
 const app: express.Application = express();
 const courierRouter: express.Router = express.Router();
 
-const courierController = new CourierController();
+const courierController: CourierController = new CourierController();
 
 /**
  * route definitions

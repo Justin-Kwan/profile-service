@@ -16,8 +16,7 @@ const TEST_CONSUMER_PARAMS_1: string = `{
   "mobileNum": "test_mobile_num_1",
   "timeCreated": "test_time_created_1",
   "verificationStatus": true,
-  "deletionStatus": false,
-  "orderZone": "test_order_zone_1"
+  "deletionStatus": false
 }`;
 
 const TEST_CONSUMER_PARAMS_2: string = `{
@@ -30,8 +29,7 @@ const TEST_CONSUMER_PARAMS_2: string = `{
   "mobileNum": "test_mobile_num_2",
   "timeCreated": "test_time_created_2",
   "verificationStatus": true,
-  "deletionStatus": false,
-  "orderZone": "test_order_zone_2"
+  "deletionStatus": false
 }`;
 
 const consumerRepository = new ConsumerRepository();

@@ -19,8 +19,7 @@ const TEST_CONSUMER_PARAMS_1: object = {
   email: 'test_email_1',
   country: 'test_country_1',
   locationId: 'test_location_id_1',
-  mobileNum: 'test_mobile_num_1',
-  orderZone: 'test_order_zone_1'
+  mobileNum: 'test_mobile_num_1'
 };
 
 const TEST_CONSUMER_RESPONSE_1: object = {
@@ -32,7 +31,6 @@ const TEST_CONSUMER_RESPONSE_1: object = {
     country: 'test_country_1',
     locationId: 'test_location_id_1',
     mobileNum: 'test_mobile_num_1',
-    orderZone: 'test_order_zone_1',
     verificationStatus: false
   },
   code: 200
@@ -44,8 +42,7 @@ const TEST_CONSUMER_PARAMS_SAME_EMAIL_1: object = {
   email: 'test_email_1',
   country: 'same_email_test_country_1',
   locationId: 'same_email_test_location_id_1',
-  mobileNum: 'same_email_test_mobile_num_1',
-  orderZone: 'same_email_test_order_zone_1'
+  mobileNum: 'same_email_test_mobile_num_1'
 };
 
 const TEST_CONSUMER_RESPONSE_SAME_EMAIL_1: object = {
@@ -57,7 +54,6 @@ const TEST_CONSUMER_RESPONSE_SAME_EMAIL_1: object = {
     country: 'same_email_test_country_1',
     locationId: 'same_email_test_location_id_1',
     mobileNum: 'same_email_test_mobile_num_1',
-    orderZone: 'same_email_test_order_zone_1',
     verificationStatus: false
   },
   code: 200
@@ -69,8 +65,7 @@ const TEST_CONSUMER_PARAMS_SAME_MOBILE_NUM_1: object = {
   email: 'same_mobile_num_test_email_1',
   country: 'same_mobile_num_test_country_1',
   locationId: 'same_mobile_num_test_location_id_1',
-  mobileNum: 'test_mobile_num_1',
-  orderZone: 'same_mobile_num_test_order_zone_1'
+  mobileNum: 'test_mobile_num_1'
 };
 
 const TEST_CONSUMER_RESPONSE_SAME_MOBILE_NUM_1: object = {
@@ -82,7 +77,6 @@ const TEST_CONSUMER_RESPONSE_SAME_MOBILE_NUM_1: object = {
     country: 'same_mobile_num_test_country_1',
     locationId: 'same_mobile_num_test_location_id_1',
     mobileNum: 'test_mobile_num_1',
-    orderZone: 'same_mobile_num_test_order_zone_1',
     verificationStatus: false
   },
   code: 200
@@ -94,8 +88,7 @@ const TEST_CONSUMER_PARAMS_UPDATED_1: object = {
   email: 'updated_test_email_1',
   country: 'updated_test_country_1',
   locationId: 'updated_test_location_id_1',
-  mobileNum: 'updated_test_mobile_num_1',
-  orderZone: 'updated_test_order_zone_1'
+  mobileNum: 'updated_test_mobile_num_1'
 };
 
 const TEST_CONSUMER_RESPONSE_UPDATED_1: object = {
@@ -107,7 +100,6 @@ const TEST_CONSUMER_RESPONSE_UPDATED_1: object = {
     country: 'updated_test_country_1',
     locationId: 'updated_test_location_id_1',
     mobileNum: 'updated_test_mobile_num_1',
-    orderZone: 'updated_test_order_zone_1',
     verificationStatus: false
   },
   code: 200
@@ -119,8 +111,7 @@ const TEST_CONSUMER_PARAMS_2: object = {
   email: 'test_email_2',
   country: 'test_country_2',
   locationId: 'test_location_id_2',
-  mobileNum: 'test_mobile_num_2',
-  orderZone: 'test_order_zone_2'
+  mobileNum: 'test_mobile_num_2'
 };
 
 const TEST_CONSUMER_RESPONSE_2: object = {
@@ -132,7 +123,6 @@ const TEST_CONSUMER_RESPONSE_2: object = {
     country: 'test_country_2',
     locationId: 'test_location_id_2',
     mobileNum: 'test_mobile_num_2',
-    orderZone: 'test_order_zone_2',
     verificationStatus: false
   },
   code: 200
@@ -144,8 +134,7 @@ const TEST_CONSUMER_PARAMS_UPDATED_2: object = {
   email: 'updated_test_email_2',
   country: 'updated_test_country_2',
   locationId: 'updated_test_location_id_2',
-  mobileNum: 'updated_test_mobile_num_2',
-  orderZone: 'updated_test_order_zone_2'
+  mobileNum: 'updated_test_mobile_num_2'
 };
 
 const TEST_CONSUMER_RESPONSE_UPDATED_2: object = {
@@ -157,7 +146,6 @@ const TEST_CONSUMER_RESPONSE_UPDATED_2: object = {
     country: 'updated_test_country_2',
     locationId: 'updated_test_location_id_2',
     mobileNum: 'updated_test_mobile_num_2',
-    orderZone: 'updated_test_order_zone_2',
     verificationStatus: false
   },
   code: 200
