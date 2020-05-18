@@ -35,7 +35,7 @@ const INVALID_CONTENT_TYPE: any = {
   body: {
     error: {
       message: 'Request has invalid content type',
-      details: 'Ensure that your request content type is defined as application/json in your header',
+      details: 'Ensure that the request content type is defined as application/json in your header',
       status: 'INVALID_CONTENT_TYPE'
     }
   },
@@ -46,7 +46,7 @@ const INVALID_ARGUMENT: any = {
   body: {
     error: {
       message: 'Request has invalid arguments',
-      details: 'Ensure that your request arguments correct',
+      details: 'Ensure that your request arguments are correct',
       status: 'INVALID_ARGUMENT'
     }
   },

@@ -13,31 +13,32 @@ const requestParamChecker: RequestValidator = new RequestValidator();
 courierRouter.use(bodyParser.urlencoded({ extended: true }));
 courierRouter.use(bodyParser.json());
 
+/**
+ * api key validation middleware appied to all routes
+ */
 courierRouter.use(requestParamChecker.validateApiKey);
-courierRouter.use(requestParamChecker.validateRequestContent);
-courierRouter.use(requestParamChecker.validateCourierJsonBody);
 
 /**
  * courier profile route definitions
  */
-courierRouter.route('/couriers/:id').post(
-  courierController
-  .createUser
-  .bind(courierController));
+courierRouter.post('/couriers/:id',
+  requestParamChecker.validateCourierJsonBody,
+  requestParamChecker.validateRequestContent,
+  courierController.createUser.bind(courierController)
+);
 
-courierRouter.route('/couriers/:id').put(
-  courierController
-  .updateUser
-  .bind(courierController));
+courierRouter.put('/couriers/:id',
+  requestParamChecker.validateCourierJsonBody,
+  requestParamChecker.validateRequestContent,
+  courierController.updateUser.bind(courierController)
+);
 
-courierRouter.route('/couriers/:id').get(
-  courierController
-  .getUser
-  .bind(courierController));
+courierRouter.get('/couriers/:id',
+  courierController.getUser.bind(courierController)
+);
 
-courierRouter.route('/couriers/:id').delete(
-  courierController
-  .deleteUser
-  .bind(courierController));
+courierRouter.delete('/couriers/:id',
+  courierController.deleteUser.bind(courierController)
+);
 
 export { courierRouter };

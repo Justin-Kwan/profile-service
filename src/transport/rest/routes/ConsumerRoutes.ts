@@ -13,31 +13,32 @@ const requestParamChecker: RequestValidator = new RequestValidator();
 consumerRouter.use(bodyParser.urlencoded({ extended: true }));
 consumerRouter.use(bodyParser.json());
 
+/**
+ * api key validation middleware appied to all routes
+ */
 consumerRouter.use(requestParamChecker.validateApiKey);
-consumerRouter.use(requestParamChecker.validateRequestContent);
-consumerRouter.use(requestParamChecker.validateConsumerJsonBody);
 
 /**
- * consume profile route definitions
+ * consumer profile route definitions
  */
-consumerRouter.route('/consumers/:id').post(
-  consumerController
-  .createUser
-  .bind(consumerController));
+consumerRouter.post('/consumers/:id',
+  requestParamChecker.validateConsumerJsonBody,
+  requestParamChecker.validateRequestContent,
+  consumerController.createUser.bind(consumerController)
+);
 
-consumerRouter.route('/consumers/:id').put(
-  consumerController
-  .updateUser
-  .bind(consumerController));
+consumerRouter.put('/consumers/:id',
+  requestParamChecker.validateConsumerJsonBody,
+  requestParamChecker.validateRequestContent,
+  consumerController.updateUser.bind(consumerController)
+);
 
-consumerRouter.route('/consumers/:id').get(
-  consumerController
-  .getUser
-  .bind(consumerController));
+consumerRouter.get('/consumers/:id',
+  consumerController.getUser.bind(consumerController)
+);
 
-consumerRouter.route('/consumers/:id').delete(
-  consumerController
-  .deleteUser
-  .bind(consumerController));
+consumerRouter.delete('/consumers/:id',
+  consumerController.deleteUser.bind(consumerController)
+);
 
 export { consumerRouter };

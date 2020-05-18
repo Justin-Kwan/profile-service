@@ -10,7 +10,8 @@
 		"email",
 		"country",
 		"locationId",
-		"mobileNum"
+		"mobileNum",
+		"vehicleType"
 	],
 	"additionalProperties": false,
 	"properties": {

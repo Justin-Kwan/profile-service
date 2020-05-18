@@ -11,7 +11,7 @@ import {
   INVALID_ARGUMENT
 } from '../../constants/ResponseConstants';
 
-// check: req body, location id, api key in header
+// check: location id
 
 class RequestValidator {
 

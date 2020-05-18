@@ -32,7 +32,7 @@ function initRestApiServer(): void {
 }
 
 function startRestApiServer(): void {
-  module.exports = app.listen(process.env.NODE_PORT, () => {
+  app.listen(process.env.NODE_PORT, () => {
     console.log('Profile service started in ' + process.env.NODE_ENV + ' mode');
     console.log('Profile service started at 127.0.0.1:' + process.env.NODE_PORT);
   });
