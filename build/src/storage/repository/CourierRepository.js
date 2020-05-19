@@ -8,10 +8,11 @@ const CourierSerializer_1 = require("../../domain/user-serializers/CourierSerial
 class CourierRepository extends UserRepository_1.UserRepository {
     constructor() {
         const USER_DATABASE = 'User_Profiles';
-        const COURIER_COLLECTION = 'Couriers';
+        const COURIER_DATABASE_COLLECTION = 'Couriers';
+        const COURIER_CACHE_SET = 1;
         // injecting datastore and user dependencies to
         // base repository class
-        super(new MongoStore_1.MongoStore(USER_DATABASE, COURIER_COLLECTION), new RedisStore_1.RedisStore(), new CourierSerializer_1.CourierSerializer());
+        super(new MongoStore_1.MongoStore(USER_DATABASE, COURIER_DATABASE_COLLECTION), new RedisStore_1.RedisStore(COURIER_CACHE_SET), new CourierSerializer_1.CourierSerializer());
     }
 }
 exports.CourierRepository = CourierRepository;

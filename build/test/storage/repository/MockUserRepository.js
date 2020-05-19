@@ -11,10 +11,11 @@ const MockUserSerializer_1 = require("../../domain/user-serializers/MockUserSeri
 class MockUserRepository extends UserRepository_1.UserRepository {
     constructor() {
         const TEST_DATABASE = 'Test_Database';
-        const TEST_COLLECTION = 'Test Collection';
+        const TEST_DATABASE_COLLECTION = 'Test Collection';
+        const TEST_CACHE_SET = 16;
         // injecting datastore and user dependencies to
         // base repository class
-        super(new MongoStore_1.MongoStore(TEST_DATABASE, TEST_COLLECTION), new RedisStore_1.RedisStore(), new MockUserSerializer_1.MockUserSerializer());
+        super(new MongoStore_1.MongoStore(TEST_DATABASE, TEST_DATABASE_COLLECTION), new RedisStore_1.RedisStore(TEST_CACHE_SET), new MockUserSerializer_1.MockUserSerializer());
     }
 }
 exports.MockUserRepository = MockUserRepository;

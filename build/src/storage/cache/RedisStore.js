@@ -23,9 +23,15 @@ exports.RedisStore = void 0;
 require('custom-env').env(true);
 const redis = __importStar(require("redis"));
 class RedisStore {
-    constructor() {
+    /**
+     * precondition: databaseSetNum must be 0, 1 or 16
+     * sets redis database number for database to access
+     */
+    constructor(databaseSetNum) {
         this.REDIS_HOST = process.env.REDIS_HOST;
         this.REDIS_PORT = process.env.REDIS_PORT;
+        this.databaseSetNum = Infinity;
+        this.databaseSetNum = databaseSetNum;
     }
     /**
        * creates redis client connection
@@ -35,7 +41,9 @@ class RedisStore {
        */
     createConnection() {
         const promise = new Promise((resolve, reject) => {
-            this.redisClient = redis.createClient(parseInt(this.REDIS_PORT), this.REDIS_HOST);
+            this.redisClient = redis.createClient(Number(this.REDIS_PORT), this.REDIS_HOST);
+            // get specific database
+            this.redisClient.select(this.databaseSetNum);
             resolve();
         });
         return promise;
@@ -71,6 +79,7 @@ class RedisStore {
      * @effects writes to redis store
      */
     async update(entityId, entity) {
+        console.log('updateing at instance {' + this.databaseSetNum + '}');
         await this.delete(entityId);
         await this.insert(entityId, entity);
     }
@@ -88,6 +97,7 @@ class RedisStore {
                 if (err)
                     reject(err);
                 const entityString = res;
+                console.log("entity on database {" + this.databaseSetNum + "}: " + entityString);
                 resolve(entityString);
             });
         });

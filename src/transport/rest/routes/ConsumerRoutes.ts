@@ -8,28 +8,26 @@ const app: express.Application = express();
 const consumerRouter: express.Router = express.Router();
 
 const consumerController: ConsumerController = new ConsumerController();
-const requestParamChecker: RequestValidator = new RequestValidator();
-
-consumerRouter.use(bodyParser.urlencoded({ extended: true }));
-consumerRouter.use(bodyParser.json());
+const requestValidator: RequestValidator = new RequestValidator();
 
 /**
- * api key validation middleware appied to all routes
+ * middleware filters applied to all routes
  */
-consumerRouter.use(requestParamChecker.validateApiKey);
+consumerRouter.use(requestValidator.validateApiKey);
+consumerRouter.use(requestValidator.validateRequestContentType);
+consumerRouter.use(bodyParser.urlencoded({ extended: true }));
+consumerRouter.use(bodyParser.json());
 
 /**
  * consumer profile route definitions
  */
 consumerRouter.post('/consumers/:id',
-  requestParamChecker.validateConsumerJsonBody,
-  requestParamChecker.validateRequestContent,
+  requestValidator.validateConsumerJsonBody,
   consumerController.createUser.bind(consumerController)
 );
 
 consumerRouter.put('/consumers/:id',
-  requestParamChecker.validateConsumerJsonBody,
-  requestParamChecker.validateRequestContent,
+  requestValidator.validateConsumerJsonBody,
   consumerController.updateUser.bind(consumerController)
 );
 

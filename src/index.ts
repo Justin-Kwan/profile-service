@@ -2,7 +2,7 @@ require('custom-env').env(true);
 import express = require('express');
 import cors = require('cors');
 
-import { ClusterManager } from './workers/ClusterManager';
+import { ClusterManager } from './utilities/processes/ClusterManager';
 import { consumerRouter } from './transport/rest/routes/ConsumerRoutes';
 import { courierRouter } from './transport/rest/routes/CourierRoutes';
 
@@ -41,8 +41,13 @@ function startRestApiServer(): void {
   });
 }
 
+/**
+ * pass server startup function to cluster manager
+ * to create worker processes
+ */
 clusterManager.spawnWorkers(() => {
   initRestApiServer();
   startRestApiServer();
 });
+
 clusterManager.handleWorkerShutdown();

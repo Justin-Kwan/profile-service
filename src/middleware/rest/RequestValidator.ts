@@ -11,29 +11,27 @@ import {
   INVALID_ARGUMENT
 } from '../../constants/ResponseConstants';
 
-// check: location id
+// todo: check location id
 
 class RequestValidator {
 
-  validateApiKey(req: Request, res: Response, next: Function) {
+  validateApiKey(req: Request, res: Response, next: () => any) {
     if (req.headers['api-key'] !== process.env.API_KEY!) {
-      res.status(PERMISSION_DENIED.code);
+      res.status(PERMISSION_DENIED.code)
       res.send(PERMISSION_DENIED.body);
-    } else {
-      next();
     }
+    else next();
   }
 
-  validateRequestContent(req: Request, res: Response, next: Function) {
+  validateRequestContentType(req: Request, res: Response, next: () => any) {
     if (req.headers['content-type'] !== 'application/json') {
-      res.status(INVALID_CONTENT_TYPE.code);
+      res.status(INVALID_CONTENT_TYPE.code)
       res.send(INVALID_CONTENT_TYPE.body);
-    } else {
-      next();
     }
+    else next();
   }
 
-  async validateConsumerJsonBody(req: Request, res: Response, next: Function) {
+  async validateConsumerJsonBody(req: Request, res: Response, next: () => any) {
     const jsonSchemaValidator: JsonSchemaValidator =
       new JsonSchemaValidator();
 
@@ -41,14 +39,13 @@ class RequestValidator {
       .isJsonBodyValid(req.body, 'consumer schema');
 
     if (!isJsonBodyValid) {
-      res.status(INVALID_ARGUMENT.code);
+      res.status(INVALID_ARGUMENT.code)
       res.send(INVALID_ARGUMENT.body);
-    } else {
-      next();
     }
+    else next();
   }
 
-  async validateCourierJsonBody(req: Request, res: Response, next: Function) {
+  async validateCourierJsonBody(req: Request, res: Response, next: () => any) {
     const jsonSchemaValidator: JsonSchemaValidator =
       new JsonSchemaValidator();
 
@@ -56,11 +53,10 @@ class RequestValidator {
       .isJsonBodyValid(req.body, 'courier schema');
 
     if (!isJsonBodyValid) {
-      res.status(INVALID_ARGUMENT.code);
+      res.status(INVALID_ARGUMENT.code)
       res.send(INVALID_ARGUMENT.body);
-    } else {
-      next();
     }
+    else next();
   }
 
 }

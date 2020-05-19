@@ -68,9 +68,13 @@ class UserRepository {
         userString = await this.cacheStore.select(userId);
         const isUserNotInCache = userString === null;
         if (isUserNotInCache) {
+            console.log("HIT DB");
             userString = await this.databaseStore.select(userId);
             user = this.userSerializer.deserialize(userString);
             this.cacheStore.update(userId, user);
+        }
+        else {
+            console.log('CACHE HIT');
         }
         user = this.userSerializer.deserialize(userString);
         return user;

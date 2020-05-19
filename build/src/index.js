@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 require('custom-env').env(true);
 const express = require("express");
 const cors = require("cors");
-const ClusterManager_1 = require("./workers/ClusterManager");
+const ClusterManager_1 = require("./utilities/processes/ClusterManager");
 const ConsumerRoutes_1 = require("./transport/rest/routes/ConsumerRoutes");
 const CourierRoutes_1 = require("./transport/rest/routes/CourierRoutes");
 const clusterManager = new ClusterManager_1.ClusterManager();
@@ -37,6 +37,10 @@ function startRestApiServer() {
         console.log('Profile service started at 127.0.0.1:' + process.env.NODE_PORT);
     });
 }
+/**
+ * pass server startup function to cluster manager
+ * to create worker processes
+ */
 clusterManager.spawnWorkers(() => {
     initRestApiServer();
     startRestApiServer();

@@ -8,29 +8,26 @@ const app: express.Application = express();
 const courierRouter: express.Router = express.Router();
 
 const courierController: CourierController = new CourierController();
-const requestParamChecker: RequestValidator = new RequestValidator();
+const requestValidator: RequestValidator = new RequestValidator();
 
+/**
+ * middleware filters applied to all routes
+ */
+courierRouter.use(requestValidator.validateApiKey);
+courierRouter.use(requestValidator.validateRequestContentType);
 courierRouter.use(bodyParser.urlencoded({ extended: true }));
 courierRouter.use(bodyParser.json());
 
 /**
- * api key validation middleware appied to all routes
- */
-courierRouter.use(requestParamChecker.validateApiKey);
-
-/**
  * courier profile route definitions
  */
-
 courierRouter.post('/couriers/:id',
-  requestParamChecker.validateCourierJsonBody,
-  requestParamChecker.validateRequestContent,
+  requestValidator.validateCourierJsonBody,
   courierController.createUser.bind(courierController)
 );
 
 courierRouter.put('/couriers/:id',
-  requestParamChecker.validateCourierJsonBody,
-  requestParamChecker.validateRequestContent,
+  requestValidator.validateCourierJsonBody,
   courierController.updateUser.bind(courierController)
 );
 

@@ -69,7 +69,9 @@ const TEST_ENTITY_EMPTY_STRING_FIELDS: any = {
   country: ''
 };
 
-let redisStore: RedisStore<object> = new RedisStore();
+const TEST_CACHE_SET = 5;
+
+let redisStore: RedisStore<object> = new RedisStore(TEST_CACHE_SET);
 
 describe('RedisStore Tests', () => {
 

@@ -8,10 +8,11 @@ const ConsumerSerializer_1 = require("../../domain/user-serializers/ConsumerSeri
 class ConsumerRepository extends UserRepository_1.UserRepository {
     constructor() {
         const USER_DATABASE = 'User_Profiles';
-        const CONSUMER_COLLECTION = 'Consumers';
+        const CONSUMER_DATABASE_COLLECTION = 'Consumers';
+        const CONSUMER_CACHE_SET = 0;
         // injecting datastore and user dependencies to
         // base repository class
-        super(new MongoStore_1.MongoStore(USER_DATABASE, CONSUMER_COLLECTION), new RedisStore_1.RedisStore(), new ConsumerSerializer_1.ConsumerSerializer());
+        super(new MongoStore_1.MongoStore(USER_DATABASE, CONSUMER_DATABASE_COLLECTION), new RedisStore_1.RedisStore(CONSUMER_CACHE_SET), new ConsumerSerializer_1.ConsumerSerializer());
     }
 }
 exports.ConsumerRepository = ConsumerRepository;

@@ -9,17 +9,18 @@ const app = express();
 const consumerRouter = express.Router();
 exports.consumerRouter = consumerRouter;
 const consumerController = new ConsumerController_1.ConsumerController();
-const requestParamChecker = new RequestValidator_1.RequestValidator();
+const requestValidator = new RequestValidator_1.RequestValidator();
+/**
+ * middleware filters applied to all routes
+ */
+consumerRouter.use(requestValidator.validateApiKey);
+consumerRouter.use(requestValidator.validateRequestContentType);
 consumerRouter.use(bodyParser.urlencoded({ extended: true }));
 consumerRouter.use(bodyParser.json());
 /**
- * api key validation middleware appied to all routes
- */
-consumerRouter.use(requestParamChecker.validateApiKey);
-/**
  * consumer profile route definitions
  */
-consumerRouter.post('/consumers/:id', requestParamChecker.validateConsumerJsonBody, requestParamChecker.validateRequestContent, consumerController.createUser.bind(consumerController));
-consumerRouter.put('/consumers/:id', requestParamChecker.validateConsumerJsonBody, requestParamChecker.validateRequestContent, consumerController.updateUser.bind(consumerController));
+consumerRouter.post('/consumers/:id', requestValidator.validateConsumerJsonBody, consumerController.createUser.bind(consumerController));
+consumerRouter.put('/consumers/:id', requestValidator.validateConsumerJsonBody, consumerController.updateUser.bind(consumerController));
 consumerRouter.get('/consumers/:id', consumerController.getUser.bind(consumerController));
 consumerRouter.delete('/consumers/:id', consumerController.deleteUser.bind(consumerController));

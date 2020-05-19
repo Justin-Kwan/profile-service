@@ -90,9 +90,10 @@ const mockUserSerializer = new MockUserSerializer();
 
 const TEST_DB = 'Test_Database';
 const TEST_COLLECTION = 'Test Collection';
+const TEST_CACHE_SET = 5;
 
 const mongoStore = new MongoStore<MockUser>(TEST_DB, TEST_COLLECTION);
-const redisStore = new RedisStore<MockUser>();
+const redisStore = new RedisStore<MockUser>(TEST_CACHE_SET);
 
 async function createDbCacheConnection(): Promise<void> {
   await Promise.all([

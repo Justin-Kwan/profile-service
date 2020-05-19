@@ -9,6 +9,15 @@ class RedisStore<T> implements ICacheStore<T> {
   private readonly REDIS_PORT: string = process.env.REDIS_PORT!;
 
   private redisClient: redis.RedisClient;
+  private databaseSetNum: number = Infinity;
+
+  /**
+   * precondition: databaseSetNum must be 0, 1 or 5
+   * sets redis database number for database to access
+   */
+  constructor(databaseSetNum: number) {
+    this.databaseSetNum = databaseSetNum;
+  }
 
   /**
 	 * creates redis client connection
@@ -19,9 +28,11 @@ class RedisStore<T> implements ICacheStore<T> {
   createConnection(): Promise<void> {
     const promise = new Promise<void>((resolve, reject) => {
       this.redisClient = redis.createClient(
-        parseInt(this.REDIS_PORT),
+        Number(this.REDIS_PORT),
         this.REDIS_HOST
       );
+      // get specific database
+      this.redisClient.select(this.databaseSetNum);
       resolve();
     });
 
