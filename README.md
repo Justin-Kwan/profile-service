@@ -1,7 +1,7 @@
 # Http Requests Documentation
 
-# POST /v1/consumers/{id}
-# creates consumer user
+### POST /v1/consumers/{id}
+#### Creates consumer user
 
 Request Body:
 {
@@ -24,7 +24,7 @@ Response Codes:
   Consumer user with same id/email/mobile number already exists: 409
 
 # PUT /v1/consumers/{id}
-# updates consumer user
+# Updates consumer user
 
 Request Body:
 {
@@ -56,7 +56,7 @@ Response Codes:
   Consumer user with same id/email/mobile number already exists: 409
 
 # GET /v1/consumers/{id}
-# gets consumer user
+# Gets consumer user
 
 Request Body:
   None
