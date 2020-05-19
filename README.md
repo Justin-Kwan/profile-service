@@ -3,15 +3,16 @@
 ### POST /v1/consumers/{id}
 #### Creates consumer user
 
-Request Body:
-{
-  "firstName": string,
-  "lastName": string,
-  "email": string,
-  "country": string, #enum: [Canada, United States]
-  "locationId": string,
-  "mobileNum": string
-}
+#### Request Body:
+
+    {
+      "firstName": string,
+      "lastName": string,
+      "email": string,
+      "country": string, #enum: [Canada, United States]
+      "locationId": string,
+      "mobileNum": string
+    }
 
 Success Response Body:
   Null
