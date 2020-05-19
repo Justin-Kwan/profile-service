@@ -21,6 +21,7 @@ courierRouter.use(requestParamChecker.validateApiKey);
 /**
  * courier profile route definitions
  */
+
 courierRouter.post('/couriers/:id',
   requestParamChecker.validateCourierJsonBody,
   requestParamChecker.validateRequestContent,

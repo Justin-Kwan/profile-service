@@ -9,6 +9,13 @@ exports.RESOURCE_NOT_FOUND = exports.RESOURCE_MOBILE_NUM_ALREADY_EXISTS = export
 /**
  * success response payloads
  */
+const HEALTH_CHECK_OK = {
+    body: {
+        message: 'Profile service is online',
+        status: 'HEALTH_CHECK_OK'
+    },
+    code: 200
+};
 const RESOURCE_CREATED = {
     body: undefined,
     code: 201
@@ -37,7 +44,7 @@ const INVALID_CONTENT_TYPE = {
     body: {
         error: {
             message: 'Request has invalid content type',
-            details: 'Ensure that your request content type is defined as application/json in your header',
+            details: 'Ensure that the request content type is defined as application/json in your header',
             status: 'INVALID_CONTENT_TYPE'
         }
     },
@@ -48,7 +55,7 @@ const INVALID_ARGUMENT = {
     body: {
         error: {
             message: 'Request has invalid arguments',
-            details: 'Ensure that your request arguments correct',
+            details: 'Ensure that your request arguments are correct',
             status: 'INVALID_ARGUMENT'
         }
     },

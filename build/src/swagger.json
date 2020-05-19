@@ -1,0 +1,188 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Profile Service Api",
+        "description": "",
+        "contact": {
+            "name": "Justin Kwan"
+        }
+    },
+    "servers": [{
+            "url": "/",
+            "description": "Local Dev, or from Heroku"
+        },
+        {
+            "url": "/api/",
+            "description": "With docker-compose and nginx proxy"
+        }
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/couriers/{id}": {
+            "post": {
+                "parameters": [{
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "description": "The user id"
+                        }
+                    }],
+                "summary": "Creates a new courier user by id",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "firstName": {
+                                        "type": "string",
+                                        "required": true,
+                                        "minLength": 1
+                                    },
+                                    "lastName": {
+                                        "type": "string",
+                                        "required": true,
+                                        "minLength": 1
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "required": true,
+                                        "minLength": 8
+                                    },
+                                    "country": {
+                                        "type": "string",
+                                        "required": true,
+                                        "enum": [
+                                            "Canada",
+                                            "United States"
+                                        ]
+                                    },
+                                    "locationId": {
+                                        "type": "string",
+                                        "required": true
+                                    },
+                                    "mobileNum": {
+                                        "type": "string",
+                                        "required": true
+                                    },
+                                    "vehicleType": {
+                                        "type": "string",
+                                        "required": true,
+                                        "enum": [
+                                            "Motor Vehicle",
+                                            "Bicycle Vehicle",
+                                            "On Foot"
+                                        ]
+                                    }
+                                }
+                            },
+                            "examples": {
+                                "Request Body": {
+                                    "firstName": "John",
+                                    "lastName": "Doe",
+                                    "email": "example@email.com",
+                                    "country": "United States",
+                                    "locationId": "location-id-123",
+                                    "mobileNum": "9998887777",
+                                    "vehicleType": "Motor Vehicle"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Courier user created successfully",
+                        "schema": {
+                            "type": "integer",
+                            "nullable": true
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid content type in header (not application/json)",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "error": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "default": "Request has invalid content type"
+                                        },
+                                        "details": {
+                                            "type": "string",
+                                            "default": "Ensure that the request content type is defined as application/json in your header"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "default": "INVALid_CONTENT_TYPE"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Permission denied (invalid api key)",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "error": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "default": "Resource access permission is denied"
+                                        },
+                                        "details": {
+                                            "type": "string",
+                                            "default": "Ensure you have the appropriate api keys to access resource"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "default": "PERMISSION_DENIED"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Courier user with same id already exists",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "error": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "default": "Resource with the same id already exists"
+                                        },
+                                        "details": {
+                                            "type": "string",
+                                            "default": "Ensure that your resource id is correct"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "default": "RESOURCE_id_ALREADY_EXISTS"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

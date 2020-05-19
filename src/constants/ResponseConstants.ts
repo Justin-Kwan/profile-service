@@ -7,6 +7,14 @@
 /**
  * success response payloads
  */
+const HEALTH_CHECK_OK: any = {
+  body: {
+    message: 'Profile service is online',
+    status: 'HEALTH_CHECK_OK'
+  },
+  code: 200
+};
+
 const RESOURCE_CREATED: any = {
   body: undefined,
   code: 201
