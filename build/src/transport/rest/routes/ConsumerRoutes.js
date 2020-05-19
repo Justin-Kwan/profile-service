@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.consumerRouter = void 0;
 const express = require("express");
-const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
 const RequestValidator_1 = require("../../../middleware/rest/RequestValidator");
 const ConsumerController_1 = require("../../../domain/controllers/ConsumerController");
 const app = express();

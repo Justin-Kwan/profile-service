@@ -1,5 +1,5 @@
 import express = require('express');
-const bodyParser = require('body-parser');
+import bodyParser = require('body-parser');
 
 import { RequestValidator } from '../../../middleware/rest/RequestValidator';
 import { ConsumerController } from '../../../domain/controllers/ConsumerController';

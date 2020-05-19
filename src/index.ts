@@ -2,9 +2,11 @@ require('custom-env').env(true);
 import express = require('express');
 import cors = require('cors');
 
+import { ClusterManager } from './workers/ClusterManager';
 import { consumerRouter } from './transport/rest/routes/ConsumerRoutes';
 import { courierRouter } from './transport/rest/routes/CourierRoutes';
 
+const clusterManager = new ClusterManager();
 const app: express.Application = express();
 
 /**
@@ -26,6 +28,7 @@ const corsOptions: cors.CorsOptions = {
 };
 
 function initRestApiServer(): void {
+  app.disable('x-powered-by');
   app.use(cors(corsOptions));
   app.use(API_VERSION_PATH, consumerRouter);
   app.use(API_VERSION_PATH, courierRouter);
@@ -38,5 +41,8 @@ function startRestApiServer(): void {
   });
 }
 
-initRestApiServer();
-startRestApiServer();
+clusterManager.spawnWorkers(() => {
+  initRestApiServer();
+  startRestApiServer();
+});
+clusterManager.handleWorkerShutdown();
