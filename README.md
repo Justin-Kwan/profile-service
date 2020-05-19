@@ -1,9 +1,8 @@
-# Profile Service Endpoints
+## Profile Service Endpoints
 
 ## Consumer Api
 
 ### POST /v1/consumers/{id}
-#### Creates consumer
 
 #### Request Body:
     {
@@ -26,7 +25,6 @@
     409: Consumer with same id/email/mobile number already exists
 
 ### PUT /v1/consumers/{id}
-#### Updates consumer
 
 #### Request Body:
     {
@@ -58,7 +56,6 @@
     409: Consumer with same id/email/mobile number already exists
 
 ### GET /v1/consumers/{id}
-#### Gets consumer
 
 #### Request Body:
     None
@@ -81,7 +78,6 @@
     404: Consumer not found given id
 
 ### DELETE /v1/consumers/{id}
-#### Deletes consumer
 
 #### Request Body:
     None
@@ -97,7 +93,6 @@
 ## Courier Api
 
 ### POST /v1/couriers/{id}
-#### Creates courier
 
 #### Request Body:
     {
@@ -118,10 +113,9 @@
     403: Permission denied (invalid api key)
     400: Invalid content type in header (not application/json)
     400: Invalid request body argument
-    409: Consumer with same id/email/mobile number already exists
+    409: Courier with same id/email/mobile number already exists
 
 ### PUT /v1/couriers/{id}
-#### Updates courier
 
 #### Request Body:
     {
@@ -155,7 +149,6 @@
     409: Courier with same id/email/mobile number already exists
 
 ### GET /v1/couriers/{id}
-#### Gets courier
 
 #### Request Body:
     None
@@ -179,7 +172,6 @@
     404: Courier not found given id
 
 ### DELETE /v1/couriers/{id}
-#### Deletes courier
 
 #### Request Body:
     None
