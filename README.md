@@ -4,7 +4,6 @@
 #### Creates consumer user
 
 #### Request Body:
-
     {
       "firstName": string,
       "lastName": string,
@@ -15,94 +14,90 @@
     }
 
 #### Success Response Body:
-
     Null
 
 #### Response Codes:
+    201: Created (success)
+    403: Permission denied (invalid api key)
+    400: Invalid content type in header (not application/json)
+    400: Invalid request body argument
+    409: Consumer user with same id/email/mobile number already exists
 
-    Created (success): 201
-    Permission denied (invalid api key): 403
-    Invalid content type in header (not application/json): 400
-    Invalid request body argument: 400
-    Consumer user with same id/email/mobile number already exists: 409
+### PUT /v1/consumers/{id}
+#### Updates consumer user
 
-# PUT /v1/consumers/{id}
-# Updates consumer user
+#### Request Body:
+    {
+      "firstName": string,
+      "lastName": string,
+      "email": string,
+      "country": string, #enum: [Canada, United States]
+      "locationId": string,
+      "mobileNum": string
+    }   
 
-Request Body:
-{
-  "firstName": string,
-  "lastName": string,
-  "email": string,
-  "country": string, #enum: [Canada, United States]
-  "locationId": string,
-  "mobileNum": string
-}
+#### Success Response Body:
+    {
+      "id": string,
+      "firstName": string,
+      "lastName": string,
+      "email": string,
+      "country": string,
+      "locationId": string,
+      "mobileNum": string,
+      "verificationStatus": boolean
+    }
 
-Success Response Body:
-{
-  "id": string,
-  "firstName": string,
-  "lastName": string,
-  "email": string,
-  "country": string,
-  "locationId": string,
-  "mobileNum": string,
-  "verificationStatus": boolean
-}
+#### Response Codes:
+    201: Created (success)
+    403: Permission denied (invalid api key)
+    400: Invalid content type in header (not application/json)
+    400: Invalid request body argument
+    409: Consumer user with same id/email/mobile number already exists
 
-Response Codes:
-  Updated (success): 200
-  Permission denied (invalid api key): 403
-  Invalid content type in header (not application/json): 400
-  Invalid request body argument: 400
-  Consumer user with same id/email/mobile number already exists: 409
+### GET /v1/consumers/{id}
+#### Gets consumer user
 
-# GET /v1/consumers/{id}
-# Gets consumer user
+#### Request Body:
+    None
 
-Request Body:
-  None
+#### Success Response Body:
+    {
+      "id": string,
+      "firstName": string,
+      "lastName": string,
+      "email": string,
+      "country": string,
+      "locationId": string,
+      "mobileNum": string,
+      "verificationStatus": boolean
+    }
 
-Success Response Body:
-{
-  "id": string,
-  "firstName": string,
-  "lastName": string,
-  "email": string,
-  "country": string,
-  "locationId": string,
-  "mobileNum": string,
-  "verificationStatus": boolean
-}
+#### Response Codes:
+    200: Return (success)
+    403: Permission denied (invalid api key)
+    404: User not found given id
 
-Response Codes:
-  Return (success): 200
-  Permission denied (invalid api key): 403
-  User not found given id: 404
+### DELETE /v1/consumers/{id}
+#### Deletes consumer user
 
-# DELETE /v1/consumers/{id}
-# deletes consumer user
+#### Request Body:
+    None
 
-Request Body:
-  None
+#### Success Response Body:
+    Null
 
-Success Response Body:
-  Null
+#### Response Codes:
+    200: Return (success)
+    403: Permission denied (invalid api key)
+    404: User not found given id
 
-Response Codes:
-  No content (success): 204
-  Permission denied (invalid api key): 403
-  User not found given id: 404
-
-# Error Responses
-
-All error responses are of the form:
-
-{
-  "error": {
-    "message": string,
-    "details": string,
-    "status": string
-  }
-}
+### Error Responses
+#### All error responses are of the form:
+    {
+      "error": {
+        "message": string,
+        "details": string,
+        "status": string
+      }
+    }
