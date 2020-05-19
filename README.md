@@ -1,4 +1,4 @@
-# Http Requests Documentation
+## Profile Service Endpoints
 
 ### POST /v1/consumers/{id}
 #### Creates consumer user
@@ -14,15 +14,17 @@
       "mobileNum": string
     }
 
-Success Response Body:
-  Null
+#### Success Response Body:
 
-Response Codes:
-  Created (success): 201
-  Permission denied (invalid api key): 403
-  Invalid content type in header (not application/json): 400
-  Invalid request body argument: 400
-  Consumer user with same id/email/mobile number already exists: 409
+    Null
+
+#### Response Codes:
+
+    Created (success): 201
+    Permission denied (invalid api key): 403
+    Invalid content type in header (not application/json): 400
+    Invalid request body argument: 400
+    Consumer user with same id/email/mobile number already exists: 409
 
 # PUT /v1/consumers/{id}
 # Updates consumer user
