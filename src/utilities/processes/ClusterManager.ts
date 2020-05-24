@@ -36,7 +36,10 @@ class ClusterManager {
    */
   handleWorkerShutdown(): void {
     cluster.on('exit', (worker, code, signal) => {
-      console.log('Worker %d died by code/signal %s. Restarting worker...', worker.process.pid, signal || code);
+      console.log(
+        'Worker %d died by code/signal %s. Restarting worker...',
+        worker.process.pid, signal || code
+      );
       cluster.fork();
     });
   }
